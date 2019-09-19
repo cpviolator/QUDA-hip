@@ -1,17 +1,22 @@
 #!/bin/bash
 
-module load hip
-module load cuda/9.2.148
-
 #This file assumes the following:
 # 1: You have the QUDA source code in a directory named 'quda' in this directory.
 #    This tool will perform IN PLACE conversion to files in 'quda', and compare
 #    with files in 'quda_ref', which it creates itself
 # 2: You have performed a CMake build in a directory named 'build' in this directory
 
+#CUDA_MOD_NUM="10.1.168"
+#module load hip/1.5-cuda10
+CUDA_MOD_NUM="9.2.148"
+module load hip/1.5-cuda9
+
+module load cuda/${CUDA_MOD_NUM}
+
 # Create directory for output statistics, or clean if it exists
-mkdir output
-rm output/*
+OUTPUT_DIR=output_${CUDA_MOD_NUM}
+mkdir ${OUTPUT_DIR}
+rm ${OUTPUT_DIR}/*
 
 # Refresh source directory
 (cd quda; git stash)
@@ -19,7 +24,7 @@ rm output/*
 # Download reference source code
 (rm -rf quda_ref; git clone https://github.com/lattice/quda.git quda_ref)
 
-# Convert file by file
+# Convert file by file in lib
 for FILE in dirac_coarse.cpp dslash_coarse.cu coarse_op.cu coarsecoarse_op.cu \
     coarse_op_preconditioned.cu \
     eigensolve_quda.cpp quda_arpack_interface.cpp \
@@ -87,9 +92,33 @@ for FILE in dirac_coarse.cpp dslash_coarse.cu coarse_op.cu coarsecoarse_op.cu \
   
     # N.B. skipping quda_cuda_api.cpp
   
-    hipconvertinplace.sh -cuda-path="/sw/summit/cuda/9.2.148" -I="./quda/include" -I="./build/include" -I="./quda/include/externals" -I="./build/externals/eigen/src/Eigen" -p="./build" -I="/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include" ./quda/lib/${FILE} >& ./output/${FILE}.outputdata.txt &
+    hipconvertinplace.sh -cuda-path="${CUDA_DIR}" -I="./quda/include" -I="./build/include" -I="./quda/include/externals" -I="./build/externals/eigen/src/Eigen" -p="./build" -I="${HIP_PATH}/include" ./quda/lib/${FILE} >& ./${OUTPUT_DIR}/${FILE}.outputdata.txt &
     wait
 
-    diff quda/lib/${FILE} quda_ref/lib/${FILE} >> ./output/${FILE}.outputdata.txt
+    diff quda/lib/${FILE} quda_ref/lib/${FILE} >> ./${OUTPUT_DIR}/${FILE}.outputdata.txt
+    
+done
+
+# Convert file by file in include
+for FILE in multigrid_helper.cuh complex_quda.h float_vector.h llfat_quda.h quda_constants.h tune_key.h \
+    shared_memory_cache_helper.cuh contract_quda.h gauge_field.h malloc_quda.h tune_quda.h \
+    atomic.cuh su3_project.cuh convert.h gauge_field_order.h matrix_field.h quda_fortran.h uint_to_char.h \
+    blas_helper.cuh thrust_helper.cuh dbldbl.h gauge_force_quda.h momentum.h quda_internal.h unitarization_links.h \
+    cub_helper.cuh blas_cublas.h deflation.h gauge_tools.h mpi_comm_handle.h quda_matrix.h util_quda.h \
+    dslash_helper.cuh blas_magma.h dirac_quda.h gauge_update_quda.h multigrid.h quda_milc_interface.h worker.h \
+    gamma.cuh blas_quda.h double_single.h hw_quda.h numa_affinity.h quda_new_interace.h jitify_options.hpp.in \
+    index_helper.cuh clover_field.h dslash.h inline_ptx.h object.h random_quda.h quda_define.h.in \
+    jitify_helper.cuh clover_field_order.h dslash_quda.h invert_quda.h pgauge_monte.h register_traits.h \
+    launch_kernel.cuh color_spinor.h eigensolve_quda.h ks_force_quda.h qio_field.h staggered_oprod.h \
+    linalg.cuh color_spinor_field.h enum_quda.h ks_improved_force.h qio_util.h texture.h \
+    math_helper.cuh color_spinor_field_order.h enum_quda_fortran.h lattice_field.h quda.h timer.h \
+    multi_blas_helper.cuh comm_quda.h fast_intdiv.h layout_hyper.h quda_arpack_interface.h transfer.h ; do
+    
+    # N.B. skipping quda_cuda_api.h
+    
+    hipconvertinplace.sh -cuda-path="${CUDA_DIR}" -I="./quda/include" -I="./build/include" -I="./quda/include/externals" -I="./build/externals/eigen/src/Eigen" -p="./build" -I="${HIP_PATH}/include" ./quda/include/${FILE} >& ./${OUTPUT_DIR}/${FILE}.outputdata.txt &
+    wait
+    
+    diff quda/include/${FILE} quda_ref/include/${FILE} >> ./${OUTPUT_DIR}/${FILE}.outputdata.txt
     
 done
