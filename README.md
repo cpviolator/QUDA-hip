@@ -25,3 +25,7 @@ One can query which CUDA identifiers are unsupported via
 and similarly for deprecated
 
     `grep -A 2 "deprecated" output*/*.txt'
+
+## TODO
+
+Swap out the CUDA thrust library for the ROCm port: https://github.com/ROCmSoftwarePlatform/Thrust 
