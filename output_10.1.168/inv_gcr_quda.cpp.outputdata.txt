@@ -1,0 +1,106 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/inv_gcr_quda.cpp-fed60d.hip.
+
+[HIPIFY] info: file './quda/lib/inv_gcr_quda.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 17269
+  CHANGED lines of code: 1
+  TOTAL lines of code: 526
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.84
+146,147c146,147
+< 		      double *gamma, int k, std::vector<ColorSpinorField*> p) {
+< 
+---
+> 		      double *gamma, int k, std::vector<ColorSpinorField*> p)
+>   {
+166,167c166
+<     nKrylov(param.Nkrylov), init(false),  rp(nullptr), yp(nullptr), tmpp(nullptr), y_sloppy(nullptr),
+<     r_sloppy(nullptr)
+---
+>     nKrylov(param.Nkrylov), init(false),  rp(nullptr), tmpp(nullptr), tmp_sloppy(nullptr), r_sloppy(nullptr)
+169d167
+< 
+199,200c197
+<     nKrylov(param.Nkrylov), init(false), rp(nullptr), yp(nullptr), tmpp(nullptr), y_sloppy(nullptr),
+<     r_sloppy(nullptr)
+---
+>     nKrylov(param.Nkrylov), init(false),  rp(nullptr), tmpp(nullptr), tmp_sloppy(nullptr), r_sloppy(nullptr)
+220,221c217
+<     if (init && param.precision_sloppy != yp->Precision()) {
+<       if (y_sloppy && param.use_sloppy_partial_accumulator) delete y_sloppy;
+---
+>     if (init && param.precision_sloppy != tmpp->Precision()) {
+227a224
+>     if (tmp_sloppy != tmpp) delete tmp_sloppy;
+230d226
+<     if (yp) delete yp;
+257,258c253,254
+<       // high precision accumulator
+<       yp = ColorSpinorField::Create(csParam);
+---
+>       // high precision temporary
+>       tmpp = ColorSpinorField::Create(csParam);
+266,269c262,263
+<       tmpp = ColorSpinorField::Create(csParam); //temporary for sloppy mat-vec
+< 
+<       if (param.precision_sloppy != x.Precision() && param.use_sloppy_partial_accumulator) {
+<         y_sloppy = ColorSpinorField::Create(csParam);
+---
+>       if (param.precision_sloppy != x.Precision()) {
+>         tmp_sloppy = tmpp->CreateAlias(csParam);
+271c265
+<         y_sloppy = yp;
+---
+>         tmp_sloppy = tmpp;
+289,290d282
+<     ColorSpinorField &y = *yp;
+<     ColorSpinorField &ySloppy = *y_sloppy;
+291a284
+>     ColorSpinorField &tmpSloppy = *tmp_sloppy;
+299c292
+<       mat(r, x, y);
+---
+>       mat(r, x, tmp);
+326,328d318
+<     blas::zero(y); // FIXME optimize first updates of y and ySloppy
+<     if (&y != &ySloppy) blas::zero(ySloppy);
+< 
+390d379
+< 
+393,394d381
+<       } else {
+<         // no preconditioner
+397c384
+<       matSloppy(*Ap[k], *p[k], tmp);
+---
+>       matSloppy(*Ap[k], *p[k], tmpSloppy);
+432,435c419
+<         updateSolution(ySloppy, alpha, beta, gamma, k, p);
+< 
+<         // recalculate residual in high precision
+<         blas::xpy(ySloppy, x);
+---
+>         updateSolution(x, alpha, beta, gamma, k, p);
+438c422
+<         mat(r, x, y);
+---
+>         mat(r, x, tmp);
+465d448
+<           blas::zero(ySloppy);
+494c477
+<       mat(r, x, y);
+---
+>       mat(r, x, tmp);

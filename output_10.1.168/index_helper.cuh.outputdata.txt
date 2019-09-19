@@ -1,0 +1,77 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/index_helper.cuh-79e366.hip:271:64: error: unknown type name 'QudaPCType'
+      int x[5], int cb_index, const I X[5], J X0h, int parity, QudaPCType pc_type)
+                                                               ^
+/tmp/index_helper.cuh-79e366.hip:286:49: error: use of undeclared identifier 'QUDA_5D_PC'
+    int x1odd = (x[1] + x[2] + x[3] + (pc_type==QUDA_5D_PC ? x[4] : 0) + parity) & 1;
+                                                ^
+/tmp/index_helper.cuh-79e366.hip:301:103: error: unknown type name 'QudaPCType'
+  static __device__ __host__ inline void getCoords5(int x[5], int cb_index, const I X[5], int parity, QudaPCType pc_type)
+                                                                                                      ^
+/tmp/index_helper.cuh-79e366.hip:487:23: error: unknown type name 'QudaPCType'
+  template <int nDim, QudaPCType type, int dim_, int nLayers, typename Int, typename Arg>
+                      ^
+/tmp/index_helper.cuh-79e366.hip:527:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:538:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:551:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:553:24: error: use of undeclared identifier 'QUDA_4D_PC'
+      else if (type == QUDA_4D_PC)
+                       ^
+/tmp/index_helper.cuh-79e366.hip:584:23: error: unknown type name 'QudaPCType'
+  template <int nDim, QudaPCType type, int dim_, int nLayers, typename Int, typename Arg>
+                      ^
+/tmp/index_helper.cuh-79e366.hip:600:23: error: unknown type name 'QudaPCType'
+  template <int nDim, QudaPCType type, int dim, int nLayers, int face_num, typename Arg>
+                      ^
+/tmp/index_helper.cuh-79e366.hip:626:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:628:24: error: use of undeclared identifier 'QUDA_4D_PC'
+      else if (type == QUDA_4D_PC)
+                       ^
+/tmp/index_helper.cuh-79e366.hip:636:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:638:24: error: use of undeclared identifier 'QUDA_4D_PC'
+      else if (type == QUDA_4D_PC)
+                       ^
+/tmp/index_helper.cuh-79e366.hip:645:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:647:24: error: use of undeclared identifier 'QUDA_4D_PC'
+      else if (type == QUDA_4D_PC)
+                       ^
+/tmp/index_helper.cuh-79e366.hip:653:19: error: use of undeclared identifier 'QUDA_5D_PC'
+      if (type == QUDA_5D_PC)
+                  ^
+/tmp/index_helper.cuh-79e366.hip:655:24: error: use of undeclared identifier 'QUDA_4D_PC'
+      else if (type == QUDA_4D_PC)
+                       ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated when compiling for host.
+Error while processing /tmp/index_helper.cuh-79e366.hip.
+
+[HIPIFY] info: file './quda/include/index_helper.cuh' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 32035
+  CHANGED lines of code: 1
+  TOTAL lines of code: 896
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.22

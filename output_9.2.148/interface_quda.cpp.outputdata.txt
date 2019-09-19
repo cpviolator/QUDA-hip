@@ -1,0 +1,179 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/interface_quda.cpp-28a931.hip:522:28: warning: CUDA identifier is unsupported in HIP.
+#if defined(MULTI_GPU) && (CUDA_VERSION == 4000)
+                           ^
+/tmp/interface_quda.cpp-28a931.hip:604:7: warning: CUDA identifier is unsupported in HIP.
+#if ((CUDA_VERSION >= 6000) && defined NUMA_NVML)
+      ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/interface_quda.cpp' statistics:
+  CONVERTED refs count: 33
+  UNCONVERTED refs count: 2
+  CONVERSION %: 94
+  REPLACED bytes: 629
+  TOTAL bytes: 204022
+  CHANGED lines of code: 29
+  TOTAL lines of code: 5931
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 1.18
+[HIPIFY] info: CONVERTED refs by type:
+  version: 2
+  device: 7
+  memory: 4
+  stream: 3
+  profiler: 4
+  include: 1
+  include_cuda_main_header: 1
+  type: 3
+  numeric_literal: 5
+  define: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 32
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaDeviceGetStreamPriorityRange: 1
+  cudaDeviceProp: 1
+  cudaDeviceReset: 1
+  cudaDeviceSetCacheConfig: 1
+  cudaDriverGetVersion: 1
+  cudaFuncCachePreferL1: 1
+  cudaGetDeviceCount: 1
+  cudaGetDeviceProperties: 2
+  cudaHostGetDevicePointer: 1
+  cudaHostRegister: 1
+  cudaHostRegisterDefault: 1
+  cudaHostUnregister: 1
+  cudaMemcpyDeviceToHost: 4
+  cudaMemset: 1
+  cudaProfilerStart: 2
+  cudaProfilerStop: 2
+  cudaRuntimeGetVersion: 1
+  cudaSetDevice: 1
+  cudaStreamCreateWithPriority: 2
+  cudaStreamDefault: 2
+  cudaStreamDestroy: 1
+  cudaStream_t: 2
+  cuda_profiler_api.h: 1
+[HIPIFY] info: UNCONVERTED refs by type:
+  define: 2
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 2
+43c43
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda.h>
+80c80
+< #include <hip/hip_profile.h>
+---
+> #include <cuda_profiler_api.h>
+157,158c157,158
+< hipDeviceProp_t deviceProp;
+< hipStream_t *streams;
+---
+> cudaDeviceProp deviceProp;
+> cudaStream_t *streams;
+292c292
+<     hipProfilerStop();
+---
+>     cudaProfilerStop();
+299c299
+<         hipProfilerStart();
+---
+>         cudaProfilerStart();
+308c308
+<     hipProfilerStart();
+---
+>     cudaProfilerStart();
+313c313
+<       hipProfilerStop();
+---
+>       cudaProfilerStop();
+503c503
+<   hipDriverGetVersion(&driver_version);
+---
+>   cudaDriverGetVersion(&driver_version);
+507c507
+<   hipRuntimeGetVersion(&runtime_version);
+---
+>   cudaRuntimeGetVersion(&runtime_version);
+536c536
+<   hipGetDeviceCount(&deviceCount);
+---
+>   cudaGetDeviceCount(&deviceCount);
+542c542
+<     hipGetDeviceProperties(&deviceProp, i);
+---
+>     cudaGetDeviceProperties(&deviceProp, i);
+560c560
+<   hipGetDeviceProperties(&deviceProp, dev);
+---
+>   cudaGetDeviceProperties(&deviceProp, dev);
+599c599
+<   hipSetDevice(dev);
+---
+>   cudaSetDevice(dev);
+616c616
+<   hipDeviceSetCacheConfig(hipFuncCachePreferL1);
+---
+>   cudaDeviceSetCacheConfig(cudaFuncCachePreferL1);
+646c646
+<   streams = new hipStream_t[Nstream];
+---
+>   streams = new cudaStream_t[Nstream];
+650c650
+<   hipDeviceGetStreamPriorityRange(&leastPriority, &greatestPriority);
+---
+>   cudaDeviceGetStreamPriorityRange(&leastPriority, &greatestPriority);
+652c652
+<     hipStreamCreateWithPriority(&streams[i], hipStreamDefault, greatestPriority);
+---
+>     cudaStreamCreateWithPriority(&streams[i], cudaStreamDefault, greatestPriority);
+654c654
+<   hipStreamCreateWithPriority(&streams[Nstream-1], hipStreamDefault, leastPriority);
+---
+>   cudaStreamCreateWithPriority(&streams[Nstream-1], cudaStreamDefault, leastPriority);
+665c665
+<   hipHostGetDevicePointer(&num_failures_d, num_failures_h, 0);
+---
+>   cudaHostGetDevicePointer(&num_failures_d, num_failures_h, 0);
+1157c1157
+<       qudaMemcpy((char*)(in->V(false)), (char*)(hack->V(false)), in->Bytes(), hipMemcpyDeviceToHost);
+---
+>       qudaMemcpy((char*)(in->V(false)), (char*)(hack->V(false)), in->Bytes(), cudaMemcpyDeviceToHost);
+1160c1160
+<       qudaMemcpy((char*)(in->V(true)), (char*)(hack->V(true)), in->Bytes(), hipMemcpyDeviceToHost);
+---
+>       qudaMemcpy((char*)(in->V(true)), (char*)(hack->V(true)), in->Bytes(), cudaMemcpyDeviceToHost);
+1491c1491
+<     for (int i=0; i<Nstream; i++) hipStreamDestroy(streams[i]);
+---
+>     for (int i=0; i<Nstream; i++) cudaStreamDestroy(streams[i]);
+1554c1554
+<     hipDeviceReset();
+---
+>     cudaDeviceReset();
+4639c4639
+<   hipMemset((void**)(cudaOutForce->Gauge_p()), 0, cudaOutForce->Bytes());
+---
+>   cudaMemset((void**)(cudaOutForce->Gauge_p()), 0, cudaOutForce->Bytes());
+5203c5203
+<   hipHostRegister(ptr, *bytes, hipHostRegisterDefault);
+---
+>   cudaHostRegister(ptr, *bytes, cudaHostRegisterDefault);
+5208c5208
+<   hipHostUnregister(ptr);
+---
+>   cudaHostUnregister(ptr);
+5843c5843
+<   qudaMemcpy(h_result, d_result, data_bytes, hipMemcpyDeviceToHost);
+---
+>   qudaMemcpy(h_result, d_result, data_bytes, cudaMemcpyDeviceToHost);
+5921c5921
+<   qudaMemcpy(h_qDensity, d_qDensity, size, hipMemcpyDeviceToHost);
+---
+>   qudaMemcpy(h_qDensity, d_qDensity, size, cudaMemcpyDeviceToHost);

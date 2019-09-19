@@ -1,0 +1,121 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_ndeg_twisted_mass.cu-65f87e.hip:3:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_ndeg_twisted_mass.cu-65f87e.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_ndeg_twisted_mass.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 4415
+  CHANGED lines of code: 3
+  TOTAL lines of code: 123
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.85
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+17,32c17
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct NdegTwistedMassLaunch {
+<     static constexpr const char *kernel = "quda::ndegTwistedMassGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       static_assert(xpay == true, "Non-generate twisted-mass operator only defined for xpay");
+<       dslash.launch(ndegTwistedMassGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class NdegTwistedMass : public Dslash<Float>
+---
+>   template <typename Arg> class NdegTwistedMass : public Dslash<nDegTwistedMass, Arg>
+33a19,21
+>     using Dslash = Dslash<nDegTwistedMass, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+35,43c23,24
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     NdegTwistedMass(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/dslash_ndeg_twisted_mass.cuh"),
+<       arg(arg),
+<       in(in)
+---
+>   public:
+>     NdegTwistedMass(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in)
+48,49d28
+<     virtual ~NdegTwistedMass() {}
+< 
+53c32
+<       Dslash<Float>::setParam(arg);
+---
+>       Dslash::setParam(tp);
+55c34
+<         Dslash<Float>::template instantiate<NdegTwistedMassLaunch, nDim, nColor, true>(tp, arg, stream);
+---
+>         Dslash::template instantiate<packShmem, true>(tp, stream);
+62c41
+<       long long flops = Dslash<Float>::flops();
+---
+>       long long flops = Dslash::flops();
+64,68d42
+<       case EXTERIOR_KERNEL_X:
+<       case EXTERIOR_KERNEL_Y:
+<       case EXTERIOR_KERNEL_Z:
+<       case EXTERIOR_KERNEL_T:
+<       case EXTERIOR_KERNEL_ALL: break; // twisted-mass flops are in the interior kernel
+71c45
+<         flops += 2 * nColor * 4 * 4 * in.Volume(); // complex * Nc * Ns * fma * vol
+---
+>         flops += 2 * in.Ncolor() * 4 * 4 * in.Volume(); // complex * Nc * Ns * fma * vol
+72a47
+>       default: break; // twisted-mass flops are in the interior kernel
+76,80d50
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+<     }
+90,91c60,61
+<       NdegTwistedMassArg<Float, nColor, recon> arg(out, in, U, a, b, c, x, parity, dagger, comm_override);
+<       NdegTwistedMass<Float, nDim, nColor, NdegTwistedMassArg<Float, nColor, recon>> twisted(arg, out, in);
+---
+>       NdegTwistedMassArg<Float, nColor, nDim, recon> arg(out, in, U, a, b, c, x, parity, dagger, comm_override);
+>       NdegTwistedMass<decltype(arg)> twisted(arg, out, in);

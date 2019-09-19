@@ -1,0 +1,443 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash.h-aad56d.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/color_spinor_field.h:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/dslash.h-aad56d.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/color_spinor_field.h:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/dslash.h-aad56d.hip:4:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_quda.h:111:55: error: no member named 'hipWarpSize' in 'hipDeviceProp_t'
+    virtual int blockStep() const { return deviceProp.hipWarpSize; }
+                                           ~~~~~~~~~~ ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_quda.h:112:54: error: no member named 'hipWarpSize' in 'hipDeviceProp_t'
+    virtual int blockMin() const { return deviceProp.hipWarpSize; }
+                                          ~~~~~~~~~~ ^
+/tmp/dslash.h-aad56d.hip:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+/tmp/dslash.h-aad56d.hip:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+/tmp/dslash.h-aad56d.hip:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+/tmp/dslash.h-aad56d.hip:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+/tmp/dslash.h-aad56d.hip:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+/tmp/dslash.h-aad56d.hip:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+/tmp/dslash.h-aad56d.hip:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+2 warnings and 9 errors generated when compiling for host.
+Error while processing /tmp/dslash.h-aad56d.hip.
+
+[HIPIFY] info: file './quda/include/dslash.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 60
+  TOTAL bytes: 19959
+  CHANGED lines of code: 6
+  TOTAL lines of code: 507
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.92
+[HIPIFY] info: CONVERTED refs by type:
+  type: 5
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 5
+2a3,4
+> #include <typeinfo>
+> 
+12c14,30
+<   template <typename Float> class Dslash : public TunableVectorYZ
+---
+>   /**
+>      @brief This is the generic driver for launching Dslash kernels
+>      (the base kernel of which is defined in dslash_helper.cuh).  This
+>      is templated on the a template template parameter which is the
+>      underlying operator wrapped in a class,
+> 
+>      @tparam D A class that defines the linear operator we wish to
+>      apply.  This class should define an operator() method that is
+>      used to apply the operator by the dslash kernel.  See the wilson
+>      class in the file kernels/dslash_wilson.cuh as an exmaple.
+> 
+>      @tparam Arg The argument struct that is used to parameterize the
+>      kernel.  For the wilson class example above, the WilsonArg class
+>      defined in the same file is the corresponding argument class.
+>   */
+>   template <template <int, bool, bool, KernelType, typename> class D, typename Arg>
+>   class Dslash : public TunableVectorYZ
+15,16c33,34
+< protected:
+<     DslashArg<Float> &arg;
+---
+>   protected:
+>     Arg &arg;
+23a42
+>     char aux_pack[TuneKey::aux_n];
+25,30c44,45
+< #ifdef JITIFY
+<     // local copy of the static program pointer - this is a work
+<     // around for issues with the static program pointer when
+<     // HOSTDEBUG compilation is targeted (more precisely -fno-inline)
+<     jitify::Program *program_;
+< #endif
+---
+>     // pointers to ghost buffers we are packing to
+>     void *packBuffer[2 * QUDA_MAX_DIM];
+31a47
+>     std::string kernel_file;
+63,64c79,80
+<     bool tuneGridDim() const { return false; }
+<     unsigned int minThreads() const { return arg.threads; }
+---
+>     virtual bool tuneGridDim() const { return false; }
+>     virtual unsigned int minThreads() const { return arg.threads; }
+66c82
+<     template <typename Arg> inline void setParam(Arg &arg)
+---
+>     inline void setParam(TuneParam &tp)
+84c100,101
+<             ghost[2 * dim + dir] = (Float *)((char *)in.Ghost2() + in.GhostOffset(dim, dir) * in.GhostPrecision());
+---
+>             ghost[2 * dim + dir]
+>               = (typename Arg::Float *)((char *)in.Ghost2() + in.GhostOffset(dim, dir) * in.GhostPrecision());
+89a107,113
+> 
+>       if (arg.pack_threads && arg.kernel_type == INTERIOR_KERNEL) {
+>         arg.blocks_per_dir = tp.aux.x;
+>         arg.setPack(true); // need to recompute for updated block_per_dir
+>         arg.in.resetGhost(in, this->packBuffer);
+>         tp.grid.x += arg.pack_blocks;
+>       }
+94,95c118,119
+<     int blockStep() const { return 16; }
+<     int blockMin() const { return 16; }
+---
+>     virtual int blockStep() const { return 16; }
+>     virtual int blockMin() const { return 16; }
+99,101c123,153
+< public:
+<     template <typename T, typename Arg>
+<     inline void launch(T *f, const TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+---
+>     virtual bool advanceAux(TuneParam &param) const
+>     {
+>       if (arg.pack_threads && arg.kernel_type == INTERIOR_KERNEL) {
+>         // if doing the fused kernel we tune how many blocks to use for
+>         // communication
+>         constexpr int max_blocks_per_dir = 4;
+>         if (param.aux.x + 1 <= max_blocks_per_dir) {
+>           param.aux.x++;
+>           return true;
+>         } else {
+>           param.aux.x = 1;
+>           return false;
+>         }
+>       } else {
+>         return false;
+>       }
+>     }
+> 
+>     virtual void initTuneParam(TuneParam &param) const
+>     {
+>       TunableVectorYZ::initTuneParam(param);
+>       if (arg.pack_threads && arg.kernel_type == INTERIOR_KERNEL) param.aux.x = 1; // packing blocks per direction
+>     }
+> 
+>     virtual void defaultTuneParam(TuneParam &param) const
+>     {
+>       TunableVectorYZ::defaultTuneParam(param);
+>       if (arg.pack_threads && arg.kernel_type == INTERIOR_KERNEL) param.aux.x = 1; // packing blocks per direction
+>     }
+> 
+>     template <typename T> inline void launch(T *f, const TuneParam &tp, const cudaStream_t &stream)
+110a163,202
+>        @brief This is a helper class that is used to instantiate the
+>        correct templated kernel for the dslash.  This can be used for
+>        all dslash types, though in some cases we specialize to reduce
+>        compilation time.
+>     */
+>     template <template <bool, QudaPCType, typename> class P, int nParity, bool dagger, bool xpay, KernelType kernel_type>
+>     inline void Launch(TuneParam &tp, const cudaStream_t &stream)
+>     {
+>       launch(dslashGPU<D, P, nParity, dagger, xpay, kernel_type, Arg>, tp, stream);
+>     }
+> 
+> #ifdef JITIFY
+>     /**
+>        @brief Return a jitify kernel instance
+>     */
+>     template <template <bool, QudaPCType, typename> class P> auto kernel_instance()
+>     {
+>       if (!program) errorQuda("Jitify program has not been created");
+>       using namespace jitify::reflection;
+>       const auto kernel = "quda::dslashGPU";
+> 
+>       // we need this hackery to get the naked unbound template class parameters
+>       auto D_instance = reflect<D<0, false, false, INTERIOR_KERNEL, Arg>>();
+>       auto D_naked = D_instance.substr(0, D_instance.find("<"));
+>       auto P_instance = reflect<P<false, QUDA_4D_PC, Arg>>();
+>       auto P_naked = P_instance.substr(0, P_instance.find("<"));
+> 
+>       // Since we pass the operator and packer classes as strings to
+>       // jitify, we need to handle the reflection for all other
+>       // template parameters here as well as opposed to leaving this
+>       // to jitify.
+>       auto instance = program->kernel(kernel).instantiate({D_naked, P_naked, reflect(arg.nParity), reflect(arg.dagger),
+>                                                            reflect(arg.xpay), reflect(arg.kernel_type), reflect<Arg>()});
+> 
+>       return instance;
+>     }
+> #endif
+> 
+>   public:
+>     /**
+114d205
+<        @param[in,out] arg The argument struct for the kernel
+117,119c208,209
+<     template <template <typename, int, int, int, bool, bool, KernelType, typename> class Launch, int nDim, int nColor,
+<         int nParity, bool dagger, bool xpay, typename Arg>
+<     inline void instantiate(TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+---
+>     template <template <bool, QudaPCType, typename> class P, int nParity, bool dagger, bool xpay>
+>     inline void instantiate(TuneParam &tp, const cudaStream_t &stream)
+121d210
+< 
+124a214,216
+> #ifdef JITIFY
+>         Tunable::jitify_error = kernel_instance<P>().configure(tp.grid, tp.block, tp.shared_bytes, stream).launch(arg);
+> #else
+126,128c218
+<         case INTERIOR_KERNEL:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, INTERIOR_KERNEL, Arg>::launch(*this, tp, arg, stream);
+<           break;
+---
+>         case INTERIOR_KERNEL: Launch<P, nParity, dagger, xpay, INTERIOR_KERNEL>(tp, stream); break;
+130,144c220,224
+<         case EXTERIOR_KERNEL_X:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, EXTERIOR_KERNEL_X, Arg>::launch(*this, tp, arg, stream);
+<           break;
+<         case EXTERIOR_KERNEL_Y:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, EXTERIOR_KERNEL_Y, Arg>::launch(*this, tp, arg, stream);
+<           break;
+<         case EXTERIOR_KERNEL_Z:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, EXTERIOR_KERNEL_Z, Arg>::launch(*this, tp, arg, stream);
+<           break;
+<         case EXTERIOR_KERNEL_T:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, EXTERIOR_KERNEL_T, Arg>::launch(*this, tp, arg, stream);
+<           break;
+<         case EXTERIOR_KERNEL_ALL:
+<           Launch<Float, nDim, nColor, nParity, dagger, xpay, EXTERIOR_KERNEL_ALL, Arg>::launch(*this, tp, arg, stream);
+<           break;
+---
+>         case EXTERIOR_KERNEL_X: Launch<P, nParity, dagger, xpay, EXTERIOR_KERNEL_X>(tp, stream); break;
+>         case EXTERIOR_KERNEL_Y: Launch<P, nParity, dagger, xpay, EXTERIOR_KERNEL_Y>(tp, stream); break;
+>         case EXTERIOR_KERNEL_Z: Launch<P, nParity, dagger, xpay, EXTERIOR_KERNEL_Z>(tp, stream); break;
+>         case EXTERIOR_KERNEL_T: Launch<P, nParity, dagger, xpay, EXTERIOR_KERNEL_T>(tp, stream); break;
+>         case EXTERIOR_KERNEL_ALL: Launch<P, nParity, dagger, xpay, EXTERIOR_KERNEL_ALL>(tp, stream); break;
+149a230
+> #endif // JITIFY
+157d237
+<        @param[in,out] arg The argument struct for the kernel
+160,162c240,241
+<     template <template <typename, int, int, int, bool, bool, KernelType, typename> class Launch, int nDim, int nColor,
+<         int nParity, bool xpay, typename Arg>
+<     inline void instantiate(TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+---
+>     template <template <bool, QudaPCType, typename> class P, int nParity, bool xpay>
+>     inline void instantiate(TuneParam &tp, const cudaStream_t &stream)
+165,171c244
+<       using namespace jitify::reflection;
+<       const auto kernel = Launch<void, 0, 0, 0, false, false, INTERIOR_KERNEL, Arg>::kernel;
+<       Tunable::jitify_error
+<           = program_->kernel(kernel)
+<                 .instantiate(Type<Float>(), nDim, nColor, nParity, arg.dagger, xpay, arg.kernel_type, Type<Arg>())
+<                 .configure(tp.grid, tp.block, tp.shared_bytes, stream)
+<                 .launch(arg);
+---
+>       Tunable::jitify_error = kernel_instance<P>().configure(tp.grid, tp.block, tp.shared_bytes, stream).launch(arg);
+174c247
+<         instantiate<Launch, nDim, nColor, nParity, true, xpay>(tp, arg, stream);
+---
+>         instantiate<P, nParity, true, xpay>(tp, stream);
+176c249
+<         instantiate<Launch, nDim, nColor, nParity, false, xpay>(tp, arg, stream);
+---
+>         instantiate<P, nParity, false, xpay>(tp, stream);
+184d256
+<        @param[in,out] arg The argument struct for the kernel
+187,189c259,260
+<     template <template <typename, int, int, int, bool, bool, KernelType, typename> class Launch, int nDim, int nColor,
+<         bool xpay, typename Arg>
+<     inline void instantiate(TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+---
+>     template <template <bool, QudaPCType, typename> class P, bool xpay>
+>     inline void instantiate(TuneParam &tp, const cudaStream_t &stream)
+192,198c263
+<       using namespace jitify::reflection;
+<       const auto kernel = Launch<void, 0, 0, 0, false, false, INTERIOR_KERNEL, Arg>::kernel;
+<       Tunable::jitify_error
+<           = program_->kernel(kernel)
+<                 .instantiate(Type<Float>(), nDim, nColor, arg.nParity, arg.dagger, xpay, arg.kernel_type, Type<Arg>())
+<                 .configure(tp.grid, tp.block, tp.shared_bytes, stream)
+<                 .launch(arg);
+---
+>       Tunable::jitify_error = kernel_instance<P>().configure(tp.grid, tp.block, tp.shared_bytes, stream).launch(arg);
+201,202c266,267
+<       case 1: instantiate<Launch, nDim, nColor, 1, xpay>(tp, arg, stream); break;
+<       case 2: instantiate<Launch, nDim, nColor, 2, xpay>(tp, arg, stream); break;
+---
+>       case 1: instantiate<P, 1, xpay>(tp, stream); break;
+>       case 2: instantiate<P, 2, xpay>(tp, stream); break;
+212d276
+<        @param[in,out] arg The argument struct for the kernel
+215,217c279,280
+<     template <template <typename, int, int, int, bool, bool, KernelType, typename> class Launch, int nDim, int nColor,
+<         typename Arg>
+<     inline void instantiate(TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+---
+>     template <template <bool, QudaPCType, typename> class P>
+>     inline void instantiate(TuneParam &tp, const cudaStream_t &stream)
+220,226c283
+<       using namespace jitify::reflection;
+<       const auto kernel = Launch<void, 0, 0, 0, false, false, INTERIOR_KERNEL, Arg>::kernel;
+<       Tunable::jitify_error = program_->kernel(kernel)
+<                                   .instantiate(Type<Float>(), nDim, nColor, arg.nParity, arg.dagger, arg.xpay,
+<                                       arg.kernel_type, Type<Arg>())
+<                                   .configure(tp.grid, tp.block, tp.shared_bytes, stream)
+<                                   .launch(arg);
+---
+>       Tunable::jitify_error = kernel_instance<P>().configure(tp.grid, tp.block, tp.shared_bytes, stream).launch(arg);
+229c286
+<         instantiate<Launch, nDim, nColor, true>(tp, arg, stream);
+---
+>         instantiate<P, true>(tp, stream);
+231c288
+<         instantiate<Launch, nDim, nColor, false>(tp, arg, stream);
+---
+>         instantiate<P, false>(tp, stream);
+235c292
+<     DslashArg<Float> &dslashParam; // temporary addition for policy compatibility
+---
+>     Arg &dslashParam; // temporary addition for policy compatibility
+237,243c294,300
+<     Dslash(DslashArg<Float> &arg, const ColorSpinorField &out, const ColorSpinorField &in, const char *src) :
+<         TunableVectorYZ(1, arg.nParity),
+<         arg(arg),
+<         out(out),
+<         in(in),
+<         nDimComms(4),
+<         dslashParam(arg)
+---
+>     Dslash(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+>       TunableVectorYZ(1, arg.nParity),
+>       arg(arg),
+>       out(out),
+>       in(in),
+>       nDimComms(4),
+>       dslashParam(arg)
+264a322,326
+>       // extract the filename from the template template class (do
+>       // this regardless of jitify to ensure a build error if filename
+>       // helper isn't defined)
+>       using D_ = D<0, false, false, INTERIOR_KERNEL, Arg>;
+>       kernel_file = std::string("kernels/") + D_::filename();
+266,267c328
+<       create_jitify_program(src);
+<       program_ = program;
+---
+>       create_jitify_program(kernel_file);
+270a332,364
+>     void setPack(bool pack, MemoryLocation location)
+>     {
+>       arg.setPack(pack);
+>       if (!pack) return;
+> 
+>       for (int dim = 0; dim < 4; dim++) {
+>         for (int dir = 0; dir < 2; dir++) {
+>           if ((location & Remote) && comm_peer2peer_enabled(dir, dim)) { // pack to p2p remote
+>             packBuffer[2 * dim + dir]
+>               = static_cast<char *>(in.remoteFace_d(dir, dim)) + in.Precision() * in.GhostOffset(dim, 1 - dir);
+>           } else if (location & Host && !comm_peer2peer_enabled(dir, dim)) { // pack to cpu memory
+>             packBuffer[2 * dim + dir] = in.myFace_hd(dir, dim);
+>           } else { // pack to local gpu memory
+>             packBuffer[2 * dim + dir] = in.myFace_d(dir, dim);
+>           }
+>         }
+>       }
+> 
+>       // set the tuning string for the fused interior + packer kernel
+>       strcpy(aux_pack, aux[arg.kernel_type]);
+>       strcat(aux_pack, "");
+> 
+>       // label the locations we are packing to
+>       // location label is nonp2p-p2p
+>       switch ((int)location) {
+>       case Device | Remote: strcat(aux_pack, ",device-remote"); break;
+>       case Host | Remote: strcat(aux_pack, ",host-remote"); break;
+>       case Device: strcat(aux_pack, ",device-device"); break;
+>       case Host: strcat(aux_pack, comm_peer2peer_enabled_global() ? ",host-device" : ",host-host"); break;
+>       default: errorQuda("Unknown pack target location %d\n", location);
+>       }
+>     }
+> 
+282a377,382
+>     virtual TuneKey tuneKey() const
+>     {
+>       auto aux_ = (arg.pack_blocks > 0 && arg.kernel_type == INTERIOR_KERNEL) ? aux_pack : aux[arg.kernel_type];
+>       return TuneKey(in.VolString(), typeid(*this).name(), aux_);
+>     }
+> 
+322a423
+>       int pack_flops = (in.Nspin() == 4 ? 2 * in.Nspin() / 2 * in.Ncolor() : 0); // only flops if spin projecting
+341a443
+>         if (arg.pack_threads) { flops_ += pack_flops * arg.nParity * in.getDslashConstant().Ls * arg.pack_threads; }
+345,347c447,449
+<                      num_dir * num_mv_multiply * mv_flops +               // SU(3) matrix-vector multiplies
+<                      ((num_dir - 1) * 2 * in.Ncolor() * in.Nspin()))
+<             * sites; // accumulation
+---
+>                   num_dir * num_mv_multiply * mv_flops +                  // SU(3) matrix-vector multiplies
+>                   ((num_dir - 1) * 2 * in.Ncolor() * in.Nspin()))
+>           * sites; // accumulation
+371a474
+>       int pack_bytes = 2 * ((in.Nspin() == 4 ? in.Nspin() / 2 : in.Nspin()) + in.Nspin()) * in.Ncolor() * in.Precision();
+385a489
+>         if (arg.pack_threads) { bytes_ += pack_bytes * arg.nParity * in.getDslashConstant().Ls * arg.pack_threads; }

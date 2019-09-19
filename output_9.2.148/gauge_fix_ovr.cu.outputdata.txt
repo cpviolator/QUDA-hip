@@ -1,0 +1,115 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_fix_ovr.cu' statistics:
+  CONVERTED refs count: 26
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 413
+  TOTAL bytes: 68555
+  CHANGED lines of code: 23
+  TOTAL lines of code: 1649
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.83
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 8
+  stream: 6
+  type: 5
+  numeric_literal: 7
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 26
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyAsync: 4
+  cudaMemcpyDeviceToHost: 5
+  cudaMemcpyHostToDevice: 2
+  cudaMemset: 4
+  cudaStreamCreate: 3
+  cudaStreamDestroy: 3
+  cudaStream_t: 5
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+186c184
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+445c443
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+713c711
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+976c974
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+1243c1241
+<     hipMemset(num_failures_dev, 0, sizeof(int));
+---
+>     cudaMemset(num_failures_dev, 0, sizeof(int));
+1261c1259
+<     hipStream_t GFStream[9];
+---
+>     cudaStream_t GFStream[9];
+1298,1299c1296,1297
+<         hipStreamCreate(&GFStream[d]);
+<         hipStreamCreate(&GFStream[4 + d]);
+---
+>         cudaStreamCreate(&GFStream[d]);
+>         cudaStreamCreate(&GFStream[4 + d]);
+1306c1304
+<       hipStreamCreate(&GFStream[8]);
+---
+>       cudaStreamCreate(&GFStream[8]);
+1341c1339
+<     qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), hipMemcpyDeviceToHost);
+---
+>     qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), cudaMemcpyDeviceToHost);
+1347c1345
+<     hipMemset(num_failures_dev, 0, sizeof(int));
+---
+>     cudaMemset(num_failures_dev, 0, sizeof(int));
+1397c1395
+<             hipMemcpyAsync(send[d], send_d[d], bytes[d], hipMemcpyDeviceToHost, GFStream[d]);
+---
+>             cudaMemcpyAsync(send[d], send_d[d], bytes[d], cudaMemcpyDeviceToHost, GFStream[d]);
+1401c1399
+<             hipMemcpyAsync(sendg[d], sendg_d[d], bytes[d], hipMemcpyDeviceToHost, GFStream[4 + d]);
+---
+>             cudaMemcpyAsync(sendg[d], sendg_d[d], bytes[d], cudaMemcpyDeviceToHost, GFStream[4 + d]);
+1418c1416
+<             hipMemcpyAsync(recv_d[d], recv[d], bytes[d], hipMemcpyHostToDevice, GFStream[d]);
+---
+>             cudaMemcpyAsync(recv_d[d], recv[d], bytes[d], cudaMemcpyHostToDevice, GFStream[d]);
+1423c1421
+<             hipMemcpyAsync(recvg_d[d], recvg[d], bytes[d], hipMemcpyHostToDevice, GFStream[4 + d]);
+---
+>             cudaMemcpyAsync(recvg_d[d], recvg[d], bytes[d], cudaMemcpyHostToDevice, GFStream[4 + d]);
+1498c1496
+<         qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), hipMemcpyDeviceToHost);
+---
+>         qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), cudaMemcpyDeviceToHost);
+1500c1498
+<         hipMemset(num_failures_dev, 0, sizeof(int));
+---
+>         cudaMemset(num_failures_dev, 0, sizeof(int));
+1521c1519
+<       qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), hipMemcpyDeviceToHost);
+---
+>       qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), cudaMemcpyDeviceToHost);
+1523c1521
+<       hipMemset(num_failures_dev, 0, sizeof(int));
+---
+>       cudaMemset(num_failures_dev, 0, sizeof(int));
+1549,1550c1547,1548
+<           hipStreamDestroy(GFStream[d]);
+<           hipStreamDestroy(GFStream[4 + d]);
+---
+>           cudaStreamDestroy(GFStream[d]);
+>           cudaStreamDestroy(GFStream[4 + d]);
+1556c1554
+<       hipStreamDestroy(GFStream[8]);
+---
+>       cudaStreamDestroy(GFStream[8]);

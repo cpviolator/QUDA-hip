@@ -1,0 +1,56 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+/tmp/tune.cpp-64cfc2.hip:790:3: warning: CUDA identifier is unsupported in HIP.
+                cuGetErrorString(tunable.jitifyError(), &str);
+                ^
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/tune.cpp-64cfc2.hip:106:40: error: use of undeclared identifier 'QUDA_HASH'
+  static const std::string quda_hash = QUDA_HASH; // defined in lib/Makefile
+                                       ^
+1 warning and 2 errors generated when compiling for host.
+Error while processing /tmp/tune.cpp-64cfc2.hip.
+
+[HIPIFY] info: file './quda/lib/tune.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 27
+  UNCONVERTED refs count: 1
+  CONVERSION %: 96
+  REPLACED bytes: 404
+  TOTAL bytes: 29592
+  CHANGED lines of code: 23
+  TOTAL lines of code: 850
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.91
+[HIPIFY] info: CONVERTED refs by type:
+  error: 5
+  device: 3
+  event: 8
+  type: 3
+  numeric_literal: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 4
+  CUDA RT API: 23
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 4
+  cudaDeviceSynchronize: 3
+  cudaError_t: 2
+  cudaEventCreate: 2
+  cudaEventDestroy: 2
+  cudaEventElapsedTime: 1
+  cudaEventRecord: 2
+  cudaEventSynchronize: 1
+  cudaEvent_t: 1
+  cudaGetErrorString: 2
+  cudaGetLastError: 3
+  cudaSuccess: 4
+[HIPIFY] info: UNCONVERTED refs by type:
+  error: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 1
+[HIPIFY] info: UNCONVERTED refs by names:
+  cuGetErrorString: 1

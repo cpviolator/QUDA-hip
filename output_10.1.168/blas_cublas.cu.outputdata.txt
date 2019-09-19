@@ -1,0 +1,53 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+/tmp/blas_cublas.cu-c5eb33.hip:77:25: warning: CUDA identifier is unsupported in HIP.
+        cublasStatus_t error = cublasCgetrfBatched(handle, n, A_array, n, dipiv, dinfo_array, batch);
+                               ^
+/tmp/blas_cublas.cu-c5eb33.hip:92:10: warning: CUDA identifier is unsupported in HIP.
+        error = cublasCgetriBatched(handle, n, (const C**)A_array, n, dipiv, Ainv_array, n, dinfo_array, batch);
+                ^
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+2 warnings and 1 error generated when compiling for host.
+Error while processing /tmp/blas_cublas.cu-c5eb33.hip.
+
+[HIPIFY] info: file './quda/lib/blas_cublas.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 16
+  UNCONVERTED refs count: 2
+  CONVERSION %: 89
+  REPLACED bytes: 279
+  TOTAL bytes: 5376
+  CHANGED lines of code: 14
+  TOTAL lines of code: 140
+  CODE CHANGED (in bytes) %: 5
+  CODE CHANGED (in lines) %: 10
+  TIME ELAPSED s: 0.20
+[HIPIFY] info: CONVERTED refs by type:
+  library: 2
+  type: 5
+  literal: 1
+  numeric_literal: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+  cuComplex API: 1
+  cuBLAS API: 10
+[HIPIFY] info: CONVERTED refs by names:
+  CUBLAS_STATUS_SUCCESS: 4
+  cuFloatComplex: 1
+  cublasCreate: 2
+  cublasDestroy: 1
+  cublasHandle_t: 1
+  cublasStatus_t: 3
+  cudaMemcpyDeviceToHost: 3
+  cudaMemcpyHostToDevice: 1
+[HIPIFY] info: UNCONVERTED refs by type:
+  library: 2
+[HIPIFY] info: UNCONVERTED refs by API:
+  cuBLAS API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  cublasCgetrfBatched: 1
+  cublasCgetriBatched: 1

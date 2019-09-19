@@ -1,0 +1,39 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/cpu_gauge_field.cpp' statistics:
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 88
+  TOTAL bytes: 14799
+  CHANGED lines of code: 5
+  TOTAL lines of code: 417
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.57
+[HIPIFY] info: CONVERTED refs by type:
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyDeviceToHost: 3
+  cudaMemcpyHostToDevice: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+284c282
+< 		   src.Bytes(), hipMemcpyDeviceToHost);
+---
+> 		   src.Bytes(), cudaMemcpyDeviceToHost);
+306c304
+< 	    qudaMemcpy(((void**)gauge)[d], ((void**)buffer)[d], bytes/geometry, hipMemcpyDeviceToHost);
+---
+> 	    qudaMemcpy(((void**)gauge)[d], ((void**)buffer)[d], bytes/geometry, cudaMemcpyDeviceToHost);
+309c307
+< 	  qudaMemcpy(gauge, buffer, bytes, hipMemcpyHostToDevice);
+---
+> 	  qudaMemcpy(gauge, buffer, bytes, cudaMemcpyHostToDevice);
+314c312
+< 	    qudaMemcpy(Ghost()[d], ghost_buffer[d], ghost_bytes[d], hipMemcpyDeviceToHost);
+---
+> 	    qudaMemcpy(Ghost()[d], ghost_buffer[d], ghost_bytes[d], cudaMemcpyDeviceToHost);

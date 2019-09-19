@@ -1,0 +1,105 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_wilson.cu-644cbf.hip:3:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_wilson.cu-644cbf.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_wilson.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 3494
+  CHANGED lines of code: 3
+  TOTAL lines of code: 106
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 1.85
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+11d10
+< 
+14,15d12
+<    - ghost texture support in accessors
+<    - CPU support
+21,35c18
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct WilsonLaunch {
+<     static constexpr const char *kernel = "quda::wilsonGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       dslash.launch(wilsonGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class Wilson : public Dslash<Float>
+---
+>   template <typename Arg> class Wilson : public Dslash<wilson, Arg>
+36a20
+>     using Dslash = Dslash<wilson, Arg>;
+38,50c22,23
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     Wilson(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/dslash_wilson.cuh"),
+<       arg(arg),
+<       in(in)
+<     {
+<     }
+< 
+<     virtual ~Wilson() {}
+---
+>   public:
+>     Wilson(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in) {}
+55,61c28,29
+<       Dslash<Float>::setParam(arg);
+<       Dslash<Float>::template instantiate<WilsonLaunch, nDim, nColor>(tp, arg, stream);
+<     }
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+---
+>       Dslash::setParam(tp);
+>       Dslash::template instantiate<packShmem>(tp, stream);
+71,72c39,40
+<       WilsonArg<Float, nColor, recon> arg(out, in, U, a, x, parity, dagger, comm_override);
+<       Wilson<Float, nDim, nColor, WilsonArg<Float, nColor, recon>> wilson(arg, out, in);
+---
+>       WilsonArg<Float, nColor, nDim, recon> arg(out, in, U, a, x, parity, dagger, comm_override);
+>       Wilson<decltype(arg)> wilson(arg, out, in);

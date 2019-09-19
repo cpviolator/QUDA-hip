@@ -1,0 +1,110 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/covDev.cu-591a55.hip:1:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/covDev.cu-591a55.hip.
+
+[HIPIFY] info: file './quda/lib/covDev.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 6766
+  CHANGED lines of code: 3
+  TOTAL lines of code: 208
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.72
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+24,43c24
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<   */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct CovDevLaunch {
+< 
+<     // kernel name for jit compilation
+<     static constexpr const char *kernel = "quda::covDevGPU";
+< 
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       static_assert(xpay == false, "Covariant derivative operator only defined without xpay");
+<       static_assert(nParity == 2, "Covariant derivative operator only defined for full field");
+<       dslash.launch(covDevGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class CovDev : public Dslash<Float>
+---
+>   template <typename Arg> class CovDev : public Dslash<covDev, Arg>
+44a26,28
+>     using Dslash = Dslash<covDev, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+46,58c30,31
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     CovDev(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/covDev.cuh"),
+<       arg(arg),
+<       in(in)
+<     {
+<     }
+< 
+<     virtual ~CovDev() {}
+---
+>   public:
+>     CovDev(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in) {}
+63c36
+<       Dslash<Float>::setParam(arg);
+---
+>       Dslash::setParam(tp);
+69c42
+<       Dslash<Float>::template instantiate<CovDevLaunch, nDim, nColor, nParity, xpay>(tp, arg, stream);
+---
+>       Dslash::template instantiate<packShmem, nParity, xpay>(tp, stream);
+152c125,127
+<       strcpy(aux, Dslash<Float>::aux[arg.kernel_type]);
+---
+>       strcpy(aux,
+>              (arg.pack_blocks > 0 && arg.kernel_type == INTERIOR_KERNEL) ? Dslash::aux_pack :
+>                                                                            Dslash::aux[arg.kernel_type]);
+168,169c143,144
+<       CovDevArg<Float, nColor, recon> arg(out, in, U, mu, parity, dagger, comm_override);
+<       CovDev<Float, nDim, nColor, CovDevArg<Float, nColor, recon>> covDev(arg, out, in);
+---
+>       CovDevArg<Float, nColor, recon, nDim> arg(out, in, U, mu, parity, dagger, comm_override);
+>       CovDev<decltype(arg)> covDev(arg, out, in);

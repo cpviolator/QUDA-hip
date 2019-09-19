@@ -1,0 +1,70 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/multi_blas_quda.cu-4519e0.hip:11:
+In file included from ./quda/include/kernels/multi_blas_core.cuh:6:
+./quda/include/multi_blas_helper.cuh:77:21: warning: variable declaration in a constexpr function is a C++14 extension [-Wc++14-extensions]
+      constexpr int arg_size = (MAX_ARG_SIZE - sizeof(int)                                    // NYW parameter
+                    ^
+./quda/include/multi_blas_helper.cuh:88:21: warning: variable declaration in a constexpr function is a C++14 extension [-Wc++14-extensions]
+      constexpr int coeff_size = MAX_MATRIX_SIZE / (NXZ * sizeof(typename Functor::type));
+                    ^
+/tmp/multi_blas_quda.cu-4519e0.hip:315:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x[0]->Precision());
+                                                                      ^
+/tmp/multi_blas_quda.cu-4519e0.hip:341:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x[0]->Precision());
+                                                                      ^
+/tmp/multi_blas_quda.cu-4519e0.hip:366:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x[0]->Precision());
+                                                                      ^
+/tmp/multi_blas_quda.cu-4519e0.hip:391:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x[0]->Precision());
+                                                                      ^
+/tmp/multi_blas_quda.cu-4519e0.hip:492:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, y[0]->Precision());
+                                                                      ^
+/tmp/multi_blas_quda.cu-4519e0.hip:556:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, y[0]->Precision());
+                                                                      ^
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:41:46: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+{ double2 out; copyFloatN(out, fetch_double2(tex1Dfetch<int4>(spinor, idx))); return out; }
+                                             ^
+2 warnings and 7 errors generated when compiling for host.
+Error while processing /tmp/multi_blas_quda.cu-4519e0.hip.
+
+[HIPIFY] info: file './quda/lib/multi_blas_quda.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 16
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 487
+  TOTAL bytes: 39703
+  CHANGED lines of code: 14
+  TOTAL lines of code: 961
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.80
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 6
+  execution: 3
+  type: 4
+  numeric_literal: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 3
+  CUDA RT API: 13
+[HIPIFY] info: CONVERTED refs by names:
+  cuMemcpyHtoDAsync: 3
+  cudaLaunchKernel: 3
+  cudaMemcpyHostToDevice: 3
+  cudaMemcpyToSymbolAsync: 3
+  cudaStream_t: 2
+  warpSize: 2

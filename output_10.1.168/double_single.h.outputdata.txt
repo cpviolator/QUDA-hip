@@ -1,0 +1,67 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/double_single.h-50844e.hip:41:73: error: use of overloaded operator '+=' is ambiguous (with operand types 'doublesingle' and 'const doublesingle')
+  __host__ __device__ inline void operator+=(const doublesingle2 &b) {x += b.x; y += b.y;}
+                                                                      ~ ^  ~~~
+/tmp/double_single.h-50844e.hip:18:35: note: candidate function
+  __host__ __device__ inline void operator+=(const doublesingle &b) { dsadd(this->a, this->a, b.a); }
+                                  ^
+/tmp/double_single.h-50844e.hip:30:41: note: candidate function
+__host__ __device__ inline doublesingle operator+=(doublesingle &a, const doublesingle &b)
+                                        ^
+/tmp/double_single.h-50844e.hip:41:83: error: use of overloaded operator '+=' is ambiguous (with operand types 'doublesingle' and 'const doublesingle')
+  __host__ __device__ inline void operator+=(const doublesingle2 &b) {x += b.x; y += b.y;}
+                                                                                ~ ^  ~~~
+/tmp/double_single.h-50844e.hip:18:35: note: candidate function
+  __host__ __device__ inline void operator+=(const doublesingle &b) { dsadd(this->a, this->a, b.a); }
+                                  ^
+/tmp/double_single.h-50844e.hip:30:41: note: candidate function
+__host__ __device__ inline doublesingle operator+=(doublesingle &a, const doublesingle &b)
+                                        ^
+/tmp/double_single.h-50844e.hip:52:73: error: use of overloaded operator '+=' is ambiguous (with operand types 'doublesingle' and 'const doublesingle')
+  __host__ __device__ inline void operator+=(const doublesingle3 &b) {x += b.x; y += b.y; z+= b.z;}
+                                                                      ~ ^  ~~~
+/tmp/double_single.h-50844e.hip:18:35: note: candidate function
+  __host__ __device__ inline void operator+=(const doublesingle &b) { dsadd(this->a, this->a, b.a); }
+                                  ^
+/tmp/double_single.h-50844e.hip:30:41: note: candidate function
+__host__ __device__ inline doublesingle operator+=(doublesingle &a, const doublesingle &b)
+                                        ^
+/tmp/double_single.h-50844e.hip:52:83: error: use of overloaded operator '+=' is ambiguous (with operand types 'doublesingle' and 'const doublesingle')
+  __host__ __device__ inline void operator+=(const doublesingle3 &b) {x += b.x; y += b.y; z+= b.z;}
+                                                                                ~ ^  ~~~
+/tmp/double_single.h-50844e.hip:18:35: note: candidate function
+  __host__ __device__ inline void operator+=(const doublesingle &b) { dsadd(this->a, this->a, b.a); }
+                                  ^
+/tmp/double_single.h-50844e.hip:30:41: note: candidate function
+__host__ __device__ inline doublesingle operator+=(doublesingle &a, const doublesingle &b)
+                                        ^
+/tmp/double_single.h-50844e.hip:52:92: error: use of overloaded operator '+=' is ambiguous (with operand types 'doublesingle' and 'const doublesingle')
+  __host__ __device__ inline void operator+=(const doublesingle3 &b) {x += b.x; y += b.y; z+= b.z;}
+                                                                                          ~^  ~~~
+/tmp/double_single.h-50844e.hip:18:35: note: candidate function
+  __host__ __device__ inline void operator+=(const doublesingle &b) { dsadd(this->a, this->a, b.a); }
+                                  ^
+/tmp/double_single.h-50844e.hip:30:41: note: candidate function
+__host__ __device__ inline doublesingle operator+=(doublesingle &a, const doublesingle &b)
+                                        ^
+6 errors generated when compiling for host.
+Error while processing /tmp/double_single.h-50844e.hip.
+
+[HIPIFY] info: file './quda/include/double_single.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 2275
+  CHANGED lines of code: 1
+  TOTAL lines of code: 56
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 0.20

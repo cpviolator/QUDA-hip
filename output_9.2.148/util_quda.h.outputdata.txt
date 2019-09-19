@@ -1,0 +1,70 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/util_quda.h-f988aa.hip:8:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_key.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/util_quda.h-f988aa.hip:8:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_key.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/util_quda.h' statistics:
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 77
+  TOTAL bytes: 5148
+  CHANGED lines of code: 5
+  TOTAL lines of code: 166
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.38
+[HIPIFY] info: CONVERTED refs by type:
+  error: 2
+  device: 1
+  type: 1
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  cudaDeviceSynchronize: 1
+  cudaError_t: 1
+  cudaGetErrorString: 1
+  cudaGetLastError: 1
+  cudaSuccess: 1
+4,5d3
+< 
+< #include <hip/hip_runtime.h>
+148,150c146,148
+<   hipError_t error = hipGetLastError();              \
+<   if (error != hipSuccess)                            \
+<     errorQuda("(CUDA) %s", hipGetErrorString(error)); \
+---
+>   cudaError_t error = cudaGetLastError();              \
+>   if (error != cudaSuccess)                            \
+>     errorQuda("(CUDA) %s", cudaGetErrorString(error)); \
+157c155
+<   hipDeviceSynchronize();     \
+---
+>   cudaDeviceSynchronize();     \

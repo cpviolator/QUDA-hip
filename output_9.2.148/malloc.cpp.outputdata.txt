@@ -1,0 +1,192 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/malloc.cpp-120754.hip:142:6: warning: CUDA identifier is unsupported in HIP.
+#if (CUDA_VERSION > 4000) && 0 // we need to manually align to page boundaries to allow us to bind a texture to mapped memory
+     ^
+/tmp/malloc.cpp-120754.hip:323:23: warning: CUDA identifier is unsupported in HIP.
+    cudaError_t err = cudaMallocManaged(&ptr, size);
+                      ^
+/tmp/malloc.cpp-120754.hip:460:5: warning: CUDA identifier is unsupported in HIP.
+    CUpointer_attribute attribute[] = { CU_POINTER_ATTRIBUTE_MEMORY_TYPE };
+    ^
+/tmp/malloc.cpp-120754.hip:460:41: warning: CUDA identifier is unsupported in HIP.
+    CUpointer_attribute attribute[] = { CU_POINTER_ATTRIBUTE_MEMORY_TYPE };
+                                        ^
+/tmp/malloc.cpp-120754.hip:463:22: warning: CUDA identifier is unsupported in HIP.
+    CUresult error = cuPointerGetAttributes(1, attribute, data, reinterpret_cast<CUdeviceptr>(ptr));
+                     ^
+/tmp/malloc.cpp-120754.hip:466:7: warning: CUDA identifier is unsupported in HIP.
+      cuGetErrorString(error, &string);
+      ^
+6 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/malloc.cpp' statistics:
+  CONVERTED refs count: 53
+  UNCONVERTED refs count: 7
+  CONVERSION %: 88
+  REPLACED bytes: 674
+  TOTAL bytes: 20443
+  CHANGED lines of code: 35
+  TOTAL lines of code: 651
+  CODE CHANGED (in bytes) %: 3
+  CODE CHANGED (in lines) %: 5
+  TIME ELAPSED s: 0.61
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 14
+  type: 17
+  literal: 1
+  numeric_literal: 17
+  define: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 16
+  CUDA RT API: 37
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 3
+  CU_MEMORYTYPE_DEVICE: 1
+  CU_MEMORYTYPE_HOST: 2
+  CU_MEMORYTYPE_UNIFIED: 1
+  CUdeviceptr: 3
+  CUmemorytype: 1
+  CUresult: 3
+  cuMemAlloc: 1
+  cuMemFree: 1
+  cudaError_t: 10
+  cudaFree: 2
+  cudaFreeHost: 1
+  cudaHostAlloc: 2
+  cudaHostRegister: 2
+  cudaHostRegisterDefault: 1
+  cudaHostRegisterMapped: 2
+  cudaHostRegisterPortable: 1
+  cudaHostUnregister: 2
+  cudaMalloc: 1
+  cudaMemset: 3
+  cudaSuccess: 10
+[HIPIFY] info: UNCONVERTED refs by type:
+  error: 1
+  memory: 1
+  addressing: 1
+  type: 1
+  literal: 1
+  numeric_literal: 1
+  define: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 5
+  CUDA RT API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 1
+  CU_POINTER_ATTRIBUTE_MEMORY_TYPE: 1
+  CUpointer_attribute: 1
+  cuGetErrorString: 1
+  cuPointerGetAttributes: 2
+  cudaMallocManaged: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+195,196c193,194
+<     hipError_t err = hipMalloc(&ptr, size);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMalloc(&ptr, size);
+>     if (err != cudaSuccess) {
+201c199
+<     hipMemset(ptr, 0xff, size);
+---
+>     cudaMemset(ptr, 0xff, size);
+227,228c225,226
+<     hipError_t err = hipMalloc((hipDeviceptr_t*)&ptr, size);
+<     if (err != hipSuccess) {
+---
+>     CUresult err = cuMemAlloc((CUdeviceptr*)&ptr, size);
+>     if (err != CUDA_SUCCESS) {
+233c231
+<     hipMemset(ptr, 0xff, size);
+---
+>     cudaMemset(ptr, 0xff, size);
+273,274c271,272
+<     hipError_t err = hipHostRegister(ptr, a.base_size, hipHostRegisterDefault);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaHostRegister(ptr, a.base_size, cudaHostRegisterDefault);
+>     if (err != cudaSuccess) {
+297,298c295,296
+<     hipError_t err = hipHostMalloc(&ptr, size, hipHostRegisterMapped | hipHostRegisterPortable);
+<     if (err != hipSuccess) { errorQuda("hipHostMalloc failed of size %zu (%s:%d in %s())\n", size, file, line, func); }
+---
+>     cudaError_t err = cudaHostAlloc(&ptr, size, cudaHostRegisterMapped | cudaHostRegisterPortable);
+>     if (err != cudaSuccess) { errorQuda("cudaHostAlloc failed of size %zu (%s:%d in %s())\n", size, file, line, func); }
+301,302c299,300
+<     hipError_t err = hipHostRegister(ptr, a.base_size, hipHostRegisterMapped);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaHostRegister(ptr, a.base_size, cudaHostRegisterMapped);
+>     if (err != cudaSuccess) {
+325,326c323,324
+<     hipError_t err = cudaMallocManaged(&ptr, size);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMallocManaged(&ptr, size);
+>     if (err != cudaSuccess) {
+331c329
+<     hipMemset(ptr, 0xff, size);
+---
+>     cudaMemset(ptr, 0xff, size);
+353,354c351,352
+<     hipError_t err = hipFree(ptr);
+<     if (err != hipSuccess) { errorQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+---
+>     cudaError_t err = cudaFree(ptr);
+>     if (err != cudaSuccess) { errorQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+378,379c376,377
+<     hipError_t err = hipFree((hipDeviceptr_t)ptr);
+<     if (err != hipSuccess) { printfQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+---
+>     CUresult err = cuMemFree((CUdeviceptr)ptr);
+>     if (err != CUDA_SUCCESS) { printfQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+394,395c392,393
+<     hipError_t err = hipFree(ptr);
+<     if (err != hipSuccess) { errorQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+---
+>     cudaError_t err = cudaFree(ptr);
+>     if (err != cudaSuccess) { errorQuda("Failed to free device memory (%s:%d in %s())\n", file, line, func); }
+411,412c409,410
+<       hipError_t err = hipHostUnregister(ptr);
+<       if (err != hipSuccess) { errorQuda("Failed to unregister pinned memory (%s:%d in %s())\n", file, line, func); }
+---
+>       cudaError_t err = cudaHostUnregister(ptr);
+>       if (err != cudaSuccess) { errorQuda("Failed to unregister pinned memory (%s:%d in %s())\n", file, line, func); }
+417,418c415,416
+<       hipError_t err = hipHostFree(ptr);
+<       if (err != hipSuccess) { errorQuda("Failed to free host memory (%s:%d in %s())\n", file, line, func); }
+---
+>       cudaError_t err = cudaFreeHost(ptr);
+>       if (err != cudaSuccess) { errorQuda("Failed to free host memory (%s:%d in %s())\n", file, line, func); }
+420,421c418,419
+<       hipError_t err = hipHostUnregister(ptr);
+<       if (err != hipSuccess) {
+---
+>       cudaError_t err = cudaHostUnregister(ptr);
+>       if (err != cudaSuccess) {
+463c461
+<     hipMemoryType mem_type;
+---
+>     CUmemorytype mem_type;
+465,466c463,464
+<     hipError_t error = cuPointerGetAttributes(1, attribute, data, reinterpret_cast<hipDeviceptr_t>(ptr));
+<     if (error != hipSuccess) {
+---
+>     CUresult error = cuPointerGetAttributes(1, attribute, data, reinterpret_cast<CUdeviceptr>(ptr));
+>     if (error != CUDA_SUCCESS) {
+473c471
+<     if (mem_type == 0) mem_type = hipMemoryTypeHost;
+---
+>     if (mem_type == 0) mem_type = CU_MEMORYTYPE_HOST;
+476,477c474,475
+<     case hipMemoryTypeDevice:
+<     case hipMemoryTypeUnified:
+---
+>     case CU_MEMORYTYPE_DEVICE:
+>     case CU_MEMORYTYPE_UNIFIED:
+479c477
+<     case hipMemoryTypeHost:
+---
+>     case CU_MEMORYTYPE_HOST:

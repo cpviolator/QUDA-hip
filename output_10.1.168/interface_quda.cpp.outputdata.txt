@@ -1,0 +1,73 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+/tmp/interface_quda.cpp-5f8996.hip:522:28: warning: CUDA identifier is unsupported in HIP.
+#if defined(MULTI_GPU) && (CUDA_VERSION == 4000)
+                           ^
+/tmp/interface_quda.cpp-5f8996.hip:604:7: warning: CUDA identifier is unsupported in HIP.
+#if ((CUDA_VERSION >= 6000) && defined NUMA_NVML)
+      ^
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+2 warnings and 1 error generated when compiling for host.
+Error while processing /tmp/interface_quda.cpp-5f8996.hip.
+
+[HIPIFY] info: file './quda/lib/interface_quda.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 33
+  UNCONVERTED refs count: 2
+  CONVERSION %: 94
+  REPLACED bytes: 629
+  TOTAL bytes: 204022
+  CHANGED lines of code: 29
+  TOTAL lines of code: 5931
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 1.41
+[HIPIFY] info: CONVERTED refs by type:
+  version: 2
+  device: 7
+  memory: 4
+  stream: 3
+  profiler: 4
+  include: 1
+  include_cuda_main_header: 1
+  type: 3
+  numeric_literal: 5
+  define: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 32
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaDeviceGetStreamPriorityRange: 1
+  cudaDeviceProp: 1
+  cudaDeviceReset: 1
+  cudaDeviceSetCacheConfig: 1
+  cudaDriverGetVersion: 1
+  cudaFuncCachePreferL1: 1
+  cudaGetDeviceCount: 1
+  cudaGetDeviceProperties: 2
+  cudaHostGetDevicePointer: 1
+  cudaHostRegister: 1
+  cudaHostRegisterDefault: 1
+  cudaHostUnregister: 1
+  cudaMemcpyDeviceToHost: 4
+  cudaMemset: 1
+  cudaProfilerStart: 2
+  cudaProfilerStop: 2
+  cudaRuntimeGetVersion: 1
+  cudaSetDevice: 1
+  cudaStreamCreateWithPriority: 2
+  cudaStreamDefault: 2
+  cudaStreamDestroy: 1
+  cudaStream_t: 2
+  cuda_profiler_api.h: 1
+[HIPIFY] info: UNCONVERTED refs by type:
+  define: 2
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 2

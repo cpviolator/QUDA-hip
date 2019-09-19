@@ -1,0 +1,25 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/quda_new_interace.h-1460bc.hip:24:5: error: unknown type name 'QudaTwistFlavorType'
+    QudaTwistFlavorType twist_flavor;  /**< Twisted mass flavor */
+    ^
+2 errors generated when compiling for host.
+Error while processing /tmp/quda_new_interace.h-1460bc.hip.
+
+[HIPIFY] info: file './quda/include/quda_new_interace.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 851
+  CHANGED lines of code: 1
+  TOTAL lines of code: 36
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.20

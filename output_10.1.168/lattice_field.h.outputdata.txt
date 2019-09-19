@@ -1,0 +1,73 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/lattice_field.h-225f94.hip.
+
+[HIPIFY] info: file './quda/include/lattice_field.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 9
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 108
+  TOTAL bytes: 21138
+  CHANGED lines of code: 9
+  TOTAL lines of code: 729
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.39
+[HIPIFY] info: CONVERTED refs by type:
+  include_cuda_main_header: 1
+  type: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 9
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEvent_t: 4
+  cudaStream_t: 4
+  cuda_runtime.h: 1
+606c606,644
+<     
+---
+> 
+>     /**
+>        @brief Return pointer to the local pinned my_face buffer in a
+>        given direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_h(int dir, int dim) const { return my_face_dim_dir_h[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return pointer to the local mapped my_face buffer in a
+>        given direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_hd(int dir, int dim) const { return my_face_dim_dir_hd[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return pointer to the device send buffer in a given
+>        direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_d(int dir, int dim) const { return my_face_dim_dir_d[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return base pointer to a remote device buffer for direct
+>        sending in a given direction and dimension.  Since this is a
+>        base pointer, one still needs to take care of offsetting to the
+>        correct point for each direction/dimension.
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to remote memory buffer
+>     */
+>     void *remoteFace_d(int dir, int dim) const { return ghost_remote_send_buffer_d[bufferIndex][dim][dir]; }
+> 

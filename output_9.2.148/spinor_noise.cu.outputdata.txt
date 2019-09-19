@@ -1,0 +1,32 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/spinor_noise.cu' statistics:
+  CONVERTED refs count: 98
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 8451
+  TOTAL bytes: 7951
+  CHANGED lines of code: 3
+  TOTAL lines of code: 219
+  CODE CHANGED (in bytes) %: 106
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.98
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 97
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 98
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 97
+  cudaStream_t: 1
+11,12d10
+< 
+< #include <hip/hip_runtime.h>
+106c104
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+108c106
+<       hipLaunchKernelGGL(SpinorNoiseGPU<real, Ns, Nc, type>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+>       SpinorNoiseGPU<real, Ns, Nc, type><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(arg);

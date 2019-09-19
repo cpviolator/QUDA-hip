@@ -1,0 +1,16 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/dirac_domain_wall_4d.cpp' statistics:
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 9932
+  CHANGED lines of code: 1
+  TOTAL lines of code: 278
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.79
+1,2d0
+< 
+< #include <hip/hip_runtime.h>

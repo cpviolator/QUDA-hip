@@ -1,0 +1,40 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/color_spinor_field.h-b5160d.hip.
+
+[HIPIFY] info: file './quda/include/color_spinor_field.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 23
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 332
+  TOTAL bytes: 43257
+  CHANGED lines of code: 24
+  TOTAL lines of code: 1040
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 0.71
+[HIPIFY] info: CONVERTED refs by type:
+  type: 23
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 23
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 15
+  cudaTextureObject_t: 8
+542a543,552
+>        @brief Create a field that aliases this field's storage.  The
+>        alias field can use a different precision than this field,
+>        though it cannot be greater.  This functionality is useful for
+>        the case where we have multiple temporaries in different
+>        precisions, but do not need them simultaneously.  Use this functionality with caution.
+>        @param[in] param Parameters for the alias field
+>     */
+>     ColorSpinorField* CreateAlias(const ColorSpinorParam &param);
+> 
+>     /**

@@ -1,0 +1,28 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/shared_memory_cache_helper.cuh-22f664.hip.
+
+[HIPIFY] info: file './quda/include/shared_memory_cache_helper.cuh' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 30
+  TOTAL bytes: 2142
+  CHANGED lines of code: 2
+  TOTAL lines of code: 75
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.20
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaSharedIncompleteArrayVar: 1

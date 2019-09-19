@@ -1,0 +1,66 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/multi_reduce_quda.cu-5bdb33.hip:9:
+In file included from ./quda/include/kernels/multi_reduce_core.cuh:5:
+./quda/include/multi_blas_helper.cuh:77:21: warning: variable declaration in a constexpr function is a C++14 extension [-Wc++14-extensions]
+      constexpr int arg_size = (MAX_ARG_SIZE - sizeof(int)                                    // NYW parameter
+                    ^
+./quda/include/multi_blas_helper.cuh:88:21: warning: variable declaration in a constexpr function is a C++14 extension [-Wc++14-extensions]
+      constexpr int coeff_size = MAX_MATRIX_SIZE / (NXZ * sizeof(typename Functor::type));
+                    ^
+/tmp/multi_reduce_quda.cu-5bdb33.hip:401:69: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, precision);
+                                                                    ^
+/tmp/multi_reduce_quda.cu-5bdb33.hip:428:69: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, precision);
+                                                                    ^
+/tmp/multi_reduce_quda.cu-5bdb33.hip:454:69: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, precision);
+                                                                    ^
+/tmp/multi_reduce_quda.cu-5bdb33.hip:480:69: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, precision);
+                                                                    ^
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:41:46: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+{ double2 out; copyFloatN(out, fetch_double2(tex1Dfetch<int4>(spinor, idx))); return out; }
+                                             ^
+2 warnings and 5 errors generated when compiling for host.
+Error while processing /tmp/multi_reduce_quda.cu-5bdb33.hip.
+
+[HIPIFY] info: file './quda/lib/multi_reduce_quda.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 20
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 265
+  TOTAL bytes: 60399
+  CHANGED lines of code: 14
+  TOTAL lines of code: 1391
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.83
+[HIPIFY] info: CONVERTED refs by type:
+  error: 1
+  memory: 3
+  execution: 4
+  type: 6
+  numeric_literal: 6
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 20
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEvent_t: 1
+  cudaLaunchKernel: 4
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 3
+  cudaMemcpyToSymbolAsync: 3
+  cudaPeekAtLastError: 1
+  cudaStream_t: 5
+  cudaSuccess: 2

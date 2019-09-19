@@ -1,0 +1,83 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/color_spinor_field.cpp' statistics:
+  CONVERTED refs count: 8
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 180
+  TOTAL bytes: 34689
+  CHANGED lines of code: 9
+  TOTAL lines of code: 894
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.79
+[HIPIFY] info: CONVERTED refs by type:
+  numeric_literal: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 8
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyDeviceToDevice: 2
+  cudaMemcpyDeviceToHost: 3
+  cudaMemcpyHostToDevice: 3
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+488,489c486,487
+< 	    qudaMemcpy(send_back[i], sendbuf[2*i + 0], bytes[i], hipMemcpyDeviceToHost);
+< 	    qudaMemcpy(send_fwd[i],  sendbuf[2*i + 1], bytes[i], hipMemcpyDeviceToHost);
+---
+> 	    qudaMemcpy(send_back[i], sendbuf[2*i + 0], bytes[i], cudaMemcpyDeviceToHost);
+> 	    qudaMemcpy(send_fwd[i],  sendbuf[2*i + 1], bytes[i], cudaMemcpyDeviceToHost);
+492,493c490,491
+< 	  qudaMemcpy(ghost[2*i+1], sendbuf[2*i+0], bytes[i], hipMemcpyDeviceToDevice);
+< 	  qudaMemcpy(ghost[2*i+0], sendbuf[2*i+1], bytes[i], hipMemcpyDeviceToDevice);
+---
+> 	  qudaMemcpy(ghost[2*i+1], sendbuf[2*i+0], bytes[i], cudaMemcpyDeviceToDevice);
+> 	  qudaMemcpy(ghost[2*i+0], sendbuf[2*i+1], bytes[i], cudaMemcpyDeviceToDevice);
+505c503
+< 	qudaMemcpy(total_send, send_ptr, total_bytes, hipMemcpyDeviceToHost);
+---
+> 	qudaMemcpy(total_send, send_ptr, total_bytes, cudaMemcpyDeviceToHost);
+538,539c536,537
+< 	  qudaMemcpy(ghost[2*i+0], recv_back[i], bytes[i], hipMemcpyHostToDevice);
+< 	  qudaMemcpy(ghost[2*i+1], recv_fwd[i], bytes[i], hipMemcpyHostToDevice);
+---
+> 	  qudaMemcpy(ghost[2*i+0], recv_back[i], bytes[i], cudaMemcpyHostToDevice);
+> 	  qudaMemcpy(ghost[2*i+1], recv_fwd[i], bytes[i], cudaMemcpyHostToDevice);
+552c550
+< 	qudaMemcpy(ghost_ptr, total_recv, total_bytes, hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(ghost_ptr, total_recv, total_bytes, cudaMemcpyHostToDevice);
+779a778,809
+>   }
+> 
+>   ColorSpinorField* ColorSpinorField::CreateAlias(const ColorSpinorParam &param_)
+>   {
+>     if (param_.Precision() > precision) errorQuda("Cannot create an alias to source with lower precision than the alias");
+>     ColorSpinorParam param(param_);
+>     param.create = QUDA_REFERENCE_FIELD_CREATE;
+>     param.v = V();
+> 
+>     // if norm field in the source exists, use it, else use the second
+>     // half of main field for norm storage, ensuring that the start of
+>     // the norm field is on an alignment boundary if we're using an
+>     // internal field
+>     if (param.Precision() < QUDA_SINGLE_PRECISION) {
+>       auto norm_offset = (isNative() || fieldOrder == QUDA_FLOAT2_FIELD_ORDER) ?
+>         (siteSubset == QUDA_FULL_SITE_SUBSET) ? 2*ALIGNMENT_ADJUST(Bytes()/4) : ALIGNMENT_ADJUST(Bytes()/2) : 0;
+>       param.norm = Norm() ? Norm() : static_cast<char*>(V()) + norm_offset;
+>     }
+> 
+>     auto alias = ColorSpinorField::Create(param);
+> 
+>     if (alias->Bytes() > Bytes()) errorQuda("Alias footprint %lu greater than source %lu", alias->Bytes(), Bytes());
+>     if (alias->Precision() < QUDA_SINGLE_PRECISION) {
+>       // check that norm does not overlap with body
+>       if (static_cast<char*>(alias->V()) + alias->Bytes() > alias->Norm())
+>         errorQuda("Overlap between alias body and norm");
+>       // check that norm does fall off the end
+>       if (static_cast<char*>(alias->Norm()) + alias->NormBytes() > static_cast<char*>(V()) + Bytes())
+>         errorQuda("Norm is not contained in the srouce field");
+>     }
+> 
+>     return alias;

@@ -1,0 +1,28 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/transfer.cpp-7e98db.hip.
+
+[HIPIFY] info: file './quda/lib/transfer.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 88
+  TOTAL bytes: 14772
+  CHANGED lines of code: 5
+  TOTAL lines of code: 396
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.87
+[HIPIFY] info: CONVERTED refs by type:
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyHostToDevice: 4

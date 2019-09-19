@@ -1,0 +1,127 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_wilson_clover_preconditioned.cu-dc5ade.hip:4:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_wilson_clover_preconditioned.cu-dc5ade.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_wilson_clover_preconditioned.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 6540
+  CHANGED lines of code: 3
+  TOTAL lines of code: 179
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.88
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+17,34c17
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct WilsonCloverPreconditionedLaunch {
+<     static constexpr const char *kernel = "quda::wilsonCloverPreconditionedGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       static_assert(nParity == 1, "preconditioned wilson-clover operator only defined for nParity=1");
+<       if (xpay && dagger) errorQuda("xpay operator only defined for not dagger");
+<       dslash.launch(wilsonCloverPreconditionedGPU < Float, nDim, nColor, nParity, dagger && !xpay, xpay && !dagger,
+<           kernel_type, Arg >, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class WilsonCloverPreconditioned : public Dslash<Float>
+---
+>   template <typename Arg> class WilsonCloverPreconditioned : public Dslash<wilsonCloverPreconditioned, Arg>
+35a19,21
+>     using Dslash = Dslash<wilsonCloverPreconditioned, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+37,45c23,24
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     WilsonCloverPreconditioned(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<         Dslash<Float>(arg, out, in, "kernels/dslash_wilson_clover_preconditioned.cuh"),
+<         arg(arg),
+<         in(in)
+---
+>   public:
+>     WilsonCloverPreconditioned(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in)
+49,50d27
+<     virtual ~WilsonCloverPreconditioned() {}
+< 
+54c31,32
+<       Dslash<Float>::setParam(arg);
+---
+>       Dslash::setParam(tp);
+>       // specialize here to constrain the template instantiation
+56,59c34,42
+<         if (arg.xpay)
+<           Dslash<Float>::template instantiate<WilsonCloverPreconditionedLaunch, nDim, nColor, 1, true>(tp, arg, stream);
+<         else
+<           Dslash<Float>::template instantiate<WilsonCloverPreconditionedLaunch, nDim, nColor, 1, false>(tp, arg, stream);
+---
+>         if (arg.xpay) {
+>           if (arg.dagger) errorQuda("xpay operator only defined for not dagger");
+>           Dslash::template instantiate<packShmem, 1, false, true>(tp, stream);
+>         } else {
+>           if (arg.dagger)
+>             Dslash::template instantiate<packShmem, 1, true, false>(tp, stream);
+>           else
+>             Dslash::template instantiate<packShmem, 1, false, false>(tp, stream);
+>         }
+68c51
+<       long long flops = Dslash<Float>::flops();
+---
+>       long long flops = Dslash::flops();
+98c81
+<       long long bytes = Dslash<Float>::bytes();
+---
+>       long long bytes = Dslash::bytes();
+124,127d106
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+<     }
+142,144c121,122
+<       WilsonCloverArg<Float, nColor, recon, dynamic_clover> arg(out, in, U, A, a, x, parity, dagger, comm_override);
+<       WilsonCloverPreconditioned<Float, nDim, nColor, WilsonCloverArg<Float, nColor, recon, dynamic_clover>> wilson(
+<           arg, out, in);
+---
+>       WilsonCloverArg<Float, nColor, nDim, recon, dynamic_clover> arg(out, in, U, A, a, x, parity, dagger, comm_override);
+>       WilsonCloverPreconditioned<decltype(arg)> wilson(arg, out, in);

@@ -1,0 +1,40 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/coarse_op_preconditioned.cu' statistics:
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 61
+  TOTAL bytes: 11484
+  CHANGED lines of code: 5
+  TOTAL lines of code: 281
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.76
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+  type: 2
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyDeviceToHost: 1
+  cudaMemsetAsync: 1
+  cudaStream_t: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+55c53
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+68c66
+<             hipMemsetAsync(arg.max_d, 0, sizeof(Float), stream);
+---
+>             cudaMemsetAsync(arg.max_d, 0, sizeof(Float), stream);
+85,86c83,84
+<             qudaMemcpyAsync(arg.max_h, arg.max_d, sizeof(Float), hipMemcpyDeviceToHost, stream);
+<             qudaStreamSynchronize(const_cast<hipStream_t&>(stream));
+---
+>             qudaMemcpyAsync(arg.max_h, arg.max_d, sizeof(Float), cudaMemcpyDeviceToHost, stream);
+>             qudaStreamSynchronize(const_cast<cudaStream_t&>(stream));

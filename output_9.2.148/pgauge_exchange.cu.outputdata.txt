@@ -1,0 +1,60 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/pgauge_exchange.cu' statistics:
+  CONVERTED refs count: 13
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 226
+  TOTAL bytes: 12399
+  CHANGED lines of code: 10
+  TOTAL lines of code: 360
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 1.79
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 4
+  stream: 4
+  type: 1
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 13
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyAsync: 4
+  cudaMemcpyDeviceToHost: 2
+  cudaMemcpyHostToDevice: 2
+  cudaStreamCreate: 2
+  cudaStreamDestroy: 2
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+145c143
+<   static hipStream_t GFStream[2];
+---
+>   static cudaStream_t GFStream[2];
+167,168c165,166
+<       hipStreamDestroy(GFStream[0]);
+<       hipStreamDestroy(GFStream[1]);
+---
+>       cudaStreamDestroy(GFStream[0]);
+>       cudaStreamDestroy(GFStream[1]);
+218,219c216,217
+<       hipStreamCreate(&GFStream[0]);
+<       hipStreamCreate(&GFStream[1]);
+---
+>       cudaStreamCreate(&GFStream[0]);
+>       cudaStreamCreate(&GFStream[1]);
+273,274c271,272
+<       hipMemcpyAsync(send[d], send_d[d], bytes[d], hipMemcpyDeviceToHost, GFStream[0]);
+<       hipMemcpyAsync(sendg[d], sendg_d[d], bytes[d], hipMemcpyDeviceToHost, GFStream[1]);
+---
+>       cudaMemcpyAsync(send[d], send_d[d], bytes[d], cudaMemcpyDeviceToHost, GFStream[0]);
+>       cudaMemcpyAsync(sendg[d], sendg_d[d], bytes[d], cudaMemcpyDeviceToHost, GFStream[1]);
+284c282
+<       hipMemcpyAsync(recv_d[d], recv[d], bytes[d], hipMemcpyHostToDevice, GFStream[0]);
+---
+>       cudaMemcpyAsync(recv_d[d], recv[d], bytes[d], cudaMemcpyHostToDevice, GFStream[0]);
+294c292
+<       hipMemcpyAsync(recvg_d[d], recvg[d], bytes[d], hipMemcpyHostToDevice, GFStream[1]);
+---
+>       cudaMemcpyAsync(recvg_d[d], recvg[d], bytes[d], cudaMemcpyHostToDevice, GFStream[1]);

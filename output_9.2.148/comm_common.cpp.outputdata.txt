@@ -1,0 +1,178 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/comm_common.cpp-4d1763.hip:249:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 8000  // this was introduced with CUDA 8
+    ^
+/tmp/comm_common.cpp-4d1763.hip:251:6: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[0], cudaDevP2PAttrPerformanceRank, gpuid, neighbor_gpuid);
+            ^
+/tmp/comm_common.cpp-4d1763.hip:251:48: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[0], cudaDevP2PAttrPerformanceRank, gpuid, neighbor_gpuid);
+                                                      ^
+/tmp/comm_common.cpp-4d1763.hip:252:6: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[1], cudaDevP2PAttrPerformanceRank, neighbor_gpuid, gpuid);
+            ^
+/tmp/comm_common.cpp-4d1763.hip:252:48: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[1], cudaDevP2PAttrPerformanceRank, neighbor_gpuid, gpuid);
+                                                      ^
+/tmp/comm_common.cpp-4d1763.hip:448:3: warning: CUDA identifier is unsupported in HIP.
+  CUpointer_attribute attributes[2] = {CU_POINTER_ATTRIBUTE_MEMORY_TYPE};
+  ^
+/tmp/comm_common.cpp-4d1763.hip:448:40: warning: CUDA identifier is unsupported in HIP.
+  CUpointer_attribute attributes[2] = {CU_POINTER_ATTRIBUTE_MEMORY_TYPE};
+                                       ^
+/tmp/comm_common.cpp-4d1763.hip:449:18: warning: CUDA identifier is unsupported in HIP.
+  CUresult err = cuPointerGetAttributes(1, attributes, attrdata, (CUdeviceptr)buffer);
+                 ^
+/tmp/comm_common.cpp-4d1763.hip:452:5: warning: CUDA identifier is unsupported in HIP.
+    cuGetErrorName(err, &str);
+    ^
+9 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/comm_common.cpp' statistics:
+  CONVERTED refs count: 33
+  UNCONVERTED refs count: 10
+  CONVERSION %: 77
+  REPLACED bytes: 510
+  TOTAL bytes: 25753
+  CHANGED lines of code: 27
+  TOTAL lines of code: 845
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.54
+[HIPIFY] info: CONVERTED refs by type:
+  error: 4
+  device: 4
+  memory: 4
+  peer: 2
+  type: 8
+  numeric_literal: 11
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 8
+  CUDA RT API: 25
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 1
+  CU_MEMORYTYPE_ARRAY: 1
+  CU_MEMORYTYPE_DEVICE: 1
+  CU_MEMORYTYPE_HOST: 1
+  CU_MEMORYTYPE_UNIFIED: 1
+  CUdeviceptr: 1
+  CUmemorytype: 1
+  CUresult: 1
+  cudaDeviceCanAccessPeer: 2
+  cudaDeviceProp: 1
+  cudaError_t: 4
+  cudaGetDeviceCount: 3
+  cudaGetDeviceProperties: 1
+  cudaGetErrorString: 4
+  cudaMemcpy: 1
+  cudaMemcpy2D: 1
+  cudaMemcpyDeviceToDevice: 2
+  cudaMemset: 1
+  cudaMemset2D: 1
+  cudaSuccess: 4
+[HIPIFY] info: UNCONVERTED refs by type:
+  error: 1
+  device: 2
+  addressing: 1
+  type: 1
+  literal: 1
+  numeric_literal: 3
+  define: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 5
+  CUDA RT API: 5
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 1
+  CU_POINTER_ATTRIBUTE_MEMORY_TYPE: 1
+  CUpointer_attribute: 1
+  cuGetErrorName: 1
+  cuPointerGetAttributes: 2
+  cudaDevP2PAttrPerformanceRank: 2
+  cudaDeviceGetP2PAttribute: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+223,224c221,222
+<     hipDeviceProp_t prop;
+<     hipGetDeviceProperties(&prop, gpuid);
+---
+>     cudaDeviceProp prop;
+>     cudaGetDeviceProperties(&prop, gpuid);
+247,248c245,246
+< 	  hipDeviceCanAccessPeer(&canAccessPeer[0], gpuid, neighbor_gpuid);
+< 	  hipDeviceCanAccessPeer(&canAccessPeer[1], neighbor_gpuid, gpuid);
+---
+> 	  cudaDeviceCanAccessPeer(&canAccessPeer[0], gpuid, neighbor_gpuid);
+> 	  cudaDeviceCanAccessPeer(&canAccessPeer[1], neighbor_gpuid, gpuid);
+448c446
+<   hipMemoryType memType;
+---
+>   CUmemorytype memType;
+451,452c449,450
+<   hipError_t err = cuPointerGetAttributes(1, attributes, attrdata, (hipDeviceptr_t)buffer);
+<   if (err != hipSuccess) {
+---
+>   CUresult err = cuPointerGetAttributes(1, attributes, attrdata, (CUdeviceptr)buffer);
+>   if (err != CUDA_SUCCESS) {
+459,462c457,460
+<   case hipMemoryTypeDevice: return false;
+<   case hipMemoryTypeArray: errorQuda("Using array memory for communications buffer is not supported");
+<   case hipMemoryTypeUnified: errorQuda("Using unified memory for communications buffer is not supported");
+<   case hipMemoryTypeHost:
+---
+>   case CU_MEMORYTYPE_DEVICE: return false;
+>   case CU_MEMORYTYPE_ARRAY: errorQuda("Using array memory for communications buffer is not supported");
+>   case CU_MEMORYTYPE_UNIFIED: errorQuda("Using unified memory for communications buffer is not supported");
+>   case CU_MEMORYTYPE_HOST:
+490,491c488,489
+<     hipError_t err = hipMemcpy(tmp, buffer, nbytes, hipMemcpyDeviceToDevice);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemcpy(tmp, buffer, nbytes, cudaMemcpyDeviceToDevice);
+>     if (err != cudaSuccess) {
+493c491
+<       errorQuda("aborting with error %s", hipGetErrorString(err));
+---
+>       errorQuda("aborting with error %s", cudaGetErrorString(err));
+524,525c522,523
+<     hipError_t err = hipMemset(buffer, 0, nbytes);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemset(buffer, 0, nbytes);
+>     if (err != cudaSuccess) {
+527c525
+<       errorQuda("aborting with error %s", hipGetErrorString(err));
+---
+>       errorQuda("aborting with error %s", cudaGetErrorString(err));
+562,563c560,561
+<     hipError_t err = hipMemcpy2D(tmp, blksize, buffer, stride, blksize, nblocks, hipMemcpyDeviceToDevice);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemcpy2D(tmp, blksize, buffer, stride, blksize, nblocks, cudaMemcpyDeviceToDevice);
+>     if (err != cudaSuccess) {
+566c564
+<       errorQuda("aborting with error %s", hipGetErrorString(err));
+---
+>       errorQuda("aborting with error %s", cudaGetErrorString(err));
+600,601c598,599
+<     hipError_t err = hipMemset2D(buffer, stride, 0, blksize, nblocks);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemset2D(buffer, stride, 0, blksize, nblocks);
+>     if (err != cudaSuccess) {
+604c602
+<       errorQuda("aborting with error %s", hipGetErrorString(err));
+---
+>       errorQuda("aborting with error %s", cudaGetErrorString(err));
+677c675
+<       hipGetDeviceCount(&device_count);
+---
+>       cudaGetDeviceCount(&device_count);
+721c719
+<   hipGetDeviceCount(&device_count);
+---
+>   cudaGetDeviceCount(&device_count);
+754c752
+<       hipGetDeviceCount(&deviceCount);
+---
+>       cudaGetDeviceCount(&deviceCount);

@@ -1,0 +1,58 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/blas_quda.cu-03c932.hip:203:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:229:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:264:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:299:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:353:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:395:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+/tmp/blas_quda.cu-03c932.hip:454:71: error: use of undeclared identifier 'QUDA_PRECISION'
+          errorQuda("QUDA_PRECISION=%d does not enable precision %d", QUDA_PRECISION, x.Precision());
+                                                                      ^
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:41:46: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+{ double2 out; copyFloatN(out, fetch_double2(tex1Dfetch<int4>(spinor, idx))); return out; }
+                                             ^
+8 errors generated when compiling for host.
+Error while processing /tmp/blas_quda.cu-03c932.hip.
+
+[HIPIFY] info: file './quda/lib/blas_quda.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 110
+  TOTAL bytes: 25273
+  CHANGED lines of code: 5
+  TOTAL lines of code: 638
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 2.38
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 1
+  type: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 1
+  cudaStream_t: 3

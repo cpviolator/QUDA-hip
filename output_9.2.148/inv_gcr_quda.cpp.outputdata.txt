@@ -1,0 +1,100 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/inv_gcr_quda.cpp' statistics:
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 17269
+  CHANGED lines of code: 1
+  TOTAL lines of code: 526
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.86
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+148,149c146,147
+< 		      double *gamma, int k, std::vector<ColorSpinorField*> p) {
+< 
+---
+> 		      double *gamma, int k, std::vector<ColorSpinorField*> p)
+>   {
+168,169c166
+<     nKrylov(param.Nkrylov), init(false),  rp(nullptr), yp(nullptr), tmpp(nullptr), y_sloppy(nullptr),
+<     r_sloppy(nullptr)
+---
+>     nKrylov(param.Nkrylov), init(false),  rp(nullptr), tmpp(nullptr), tmp_sloppy(nullptr), r_sloppy(nullptr)
+171d167
+< 
+201,202c197
+<     nKrylov(param.Nkrylov), init(false), rp(nullptr), yp(nullptr), tmpp(nullptr), y_sloppy(nullptr),
+<     r_sloppy(nullptr)
+---
+>     nKrylov(param.Nkrylov), init(false),  rp(nullptr), tmpp(nullptr), tmp_sloppy(nullptr), r_sloppy(nullptr)
+222,223c217
+<     if (init && param.precision_sloppy != yp->Precision()) {
+<       if (y_sloppy && param.use_sloppy_partial_accumulator) delete y_sloppy;
+---
+>     if (init && param.precision_sloppy != tmpp->Precision()) {
+229a224
+>     if (tmp_sloppy != tmpp) delete tmp_sloppy;
+232d226
+<     if (yp) delete yp;
+259,260c253,254
+<       // high precision accumulator
+<       yp = ColorSpinorField::Create(csParam);
+---
+>       // high precision temporary
+>       tmpp = ColorSpinorField::Create(csParam);
+268,271c262,263
+<       tmpp = ColorSpinorField::Create(csParam); //temporary for sloppy mat-vec
+< 
+<       if (param.precision_sloppy != x.Precision() && param.use_sloppy_partial_accumulator) {
+<         y_sloppy = ColorSpinorField::Create(csParam);
+---
+>       if (param.precision_sloppy != x.Precision()) {
+>         tmp_sloppy = tmpp->CreateAlias(csParam);
+273c265
+<         y_sloppy = yp;
+---
+>         tmp_sloppy = tmpp;
+291,292d282
+<     ColorSpinorField &y = *yp;
+<     ColorSpinorField &ySloppy = *y_sloppy;
+293a284
+>     ColorSpinorField &tmpSloppy = *tmp_sloppy;
+301c292
+<       mat(r, x, y);
+---
+>       mat(r, x, tmp);
+328,330d318
+<     blas::zero(y); // FIXME optimize first updates of y and ySloppy
+<     if (&y != &ySloppy) blas::zero(ySloppy);
+< 
+392d379
+< 
+395,396d381
+<       } else {
+<         // no preconditioner
+399c384
+<       matSloppy(*Ap[k], *p[k], tmp);
+---
+>       matSloppy(*Ap[k], *p[k], tmpSloppy);
+434,437c419
+<         updateSolution(ySloppy, alpha, beta, gamma, k, p);
+< 
+<         // recalculate residual in high precision
+<         blas::xpy(ySloppy, x);
+---
+>         updateSolution(x, alpha, beta, gamma, k, p);
+440c422
+<         mat(r, x, y);
+---
+>         mat(r, x, tmp);
+467d448
+<           blas::zero(ySloppy);
+496c477
+<       mat(r, x, y);
+---
+>       mat(r, x, tmp);

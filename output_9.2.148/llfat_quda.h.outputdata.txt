@@ -1,0 +1,31 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/llfat_quda.h-5532c7.hip:17:22: error: unknown type name 'cudaGaugeField'
+  void fatLongKSLink(cudaGaugeField* fat,
+                     ^
+/tmp/llfat_quda.h-5532c7.hip:18:8: error: unknown type name 'cudaGaugeField'
+                     cudaGaugeField* lng,
+                     ^
+/tmp/llfat_quda.h-5532c7.hip:19:14: error: unknown type name 'cudaGaugeField'; did you mean 'QudaGaugeFixed'?
+                     const cudaGaugeField& gauge,
+                           ^~~~~~~~~~~~~~
+                           QudaGaugeFixed
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/enum_quda.h:80:5: note: 'QudaGaugeFixed' declared here
+  } QudaGaugeFixed;
+    ^
+3 errors generated when compiling for host.
+Error while processing /tmp/llfat_quda.h-5532c7.hip.
+
+[HIPIFY] info: file './quda/include/llfat_quda.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 606
+  CHANGED lines of code: 1
+  TOTAL lines of code: 24
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 0.53

@@ -1,0 +1,36 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_stout.cu' statistics:
+  CONVERTED refs count: 3
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 98
+  TOTAL bytes: 12262
+  CHANGED lines of code: 4
+  TOTAL lines of code: 299
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.61
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 1
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 3
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 1
+  cudaStream_t: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+36c34
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+176c174
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+187c185
+<         hipLaunchKernelGGL(computeOvrImpSTOUTStep<Float>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, 0, arg);
+---
+>         computeOvrImpSTOUTStep<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);

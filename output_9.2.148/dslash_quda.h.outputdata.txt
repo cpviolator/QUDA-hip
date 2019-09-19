@@ -1,0 +1,64 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_quda.h-72e6f6.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/dslash_quda.h-72e6f6.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/dslash_quda.h-72e6f6.hip:5:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_quda.h:111:55: error: no member named 'hipWarpSize' in 'hipDeviceProp_t'
+    virtual int blockStep() const { return deviceProp.hipWarpSize; }
+                                           ~~~~~~~~~~ ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_quda.h:112:54: error: no member named 'hipWarpSize' in 'hipDeviceProp_t'
+    virtual int blockMin() const { return deviceProp.hipWarpSize; }
+                                          ~~~~~~~~~~ ^
+In file included from /tmp/dslash_quda.h-72e6f6.hip:6:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/color_spinor_field.h:10:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/random_quda.h:10:10: fatal error: 'hiprand_kernel.h' file not found
+#include <hiprand_kernel.h>
+         ^~~~~~~~~~~~~~~~~~
+2 warnings and 3 errors generated when compiling for host.
+Error while processing /tmp/dslash_quda.h-72e6f6.hip.
+
+[HIPIFY] info: file './quda/include/dslash_quda.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 12
+  TOTAL bytes: 25311
+  CHANGED lines of code: 2
+  TOTAL lines of code: 557
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.68
+[HIPIFY] info: CONVERTED refs by type:
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 1

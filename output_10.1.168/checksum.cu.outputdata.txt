@@ -1,0 +1,117 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+In file included from /tmp/checksum.cu-de3bc4.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/memory.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/memory.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/reference.h:173:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/reference.inl:24:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/detail/adl/assign_value.h:42:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/assign_value.h:24:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/copy.h:98:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/internal/copy_device_to_device.h:34:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/transform.h:35:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/parallel_for.h:36:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/agent_launcher.h:32:
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:71:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:78:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:85:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:92:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:99:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:106:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:113:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:120:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:127:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:134:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:141:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:148:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA,xB);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:155:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA,xB,xC);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:162:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA,xB,xC,xD);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:169:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA,xB,xC,xD,xE);
+       ^
+/sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/core/triple_chevron_launch.h:176:8: error: use of undeclared identifier cudaConfigureCall
+      k<<<grid, block, shared_mem, stream>>>(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,xA,xB,xC,xD,xE,xF);
+       ^
+In file included from /tmp/checksum.cu-de3bc4.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/memory.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/memory.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/reference.h:173:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/reference.inl:24:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/detail/adl/assign_value.h:42:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/assign_value.h:24:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/copy.h:99:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/cuda/detail/internal/copy_cross_system.h:40:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/temporary_array.h:39:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/contiguous_storage.h:240:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/contiguous_storage.inl:22:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/allocator/copy_construct_range.h:46:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/allocator/copy_construct_range.inl:21:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/copy.h:90:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/detail/copy.inl:22:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/detail/adl/copy.h:25:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/detail/sequential/copy.h:62:
+In file included from /sw/summit/cuda/10.1.168/include/thrust/system/detail/sequential/copy.inl:24:
+/sw/summit/cuda/10.1.168/include/thrust/type_traits/is_trivially_relocatable.h:145:10: error: no template named 'is_trivially_copyable' in namespace 'std'; did you mean 'is_trivially_relocatable'?
+    ,    std::is_trivially_copyable<T>::value
+         ^~~~~
+/sw/summit/cuda/10.1.168/include/thrust/type_traits/is_trivially_relocatable.h:40:1: note: 'is_trivially_relocatable' declared here
+using is_trivially_relocatable =
+^
+/sw/summit/cuda/10.1.168/include/thrust/type_traits/is_trivially_relocatable.h:145:41: error: no member named 'value' in 'is_trivially_relocatable_impl<T>'
+    ,    std::is_trivially_copyable<T>::value
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated when compiling for host.
+Error while processing /tmp/checksum.cu-de3bc4.hip.
+
+[HIPIFY] info: file './quda/lib/checksum.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 2772
+  CHANGED lines of code: 1
+  TOTAL lines of code: 87
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.81

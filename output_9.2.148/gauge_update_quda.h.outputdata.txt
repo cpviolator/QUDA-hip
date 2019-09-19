@@ -1,0 +1,27 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/gauge_update_quda.h-39b8fa.hip:15:25: error: unknown type name 'GaugeField'
+  void updateGaugeField(GaugeField &out, double dt, const GaugeField& in, 
+                        ^
+/tmp/gauge_update_quda.h-39b8fa.hip:15:59: error: unknown type name 'GaugeField'
+  void updateGaugeField(GaugeField &out, double dt, const GaugeField& in, 
+                                                          ^
+/tmp/gauge_update_quda.h-39b8fa.hip:16:10: error: unknown type name 'GaugeField'
+                        const GaugeField& mom, bool conj_mom, bool exact);
+                              ^
+3 errors generated when compiling for host.
+Error while processing /tmp/gauge_update_quda.h-39b8fa.hip.
+
+[HIPIFY] info: file './quda/include/gauge_update_quda.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 610
+  CHANGED lines of code: 1
+  TOTAL lines of code: 20
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 5
+  TIME ELAPSED s: 0.18

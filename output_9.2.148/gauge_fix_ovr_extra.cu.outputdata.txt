@@ -1,0 +1,26 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_fix_ovr_extra.cu' statistics:
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 10
+  TOTAL bytes: 3978
+  CHANGED lines of code: 2
+  TOTAL lines of code: 111
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.28
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemset: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+85c83
+<       hipMemset(borderpoints[i], 0, nlinksfaces * sizeof(int) );
+---
+>       cudaMemset(borderpoints[i], 0, nlinksfaces * sizeof(int) );

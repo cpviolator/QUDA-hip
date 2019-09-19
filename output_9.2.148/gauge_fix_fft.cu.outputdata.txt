@@ -1,0 +1,170 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_fix_fft.cu' statistics:
+  CONVERTED refs count: 38
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 615
+  TOTAL bytes: 43128
+  CHANGED lines of code: 35
+  TOTAL lines of code: 1228
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 1.83
+[HIPIFY] info: CONVERTED refs by type:
+  device: 4
+  memory: 1
+  texture: 8
+  library: 2
+  include_cuda_main_header: 1
+  type: 9
+  numeric_literal: 13
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 29
+  cuDNN API: 4
+  cuFFT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  CUFFT_FORWARD: 2
+  CUFFT_INVERSE: 2
+  cudaBindTexture: 4
+  cudaFuncCachePreferL1: 4
+  cudaFuncSetCacheConfig: 4
+  cudaMemcpyDeviceToHost: 1
+  cudaMemset: 1
+  cudaReadModeElementType: 4
+  cudaStream_t: 7
+  cudaUnbindTexture: 4
+  cufft.h: 1
+  cufftDestroy: 2
+  cufftHandle: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+14c12
+< #include <hipfft.h>
+---
+> #include <cufft.h>
+49,50c47,48
+<   texture<float2, 1, hipReadModeElementType> GXTexSingle;
+<   texture<int4, 1, hipReadModeElementType> GXTexDouble;
+---
+>   texture<float2, 1, cudaReadModeElementType> GXTexSingle;
+>   texture<int4, 1, cudaReadModeElementType> GXTexDouble;
+54,55c52,53
+<   texture<float2, 1, hipReadModeElementType> DELTATexSingle;
+<   texture<int4, 1, hipReadModeElementType> DELTATexDouble;
+---
+>   texture<float2, 1, cudaReadModeElementType> DELTATexSingle;
+>   texture<int4, 1, cudaReadModeElementType> DELTATexDouble;
+88c86
+<     hipBindTexture(0, GXTexSingle, gx, bytes);
+---
+>     cudaBindTexture(0, GXTexSingle, gx, bytes);
+90c88
+<     hipBindTexture(0, DELTATexSingle, delta, bytes);
+---
+>     cudaBindTexture(0, DELTATexSingle, delta, bytes);
+97c95
+<     hipBindTexture(0, GXTexDouble, gx, bytes);
+---
+>     cudaBindTexture(0, GXTexDouble, gx, bytes);
+99c97
+<     hipBindTexture(0, DELTATexDouble, delta, bytes);
+---
+>     cudaBindTexture(0, DELTATexDouble, delta, bytes);
+106c104
+<     hipUnbindTexture(GXTexSingle);
+---
+>     cudaUnbindTexture(GXTexSingle);
+108c106
+<     hipUnbindTexture(DELTATexSingle);
+---
+>     cudaUnbindTexture(DELTATexSingle);
+115c113
+<     hipUnbindTexture(GXTexDouble);
+---
+>     cudaUnbindTexture(GXTexDouble);
+117c115
+<     hipUnbindTexture(DELTATexDouble);
+---
+>     cudaUnbindTexture(DELTATexDouble);
+204c202
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+318c316
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+423c421
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+477c475
+<       hipFuncSetCacheConfig( kernel_gauge_mult_norm_2D<Float>,   hipFuncCachePreferL1);
+---
+>       cudaFuncSetCacheConfig( kernel_gauge_mult_norm_2D<Float>,   cudaFuncCachePreferL1);
+482c480
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+657c655
+<       hipFuncSetCacheConfig( kernel_gauge_fix_U_EO_NEW<Float, Gauge>,   hipFuncCachePreferL1);
+---
+>       cudaFuncSetCacheConfig( kernel_gauge_fix_U_EO_NEW<Float, Gauge>,   cudaFuncCachePreferL1);
+663c661
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+774c772
+<       hipFuncSetCacheConfig( kernel_gauge_GX<Elems, Float>,   hipFuncCachePreferL1);
+---
+>       cudaFuncSetCacheConfig( kernel_gauge_GX<Elems, Float>,   cudaFuncCachePreferL1);
+784c782
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+897c895
+<       hipFuncSetCacheConfig( kernel_gauge_fix_U_EO<Elems, Float, Gauge>,   hipFuncCachePreferL1);
+---
+>       cudaFuncSetCacheConfig( kernel_gauge_fix_U_EO<Elems, Float, Gauge>,   cudaFuncCachePreferL1);
+902c900
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+962,963c960,961
+<     hipfftHandle plan_xy;
+<     hipfftHandle plan_zt;
+---
+>     cufftHandle plan_xy;
+>     cufftHandle plan_zt;
+1008c1006
+<         ApplyFFT(plan_xy, _array, arg.gx, HIPFFT_FORWARD);
+---
+>         ApplyFFT(plan_xy, _array, arg.gx, CUFFT_FORWARD);
+1017c1015
+<         ApplyFFT(plan_zt, _array, arg.gx, HIPFFT_FORWARD);
+---
+>         ApplyFFT(plan_zt, _array, arg.gx, CUFFT_FORWARD);
+1025c1023
+<         ApplyFFT(plan_zt, arg.gx, _array, HIPFFT_BACKWARD);
+---
+>         ApplyFFT(plan_zt, arg.gx, _array, CUFFT_INVERSE);
+1034c1032
+<         ApplyFFT(plan_xy, arg.gx, _array, HIPFFT_BACKWARD);
+---
+>         ApplyFFT(plan_xy, arg.gx, _array, CUFFT_INVERSE);
+1093c1091
+<     hipMemset(num_failures_dev, 0, sizeof(int));
+---
+>     cudaMemset(num_failures_dev, 0, sizeof(int));
+1095c1093
+<     qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), hipMemcpyDeviceToHost);
+---
+>     qudaMemcpy(&num_failures, num_failures_dev, sizeof(int), cudaMemcpyDeviceToHost);
+1106,1107c1104,1105
+<     CUFFT_SAFE_CALL(hipfftDestroy(plan_zt));
+<     CUFFT_SAFE_CALL(hipfftDestroy(plan_xy));
+---
+>     CUFFT_SAFE_CALL(cufftDestroy(plan_zt));
+>     CUFFT_SAFE_CALL(cufftDestroy(plan_xy));

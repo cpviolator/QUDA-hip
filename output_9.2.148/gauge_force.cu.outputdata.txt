@@ -1,0 +1,46 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_force.cu' statistics:
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 88
+  TOTAL bytes: 11792
+  CHANGED lines of code: 6
+  TOTAL lines of code: 364
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.48
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+  type: 1
+  numeric_literal: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyHostToDevice: 3
+  cudaMemset: 1
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+208c206
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+279c277
+<       hipMemset(input_path_d[dir], 0, bytes);
+---
+>       cudaMemset(input_path_d[dir], 0, bytes);
+291c289
+<       qudaMemcpy(input_path_d[dir], input_path_h, bytes, hipMemcpyHostToDevice);
+---
+>       qudaMemcpy(input_path_d[dir], input_path_h, bytes, cudaMemcpyHostToDevice);
+298c296
+<     qudaMemcpy(length_d, length_h, num_paths*sizeof(int), hipMemcpyHostToDevice);
+---
+>     qudaMemcpy(length_d, length_h, num_paths*sizeof(int), cudaMemcpyHostToDevice);
+302c300
+<     qudaMemcpy(path_coeff_d, path_coeff_h, num_paths*sizeof(double), hipMemcpyHostToDevice);
+---
+>     qudaMemcpy(path_coeff_d, path_coeff_h, num_paths*sizeof(double), cudaMemcpyHostToDevice);

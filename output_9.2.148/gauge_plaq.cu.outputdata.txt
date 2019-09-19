@@ -1,0 +1,32 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_plaq.cu' statistics:
+  CONVERTED refs count: 177
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 4294967132
+  TOTAL bytes: 2420
+  CHANGED lines of code: 3
+  TOTAL lines of code: 74
+  CODE CHANGED (in bytes) %: 1774773
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 2.09
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 176
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 177
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 176
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+30c28
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+40c38
+< 	LAUNCH_KERNEL_LOCAL_PARITY(hipLaunchKernelGGL(, dim3(), dim3(), , stream, arg)(computePlaq, tp, stream, arg, Float, Gauge);
+---
+> 	LAUNCH_KERNEL_LOCAL_PARITY(computePlaq, tp, stream, arg, Float, Gauge);

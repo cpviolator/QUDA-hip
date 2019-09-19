@@ -1,0 +1,88 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/gauge_field.h-44f359.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:24:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/gauge_field.h-44f359.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:24:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/gauge_field.h' statistics:
+  CONVERTED refs count: 13
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 240
+  TOTAL bytes: 27988
+  CHANGED lines of code: 14
+  TOTAL lines of code: 755
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 0.61
+[HIPIFY] info: CONVERTED refs by type:
+  type: 13
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 13
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 1
+  cudaTextureObject_t: 12
+4,5d3
+< 
+< #include <hip/hip_runtime.h>
+420,426c418,424
+<     hipTextureObject_t tex;
+<     hipTextureObject_t evenTex;
+<     hipTextureObject_t oddTex;
+<     hipTextureObject_t phaseTex;
+<     hipTextureObject_t evenPhaseTex;
+<     hipTextureObject_t oddPhaseTex;
+<     void createTexObject(hipTextureObject_t &tex, void *gauge, bool full, bool isPhase=false);
+---
+>     cudaTextureObject_t tex;
+>     cudaTextureObject_t evenTex;
+>     cudaTextureObject_t oddTex;
+>     cudaTextureObject_t phaseTex;
+>     cudaTextureObject_t evenPhaseTex;
+>     cudaTextureObject_t oddPhaseTex;
+>     void createTexObject(cudaTextureObject_t &tex, void *gauge, bool full, bool isPhase=false);
+484c482
+<     void sendStart(int dim, int dir, hipStream_t *stream_p=nullptr);
+---
+>     void sendStart(int dim, int dir, cudaStream_t *stream_p=nullptr);
+557,561c555,559
+<     const hipTextureObject_t& Tex() const { return tex; }
+<     const hipTextureObject_t& EvenTex() const { return evenTex; }
+<     const hipTextureObject_t& OddTex() const { return oddTex; }
+<     const hipTextureObject_t& EvenPhaseTex() const { return evenPhaseTex; }
+<     const hipTextureObject_t& OddPhaseTex() const { return oddPhaseTex; }
+---
+>     const cudaTextureObject_t& Tex() const { return tex; }
+>     const cudaTextureObject_t& EvenTex() const { return evenTex; }
+>     const cudaTextureObject_t& OddTex() const { return oddTex; }
+>     const cudaTextureObject_t& EvenPhaseTex() const { return evenPhaseTex; }
+>     const cudaTextureObject_t& OddPhaseTex() const { return oddPhaseTex; }

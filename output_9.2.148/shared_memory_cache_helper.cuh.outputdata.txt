@@ -1,0 +1,26 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/include/shared_memory_cache_helper.cuh' statistics:
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 30
+  TOTAL bytes: 2142
+  CHANGED lines of code: 2
+  TOTAL lines of code: 75
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.19
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaSharedIncompleteArrayVar: 1
+2,3d1
+< #include <hip/hip_runtime.h>
+< 
+32c30
+<       HIP_DYNAMIC_SHARED(int, cache_);
+---
+>       extern __shared__ int cache_[];

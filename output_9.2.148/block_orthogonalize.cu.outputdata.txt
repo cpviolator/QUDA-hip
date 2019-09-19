@@ -1,0 +1,44 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/block_orthogonalize.cu' statistics:
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 86
+  TOTAL bytes: 14769
+  CHANGED lines of code: 5
+  TOTAL lines of code: 349
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.77
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  type: 2
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cuMemcpyHtoDAsync: 1
+  cudaMemcpyHostToDevice: 1
+  cudaMemcpyToSymbolAsync: 1
+  cudaStream_t: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+115c113
+<     void GPU(const TuneParam &tp, const hipStream_t &stream, const std::vector<ColorSpinorField*> &B, std::index_sequence<S...>) {
+---
+>     void GPU(const TuneParam &tp, const cudaStream_t &stream, const std::vector<ColorSpinorField*> &B, std::index_sequence<S...>) {
+124c122
+<       hipMemcpyHtoDAsync(instance.get_constant_ptr("quda::B_array_d"), B_array_h, MAX_MATRIX_SIZE, stream);
+---
+>       cuMemcpyHtoDAsync(instance.get_constant_ptr("quda::B_array_d"), B_array_h, MAX_MATRIX_SIZE, stream);
+127c125
+<       hipMemcpyToSymbolAsync(B_array_d, B_array_h, MAX_MATRIX_SIZE, 0, hipMemcpyHostToDevice, stream);
+---
+>       cudaMemcpyToSymbolAsync(B_array_d, B_array_h, MAX_MATRIX_SIZE, 0, cudaMemcpyHostToDevice, stream);
+132c130
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {

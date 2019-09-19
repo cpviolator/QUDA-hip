@@ -1,0 +1,82 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/blas_magma.cu-0a0893.hip:39:33: warning: CUDA identifier is unsupported in HIP.
+    if ( ptr_attr.memoryType == cudaMemoryTypeDevice ) {
+                                ^
+/tmp/blas_magma.cu-0a0893.hip:50:41: warning: CUDA identifier is unsupported in HIP.
+    }  else if ( ptr_attr.memoryType == cudaMemoryTypeHost ) {
+                                        ^
+/tmp/blas_magma.cu-0a0893.hip:82:33: warning: CUDA identifier is unsupported in HIP.
+    if ( ptr_attr.memoryType == cudaMemoryTypeDevice ) {
+                                ^
+/tmp/blas_magma.cu-0a0893.hip:84:41: warning: CUDA identifier is unsupported in HIP.
+    }  else if ( ptr_attr.memoryType == cudaMemoryTypeHost ) {
+                                        ^
+/tmp/blas_magma.cu-0a0893.hip:141:33: warning: CUDA identifier is unsupported in HIP.
+    if ( ptr_attr.memoryType == cudaMemoryTypeDevice )
+                                ^
+/tmp/blas_magma.cu-0a0893.hip:165:41: warning: CUDA identifier is unsupported in HIP.
+    }  else if ( ptr_attr.memoryType == cudaMemoryTypeHost ) {
+                                        ^
+/tmp/blas_magma.cu-0a0893.hip:209:33: warning: CUDA identifier is unsupported in HIP.
+    if ( ptr_attr.memoryType == cudaMemoryTypeDevice ) {
+                                ^
+/tmp/blas_magma.cu-0a0893.hip:211:41: warning: CUDA identifier is unsupported in HIP.
+    }  else if ( ptr_attr.memoryType == cudaMemoryTypeHost ) {
+                                        ^
+8 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/blas_magma.cu' statistics:
+  CONVERTED refs count: 12
+  UNCONVERTED refs count: 8
+  CONVERSION %: 60
+  REPLACED bytes: 264
+  TOTAL bytes: 12680
+  CHANGED lines of code: 9
+  TOTAL lines of code: 343
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.52
+[HIPIFY] info: CONVERTED refs by type:
+  addressing: 4
+  type: 4
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 12
+[HIPIFY] info: CONVERTED refs by names:
+  cudaErrorInvalidValue: 4
+  cudaPointerAttributes: 4
+  cudaPointerGetAttributes: 4
+[HIPIFY] info: UNCONVERTED refs by type:
+  numeric_literal: 8
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA RT API: 8
+[HIPIFY] info: UNCONVERTED refs by names:
+  cudaMemoryTypeDevice: 4
+  cudaMemoryTypeHost: 4
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+28,29c26,27
+<     hipPointerAttribute_t ptr_attr;
+<     if(hipPointerGetAttributes(&ptr_attr, Mat) == hipErrorInvalidValue) errorQuda("In magma_gesv, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+---
+>     cudaPointerAttributes ptr_attr;
+>     if(cudaPointerGetAttributes(&ptr_attr, Mat) == cudaErrorInvalidValue) errorQuda("In magma_gesv, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+77,78c75,76
+<     hipPointerAttribute_t ptr_attr;
+<     if(hipPointerGetAttributes(&ptr_attr, Mat) == hipErrorInvalidValue) errorQuda("In magma_geev, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+---
+>     cudaPointerAttributes ptr_attr;
+>     if(cudaPointerGetAttributes(&ptr_attr, Mat) == cudaErrorInvalidValue) errorQuda("In magma_geev, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+137,138c135,136
+<     hipPointerAttribute_t ptr_attr;
+<     if(hipPointerGetAttributes(&ptr_attr, Mat) == hipErrorInvalidValue) errorQuda("In magma_gels, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+---
+>     cudaPointerAttributes ptr_attr;
+>     if(cudaPointerGetAttributes(&ptr_attr, Mat) == cudaErrorInvalidValue) errorQuda("In magma_gels, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+202,203c200,201
+<     hipPointerAttribute_t ptr_attr;
+<     if(hipPointerGetAttributes(&ptr_attr, Mat) == hipErrorInvalidValue) errorQuda("In magma_heev, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");
+---
+>     cudaPointerAttributes ptr_attr;
+>     if(cudaPointerGetAttributes(&ptr_attr, Mat) == cudaErrorInvalidValue) errorQuda("In magma_heev, a pointer was not allocated in, mapped by or registered with current CUDA context.\n");

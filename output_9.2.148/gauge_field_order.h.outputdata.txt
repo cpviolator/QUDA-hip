@@ -1,0 +1,78 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/gauge_field_order.h-c73f99.hip:21:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/register_traits.h:11:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:24:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/gauge_field_order.h-c73f99.hip:21:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/register_traits.h:11:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:24:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/gauge_field_order.h' statistics:
+  CONVERTED refs count: 6
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 102
+  TOTAL bytes: 127853
+  CHANGED lines of code: 5
+  TOTAL lines of code: 3074
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 1.62
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  type: 2
+  numeric_literal: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 6
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpy: 2
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 1
+  cudaTextureObject_t: 2
+17,18d16
+< 
+< #include <hip/hip_runtime.h>
+693c691
+<       hipTextureObject_t tex;
+---
+>       cudaTextureObject_t tex;
+1729c1727
+<       hipTextureObject_t tex;
+---
+>       cudaTextureObject_t tex;
+2026c2024
+< 	hipMemcpy(backup_h, gauge, bytes, hipMemcpyDeviceToHost);
+---
+> 	cudaMemcpy(backup_h, gauge, bytes, cudaMemcpyDeviceToHost);
+2034c2032
+< 	hipMemcpy(gauge, backup_h, bytes, hipMemcpyHostToDevice);
+---
+> 	cudaMemcpy(gauge, backup_h, bytes, cudaMemcpyHostToDevice);

@@ -1,0 +1,26 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/extract_gauge_ghost_mg.cu-c97dcc.hip:7:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/extract_gauge_ghost_helper.cuh:139:16: error: use of undeclared identifier 'Ncolor'; did you mean 'gauge::Ncolor'?
+      if (i >= Ncolor(length)) return;
+               ^~~~~~
+               gauge::Ncolor
+./quda/include/gauge_field_order.h:1695:48: note: 'gauge::Ncolor' declared here
+      __host__ __device__ inline constexpr int Ncolor(int length) { return ct_sqrt(length / 2); }
+                                               ^
+1 error generated when compiling for host.
+Error while processing /tmp/extract_gauge_ghost_mg.cu-c97dcc.hip.
+
+[HIPIFY] info: file './quda/lib/extract_gauge_ghost_mg.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 3409
+  CHANGED lines of code: 1
+  TOTAL lines of code: 96
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.65

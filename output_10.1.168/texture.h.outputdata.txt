@@ -1,0 +1,101 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/texture.h-7fe41a.hip:50:20: error: use of undeclared identifier 'quda'
+  typedef typename quda::mapper<InputType>::type RegType;
+                   ^
+/tmp/texture.h-7fe41a.hip:50:26: error: expected a qualified name after 'typename'
+  typedef typename quda::mapper<InputType>::type RegType;
+                         ^
+/tmp/texture.h-7fe41a.hip:50:32: error: expected ';' at end of declaration list
+  typedef typename quda::mapper<InputType>::type RegType;
+                               ^
+                               ;
+/tmp/texture.h-7fe41a.hip:57:17: error: unknown type name 'cudaColorSpinorField'
+  Texture(const cudaColorSpinorField *x, bool use_ghost = false) :
+                ^
+/tmp/texture.h-7fe41a.hip:100:5: error: use of undeclared identifier 'errorQuda'
+    errorQuda("Precision of register (%lu) and intermediate (%lu) types must match\n", (unsigned long)reg_size,
+    ^
+/tmp/texture.h-7fe41a.hip:103:7: error: use of undeclared identifier 'vecLength'
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+      ^
+/tmp/texture.h-7fe41a.hip:103:17: error: 'InterType' does not refer to a value
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+                ^
+/tmp/texture.h-7fe41a.hip:92:38: note: declared here
+template <typename RegType, typename InterType, typename StoreType> void checkTypes()
+                                     ^
+/tmp/texture.h-7fe41a.hip:103:28: error: expected expression
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+                           ^
+/tmp/texture.h-7fe41a.hip:103:33: error: use of undeclared identifier 'vecLength'
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+                                ^
+/tmp/texture.h-7fe41a.hip:103:43: error: 'StoreType' does not refer to a value
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+                                          ^
+/tmp/texture.h-7fe41a.hip:92:58: note: declared here
+template <typename RegType, typename InterType, typename StoreType> void checkTypes()
+                                                         ^
+/tmp/texture.h-7fe41a.hip:103:54: error: expected expression
+  if (vecLength<InterType>() != vecLength<StoreType>()) {
+                                                     ^
+/tmp/texture.h-7fe41a.hip:104:5: error: use of undeclared identifier 'errorQuda'
+    errorQuda("Vector lengths intermediate and register types must match\n");
+    ^
+/tmp/texture.h-7fe41a.hip:107:7: error: use of undeclared identifier 'vecLength'
+  if (vecLength<RegType>() == 0) errorQuda("Vector type not supported\n");
+      ^
+/tmp/texture.h-7fe41a.hip:107:17: error: 'RegType' does not refer to a value
+  if (vecLength<RegType>() == 0) errorQuda("Vector type not supported\n");
+                ^
+/tmp/texture.h-7fe41a.hip:92:20: note: declared here
+template <typename RegType, typename InterType, typename StoreType> void checkTypes()
+                   ^
+/tmp/texture.h-7fe41a.hip:107:26: error: expected expression
+  if (vecLength<RegType>() == 0) errorQuda("Vector type not supported\n");
+                         ^
+/tmp/texture.h-7fe41a.hip:107:34: error: use of undeclared identifier 'errorQuda'
+  if (vecLength<RegType>() == 0) errorQuda("Vector type not supported\n");
+                                 ^
+/tmp/texture.h-7fe41a.hip:108:7: error: use of undeclared identifier 'vecLength'
+  if (vecLength<InterType>() == 0) errorQuda("Vector type not supported\n");
+      ^
+/tmp/texture.h-7fe41a.hip:108:17: error: 'InterType' does not refer to a value
+  if (vecLength<InterType>() == 0) errorQuda("Vector type not supported\n");
+                ^
+/tmp/texture.h-7fe41a.hip:92:38: note: declared here
+template <typename RegType, typename InterType, typename StoreType> void checkTypes()
+                                     ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated when compiling for host.
+Error while processing /tmp/texture.h-7fe41a.hip.
+
+[HIPIFY] info: file './quda/include/texture.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 9
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 147
+  TOTAL bytes: 14484
+  CHANGED lines of code: 6
+  TOTAL lines of code: 488
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.20
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 4
+  type: 1
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 9
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpy: 4
+  cudaMemcpyDeviceToHost: 2
+  cudaMemcpyHostToDevice: 2
+  cudaTextureObject_t: 1

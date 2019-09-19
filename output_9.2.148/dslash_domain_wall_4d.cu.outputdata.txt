@@ -1,0 +1,126 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_domain_wall_4d.cu-ef7494.hip:3:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_domain_wall_4d.cu-ef7494.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_domain_wall_4d.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 86
+  TOTAL bytes: 4867
+  CHANGED lines of code: 5
+  TOTAL lines of code: 120
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 1.84
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  type: 2
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cuMemcpyHtoDAsync: 1
+  cudaMemcpyHostToDevice: 1
+  cudaMemcpyToSymbolAsync: 1
+  cudaStream_t: 2
+19,33c19
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct DomainWall4DLaunch {
+<     static constexpr const char *kernel = "quda::domainWall4DGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       dslash.launch(domainWall4DGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class DomainWall4D : public Dslash<Float>
+---
+>   template <typename Arg> class DomainWall4D : public Dslash<domainWall4D, Arg>
+34a21,23
+>     using Dslash = Dslash<domainWall4D, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+36,44c25,26
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     DomainWall4D(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/dslash_domain_wall_4d.cuh"),
+<       arg(arg),
+<       in(in)
+---
+>   public:
+>     DomainWall4D(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in)
+49,50d30
+<     virtual ~DomainWall4D() {}
+< 
+54,55c34,35
+<       Dslash<Float>::setParam(arg);
+<       typedef typename mapper<Float>::type real;
+---
+>       Dslash::setParam(tp);
+>       typedef typename mapper<typename Arg::Float>::type real;
+58,61c38
+<       using namespace jitify::reflection;
+<       const auto kernel = DomainWall4DLaunch<void, 0, 0, 0, false, false, INTERIOR_KERNEL, Arg>::kernel;
+<       auto instance = Dslash<Float>::program_->kernel(kernel).instantiate(
+<         Type<Float>(), nDim, nColor, arg.nParity, arg.dagger, arg.xpay, arg.kernel_type, Type<Arg>());
+---
+>       auto instance = Dslash::template kernel_instance<packShmem>();
+68c45
+<       Dslash<Float>::template instantiate<DomainWall4DLaunch, nDim, nColor>(tp, arg, stream);
+---
+>       Dslash::template instantiate<packShmem>(tp, stream);
+71,75d47
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+<     }
+85,86c57,59
+<       DomainWall4DArg<Float, nColor, recon> arg(out, in, U, a, m_5, b_5, c_5, a != 0.0, x, parity, dagger, comm_override);
+<       DomainWall4D<Float, nDim, nColor, DomainWall4DArg<Float, nColor, recon>> twisted(arg, out, in);
+---
+>       DomainWall4DArg<Float, nColor, nDim, recon> arg(out, in, U, a, m_5, b_5, c_5, a != 0.0, x, parity, dagger,
+>                                                       comm_override);
+>       DomainWall4D<decltype(arg)> dwf(arg, out, in);
+88,89c61,62
+<       dslash::DslashPolicyTune<decltype(twisted)> policy(
+<         twisted, const_cast<cudaColorSpinorField *>(static_cast<const cudaColorSpinorField *>(&in)),
+---
+>       dslash::DslashPolicyTune<decltype(dwf)> policy(
+>         dwf, const_cast<cudaColorSpinorField *>(static_cast<const cudaColorSpinorField *>(&in)),

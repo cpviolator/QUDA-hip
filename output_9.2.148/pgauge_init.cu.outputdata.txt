@@ -1,0 +1,37 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/pgauge_init.cu' statistics:
+  CONVERTED refs count: 3
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 30
+  TOTAL bytes: 14398
+  CHANGED lines of code: 4
+  TOTAL lines of code: 467
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.88
+[HIPIFY] info: CONVERTED refs by type:
+  device_library: 1
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+  cuRAND API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+  curand: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+85c83
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+250c248
+<     stheta = ( hiprand(&localState) & 1 ? 1 : -1 ) * sqrt( (T)1.0 - ctheta * ctheta );
+---
+>     stheta = ( curand(&localState) & 1 ? 1 : -1 ) * sqrt( (T)1.0 - ctheta * ctheta );
+389c387
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){

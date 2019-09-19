@@ -1,0 +1,96 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/random_quda.h-df215b.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/lattice_field.h:5:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/random_quda.h-df215b.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/lattice_field.h:5:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_constants.h:2:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/random_quda.h' statistics:
+  CONVERTED refs count: 9
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 155
+  TOTAL bytes: 3588
+  CHANGED lines of code: 10
+  TOTAL lines of code: 151
+  CODE CHANGED (in bytes) %: 4
+  CODE CHANGED (in lines) %: 7
+  TIME ELAPSED s: 0.62
+[HIPIFY] info: CONVERTED refs by type:
+  device_library: 8
+  include: 1
+[HIPIFY] info: CONVERTED refs by API:
+  cuRAND API: 9
+[HIPIFY] info: CONVERTED refs by names:
+  curand_kernel.h: 1
+  curand_normal: 1
+  curand_normal_double: 1
+  curand_uniform: 3
+  curand_uniform_double: 3
+2,3d1
+< #include <hip/hip_runtime.h>
+< 
+10c8
+< #include <hiprand_kernel.h>
+---
+> #include <curand_kernel.h>
+84c82
+<     return a + (b - a) * hiprand_uniform(&state);
+---
+>     return a + (b - a) * curand_uniform(&state);
+89c87
+<     return a + (b - a) * hiprand_uniform_double(&state);
+---
+>     return a + (b - a) * curand_uniform_double(&state);
+105c103
+<     return hiprand_uniform(&state);
+---
+>     return curand_uniform(&state);
+110c108
+<     return hiprand_uniform_double(&state);
+---
+>     return curand_uniform_double(&state);
+120c118
+<         return hiprand_uniform(&state);
+---
+>         return curand_uniform(&state);
+127c125
+<         return hiprand_uniform_double(&state);
+---
+>         return curand_uniform_double(&state);
+139c137
+<         return hiprand_normal(&state);
+---
+>         return curand_normal(&state);
+146c144
+<         return hiprand_normal_double(&state);
+---
+>         return curand_normal_double(&state);

@@ -1,0 +1,27 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/dslash5_domain_wall.cu-fd049c.hip:7:10: fatal error: 'include/kernels/dslash_domain_wall_m5.cuh' file not found
+#include <include/kernels/dslash_domain_wall_m5.cuh>
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated when compiling for host.
+Error while processing /tmp/dslash5_domain_wall.cu-fd049c.hip.
+
+[HIPIFY] info: file './quda/lib/dslash5_domain_wall.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 14997
+  CHANGED lines of code: 3
+  TOTAL lines of code: 299
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.75
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2

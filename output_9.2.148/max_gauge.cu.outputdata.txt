@@ -1,0 +1,248 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/max_gauge.cu-fea80c.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 32 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/gauge_field_order.h:1075:27: note: in instantiation of function template specialization 'quda::gauge::Accessor<double, 3, QUDA_FLOAT2_GAUGE_ORDER, double, false>::transform_reduce<quda::gauge::abs_<double, double>, thrust::plus<double> >' requested here
+          double nrm1 = accessor.transform_reduce(location, dim, abs_<double,storeFloat>(accessor.scale_inv),
+                                 ^
+/tmp/max_gauge.cu-fea80c.hip:19:98: note: in instantiation of member function 'quda::gauge::FieldOrder<double, 3, 1, QUDA_FLOAT2_GAUGE_ORDER, true, double, false>::norm1' requested here
+    case   NORM1: norm_ = FieldOrder<reg_type,Nc,1,order,true,real>(const_cast<GaugeField &>(u)).norm1(d);   break;
+                                                                                                 ^
+/tmp/max_gauge.cu-fea80c.hip:31:43: note: in instantiation of function template specialization 'quda::norm<double, 3, QUDA_FLOAT2_GAUGE_ORDER>' requested here
+    case QUDA_FLOAT2_GAUGE_ORDER: norm_ = norm<real,Nc,QUDA_FLOAT2_GAUGE_ORDER>(u, d, type); break;
+                                          ^
+/tmp/max_gauge.cu-fea80c.hip:43:22: note: in instantiation of function template specialization 'quda::norm<double, 3>' requested here
+    case  3: norm_ = norm<real, 3>(u, d, type); break;
+                     ^
+/tmp/max_gauge.cu-fea80c.hip:62:40: note: in instantiation of function template specialization 'quda::norm<double>' requested here
+    case QUDA_DOUBLE_PRECISION: nrm1 = norm<double>(*this, d, NORM1); break;
+                                       ^
+In file included from /tmp/max_gauge.cu-fea80c.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 16 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/gauge_field_order.h:1075:27: note: in instantiation of function template specialization 'quda::gauge::Accessor<double, 3, QUDA_FLOAT2_GAUGE_ORDER, double, false>::transform_reduce<quda::gauge::abs_<double, double>, thrust::plus<double> >' requested here
+          double nrm1 = accessor.transform_reduce(location, dim, abs_<double,storeFloat>(accessor.scale_inv),
+                                 ^
+/tmp/max_gauge.cu-fea80c.hip:19:98: note: in instantiation of member function 'quda::gauge::FieldOrder<double, 3, 1, QUDA_FLOAT2_GAUGE_ORDER, true, double, false>::norm1' requested here
+    case   NORM1: norm_ = FieldOrder<reg_type,Nc,1,order,true,real>(const_cast<GaugeField &>(u)).norm1(d);   break;
+                                                                                                 ^
+/tmp/max_gauge.cu-fea80c.hip:31:43: note: in instantiation of function template specialization 'quda::norm<double, 3, QUDA_FLOAT2_GAUGE_ORDER>' requested here
+    case QUDA_FLOAT2_GAUGE_ORDER: norm_ = norm<real,Nc,QUDA_FLOAT2_GAUGE_ORDER>(u, d, type); break;
+                                          ^
+/tmp/max_gauge.cu-fea80c.hip:43:22: note: in instantiation of function template specialization 'quda::norm<double, 3>' requested here
+    case  3: norm_ = norm<real, 3>(u, d, type); break;
+                     ^
+/tmp/max_gauge.cu-fea80c.hip:62:40: note: in instantiation of function template specialization 'quda::norm<double>' requested here
+    case QUDA_DOUBLE_PRECISION: nrm1 = norm<double>(*this, d, NORM1); break;
+                                       ^
+In file included from /tmp/max_gauge.cu-fea80c.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 32 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/gauge_field_order.h:1075:27: note: in instantiation of function template specialization 'quda::gauge::Accessor<float, 3, QUDA_FLOAT2_GAUGE_ORDER, float, false>::transform_reduce<quda::gauge::abs_<double, float>, thrust::plus<double> >' requested here
+          double nrm1 = accessor.transform_reduce(location, dim, abs_<double,storeFloat>(accessor.scale_inv),
+                                 ^
+/tmp/max_gauge.cu-fea80c.hip:19:98: note: in instantiation of member function 'quda::gauge::FieldOrder<float, 3, 1, QUDA_FLOAT2_GAUGE_ORDER, true, float, false>::norm1' requested here
+    case   NORM1: norm_ = FieldOrder<reg_type,Nc,1,order,true,real>(const_cast<GaugeField &>(u)).norm1(d);   break;
+                                                                                                 ^
+/tmp/max_gauge.cu-fea80c.hip:31:43: note: in instantiation of function template specialization 'quda::norm<float, 3, QUDA_FLOAT2_GAUGE_ORDER>' requested here
+    case QUDA_FLOAT2_GAUGE_ORDER: norm_ = norm<real,Nc,QUDA_FLOAT2_GAUGE_ORDER>(u, d, type); break;
+                                          ^
+/tmp/max_gauge.cu-fea80c.hip:43:22: note: in instantiation of function template specialization 'quda::norm<float, 3>' requested here
+    case  3: norm_ = norm<real, 3>(u, d, type); break;
+                     ^
+/tmp/max_gauge.cu-fea80c.hip:63:40: note: in instantiation of function template specialization 'quda::norm<float>' requested here
+    case QUDA_SINGLE_PRECISION: nrm1 = norm<float>(*this, d, NORM1); break;
+                                       ^
+In file included from /tmp/max_gauge.cu-fea80c.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<short> >, quda::complex<short> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<short> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 32 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/gauge_field_order.h:1075:27: note: in instantiation of function template specialization 'quda::gauge::Accessor<float, 3, QUDA_FLOAT2_GAUGE_ORDER, short, false>::transform_reduce<quda::gauge::abs_<double, short>, thrust::plus<double> >' requested here
+          double nrm1 = accessor.transform_reduce(location, dim, abs_<double,storeFloat>(accessor.scale_inv),
+                                 ^
+/tmp/max_gauge.cu-fea80c.hip:19:98: note: in instantiation of member function 'quda::gauge::FieldOrder<float, 3, 1, QUDA_FLOAT2_GAUGE_ORDER, true, short, false>::norm1' requested here
+    case   NORM1: norm_ = FieldOrder<reg_type,Nc,1,order,true,real>(const_cast<GaugeField &>(u)).norm1(d);   break;
+                                                                                                 ^
+/tmp/max_gauge.cu-fea80c.hip:31:43: note: in instantiation of function template specialization 'quda::norm<short, 3, QUDA_FLOAT2_GAUGE_ORDER>' requested here
+    case QUDA_FLOAT2_GAUGE_ORDER: norm_ = norm<real,Nc,QUDA_FLOAT2_GAUGE_ORDER>(u, d, type); break;
+                                          ^
+/tmp/max_gauge.cu-fea80c.hip:43:22: note: in instantiation of function template specialization 'quda::norm<short, 3>' requested here
+    case  3: norm_ = norm<real, 3>(u, d, type); break;
+                     ^
+/tmp/max_gauge.cu-fea80c.hip:64:38: note: in instantiation of function template specialization 'quda::norm<short>' requested here
+    case QUDA_HALF_PRECISION: nrm1 = norm<short>(*this, d, NORM1); break;
+                                     ^
+In file included from /tmp/max_gauge.cu-fea80c.hip:1:
+In file included from ./quda/include/gauge_field_order.h:29:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<char> >, quda::complex<char> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<char> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 32 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/gauge_field_order.h:1075:27: note: in instantiation of function template specialization 'quda::gauge::Accessor<float, 3, QUDA_FLOAT2_GAUGE_ORDER, char, false>::transform_reduce<quda::gauge::abs_<double, char>, thrust::plus<double> >' requested here
+          double nrm1 = accessor.transform_reduce(location, dim, abs_<double,storeFloat>(accessor.scale_inv),
+                                 ^
+/tmp/max_gauge.cu-fea80c.hip:19:98: note: in instantiation of member function 'quda::gauge::FieldOrder<float, 3, 1, QUDA_FLOAT2_GAUGE_ORDER, true, char, false>::norm1' requested here
+    case   NORM1: norm_ = FieldOrder<reg_type,Nc,1,order,true,real>(const_cast<GaugeField &>(u)).norm1(d);   break;
+                                                                                                 ^
+/tmp/max_gauge.cu-fea80c.hip:31:43: note: in instantiation of function template specialization 'quda::norm<char, 3, QUDA_FLOAT2_GAUGE_ORDER>' requested here
+    case QUDA_FLOAT2_GAUGE_ORDER: norm_ = norm<real,Nc,QUDA_FLOAT2_GAUGE_ORDER>(u, d, type); break;
+                                          ^
+/tmp/max_gauge.cu-fea80c.hip:43:22: note: in instantiation of function template specialization 'quda::norm<char, 3>' requested here
+    case  3: norm_ = norm<real, 3>(u, d, type); break;
+                     ^
+/tmp/max_gauge.cu-fea80c.hip:65:41: note: in instantiation of function template specialization 'quda::norm<char>' requested here
+    case QUDA_QUARTER_PRECISION: nrm1 = norm<char>(*this, d, NORM1); break;
+                                        ^
+5 errors generated when compiling for host.
+Error while processing /tmp/max_gauge.cu-fea80c.hip.
+
+[HIPIFY] info: file './quda/lib/max_gauge.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 4535
+  CHANGED lines of code: 1
+  TOTAL lines of code: 110
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 2.85

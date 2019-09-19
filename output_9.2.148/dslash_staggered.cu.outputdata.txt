@@ -1,0 +1,116 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_staggered.cu-ac05bf.hip:1:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_staggered.cu-ac05bf.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_staggered.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 4780
+  CHANGED lines of code: 3
+  TOTAL lines of code: 133
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.87
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+21,31c21
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct StaggeredLaunch {
+<     static constexpr const char *kernel = "quda::staggeredGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       dslash.launch(staggeredGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class Staggered : public Dslash<Float>
+---
+>   template <typename Arg> class Staggered : public Dslash<staggered, Arg>
+32a23
+>     using Dslash = Dslash<staggered, Arg>;
+34,46c25,26
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     Staggered(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/dslash_staggered.cuh"),
+<       arg(arg),
+<       in(in)
+<     {
+<     }
+< 
+<     virtual ~Staggered() {}
+---
+>   public:
+>     Staggered(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in) {}
+50,61c30,32
+<       if (in.Location() == QUDA_CPU_FIELD_LOCATION) {
+<         errorQuda("Staggered Dslash not implemented on CPU");
+<       } else {
+<         TuneParam tp = tuneLaunch(*this, getTuning(), getVerbosity());
+<         Dslash<Float>::setParam(arg);
+<         Dslash<Float>::template instantiate<StaggeredLaunch, nDim, nColor>(tp, arg, stream);
+<       }
+<     }
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+---
+>       TuneParam tp = tuneLaunch(*this, getTuning(), getVerbosity());
+>       Dslash::setParam(tp);
+>       Dslash::template instantiate<packStaggeredShmem>(tp, stream);
+71d41
+< 
+77c47
+<         StaggeredArg<Float, nColor, recon_u, QUDA_RECONSTRUCT_NO, improved, QUDA_STAGGERED_PHASE_MILC> arg(
+---
+>         StaggeredArg<Float, nColor, nDim, recon_u, QUDA_RECONSTRUCT_NO, improved, QUDA_STAGGERED_PHASE_MILC> arg(
+79c49
+<         Staggered<Float, nDim, nColor, decltype(arg)> staggered(arg, out, in);
+---
+>         Staggered<decltype(arg)> staggered(arg, out, in);
+93c63
+<         StaggeredArg<Float, nColor, recon_u, QUDA_RECONSTRUCT_NO, improved, QUDA_STAGGERED_PHASE_TIFR> arg(
+---
+>         StaggeredArg<Float, nColor, nDim, recon_u, QUDA_RECONSTRUCT_NO, improved, QUDA_STAGGERED_PHASE_TIFR> arg(
+95c65
+<         Staggered<Float, nDim, nColor, decltype(arg)> staggered(arg, out, in);
+---
+>         Staggered<decltype(arg)> staggered(arg, out, in);
+115d84
+< 

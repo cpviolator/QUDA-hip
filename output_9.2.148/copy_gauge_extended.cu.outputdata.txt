@@ -1,0 +1,44 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/copy_gauge_extended.cu-a06215.hip:185:73: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                        ^
+/tmp/copy_gauge_extended.cu-a06215.hip:193:72: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-8", QUDA_RECONSTRUCT);
+                                                                       ^
+/tmp/copy_gauge_extended.cu-a06215.hip:262:73: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                        ^
+/tmp/copy_gauge_extended.cu-a06215.hip:269:72: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-8", QUDA_RECONSTRUCT);
+                                                                       ^
+/tmp/copy_gauge_extended.cu-a06215.hip:358:73: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                        ^
+/tmp/copy_gauge_extended.cu-a06215.hip:368:73: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                        ^
+6 errors generated when compiling for host.
+Error while processing /tmp/copy_gauge_extended.cu-a06215.hip.
+
+[HIPIFY] info: file './quda/lib/copy_gauge_extended.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 7
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 801
+  TOTAL bytes: 14277
+  CHANGED lines of code: 4
+  TOTAL lines of code: 375
+  CODE CHANGED (in bytes) %: 6
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.55
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 6
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 7
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 6
+  cudaStream_t: 1

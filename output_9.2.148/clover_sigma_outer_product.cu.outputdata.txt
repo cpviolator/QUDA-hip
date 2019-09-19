@@ -1,0 +1,35 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:41:46: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+{ double2 out; copyFloatN(out, fetch_double2(tex1Dfetch<int4>(spinor, idx))); return out; }
+                                             ^
+1 error generated when compiling for host.
+Error while processing /tmp/clover_sigma_outer_product.cu-966cfd.hip.
+
+[HIPIFY] info: file './quda/lib/clover_sigma_outer_product.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 12
+  TOTAL bytes: 6128
+  CHANGED lines of code: 2
+  TOTAL lines of code: 155
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.76
+[HIPIFY] info: CONVERTED refs by type:
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 1

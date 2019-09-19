@@ -1,0 +1,122 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/lattice_field.cpp' statistics:
+  CONVERTED refs count: 26
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 462
+  TOTAL bytes: 26726
+  CHANGED lines of code: 23
+  TOTAL lines of code: 729
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.74
+[HIPIFY] info: CONVERTED refs by type:
+  device: 6
+  memory: 2
+  event: 5
+  type: 8
+  numeric_literal: 2
+  define: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 26
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEventCreate: 1
+  cudaEventDestroy: 2
+  cudaEventDisableTiming: 1
+  cudaEventInterprocess: 1
+  cudaEventQuery: 2
+  cudaEvent_t: 4
+  cudaHostGetDevicePointer: 2
+  cudaIpcCloseMemHandle: 2
+  cudaIpcEventHandle_t: 2
+  cudaIpcGetEventHandle: 1
+  cudaIpcGetMemHandle: 1
+  cudaIpcMemHandle_t: 2
+  cudaIpcMemLazyEnablePeerAccess: 1
+  cudaIpcOpenEventHandle: 1
+  cudaIpcOpenMemHandle: 1
+  cudaSuccess: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+24,25c22,23
+<   hipEvent_t LatticeField::ipcCopyEvent[2][2][QUDA_MAX_DIM];
+<   hipEvent_t LatticeField::ipcRemoteCopyEvent[2][2][QUDA_MAX_DIM];
+---
+>   cudaEvent_t LatticeField::ipcCopyEvent[2][2][QUDA_MAX_DIM];
+>   cudaEvent_t LatticeField::ipcRemoteCopyEvent[2][2][QUDA_MAX_DIM];
+255c253
+< 	  hipHostGetDevicePointer(&ghost_pinned_send_buffer_hd[b], ghost_pinned_send_buffer_h[b], 0);
+---
+> 	  cudaHostGetDevicePointer(&ghost_pinned_send_buffer_hd[b], ghost_pinned_send_buffer_h[b], 0);
+261c259
+< 	  hipHostGetDevicePointer(&ghost_pinned_recv_buffer_hd[b], ghost_pinned_recv_buffer_h[b], 0);
+---
+> 	  cudaHostGetDevicePointer(&ghost_pinned_recv_buffer_hd[b], ghost_pinned_recv_buffer_h[b], 0);
+422c420
+<     hipIpcMemHandle_t ipcRemoteGhostDestHandle[2][2][QUDA_MAX_DIM];
+---
+>     cudaIpcMemHandle_t ipcRemoteGhostDestHandle[2][2][QUDA_MAX_DIM];
+439c437
+<           hipIpcMemHandle_t ipcLocalGhostDestHandle;
+---
+>           cudaIpcMemHandle_t ipcLocalGhostDestHandle;
+441c439
+< 	    hipIpcGetMemHandle(&ipcLocalGhostDestHandle, ghost_recv_buffer_d[b]);
+---
+> 	    cudaIpcGetMemHandle(&ipcLocalGhostDestHandle, ghost_recv_buffer_d[b]);
+467,468c465,466
+< 	  hipIpcOpenMemHandle(ghostDest, ipcRemoteGhostDestHandle[b][dir][dim],
+< 			       hipIpcMemLazyEnablePeerAccess);
+---
+> 	  cudaIpcOpenMemHandle(ghostDest, ipcRemoteGhostDestHandle[b][dir][dim],
+> 			       cudaIpcMemLazyEnablePeerAccess);
+477c475
+<     ihipIpcEventHandle_t ipcRemoteEventHandle[2][2][QUDA_MAX_DIM];
+---
+>     cudaIpcEventHandle_t ipcRemoteEventHandle[2][2][QUDA_MAX_DIM];
+497c495
+<           ihipIpcEventHandle_t ipcLocalEventHandle;
+---
+>           cudaIpcEventHandle_t ipcLocalEventHandle;
+499,500c497,498
+< 	    hipEventCreate(&ipcCopyEvent[b][dir][dim], hipEventDisableTiming | hipEventInterprocess);
+< 	    hipIpcGetEventHandle(&ipcLocalEventHandle, ipcCopyEvent[b][dir][dim]);
+---
+> 	    cudaEventCreate(&ipcCopyEvent[b][dir][dim], cudaEventDisableTiming | cudaEventInterprocess);
+> 	    cudaIpcGetEventHandle(&ipcLocalEventHandle, ipcCopyEvent[b][dir][dim]);
+526c524
+< 	  hipIpcOpenEventHandle(&(ipcRemoteCopyEvent[b][dir][dim]), ipcRemoteEventHandle[b][dir][dim]);
+---
+> 	  cudaIpcOpenEventHandle(&(ipcRemoteCopyEvent[b][dir][dim]), ipcRemoteEventHandle[b][dir][dim]);
+576c574
+< 	    hipEventDestroy(ipcCopyEvent[b][1][dim]);
+---
+> 	    cudaEventDestroy(ipcCopyEvent[b][1][dim]);
+578c576
+< 	    if (num_dir == 2) hipIpcCloseMemHandle(ghost_remote_send_buffer_d[b][dim][1]);
+---
+> 	    if (num_dir == 2) cudaIpcCloseMemHandle(ghost_remote_send_buffer_d[b][dim][1]);
+586,587c584,585
+< 	    hipEventDestroy(ipcCopyEvent[b][0][dim]);
+< 	    hipIpcCloseMemHandle(ghost_remote_send_buffer_d[b][dim][0]);
+---
+> 	    cudaEventDestroy(ipcCopyEvent[b][0][dim]);
+> 	    cudaIpcCloseMemHandle(ghost_remote_send_buffer_d[b][dim][0]);
+606c604
+<     return (hipSuccess == hipEventQuery(ipcCopyEvent[bufferIndex][dir][dim]) ? true : false);
+---
+>     return (cudaSuccess == cudaEventQuery(ipcCopyEvent[bufferIndex][dir][dim]) ? true : false);
+611c609
+<     return (hipSuccess == hipEventQuery(ipcRemoteCopyEvent[bufferIndex][dir][dim]) ? true : false);
+---
+>     return (cudaSuccess == cudaEventQuery(ipcRemoteCopyEvent[bufferIndex][dir][dim]) ? true : false);
+614c612
+<   const hipEvent_t& LatticeField::getIPCCopyEvent(int dir, int dim) const {
+---
+>   const cudaEvent_t& LatticeField::getIPCCopyEvent(int dir, int dim) const {
+618c616
+<   const hipEvent_t& LatticeField::getIPCRemoteCopyEvent(int dir, int dim) const {
+---
+>   const cudaEvent_t& LatticeField::getIPCRemoteCopyEvent(int dir, int dim) const {

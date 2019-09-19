@@ -1,0 +1,182 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_helper.cuh-8d158f.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/color_spinor_field.h:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/dslash_helper.cuh-8d158f.hip:3:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/color_spinor_field.h:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/dslash_helper.cuh' statistics:
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 13329
+  CHANGED lines of code: 1
+  TOTAL lines of code: 334
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.82
+2,3d1
+< #include <hip/hip_runtime.h>
+< 
+89c87
+<   template <int nDim, QudaPCType pc_type, KernelType kernel_type, typename Arg, int nface_ = 1>
+---
+>   template <QudaPCType pc_type, KernelType kernel_type, typename Arg, int nface_ = 1>
+92c90
+< 
+---
+>     constexpr auto nDim = Arg::nDim;
+231c229
+<   template <typename Float> struct DslashArg {
+---
+>   template <typename Float_, int nDim_> struct DslashArg {
+233c231,233
+<     typedef typename mapper<Float>::type real;
+---
+>     using Float = Float_;
+>     using real = typename mapper<Float>::type;
+>     static constexpr int nDim = nDim_;
+266a267,272
+>     int pack_threads; // really number of face sites we have to pack
+>     int_fastdiv blocks_per_dir;
+>     int dim_map[4];
+>     int active_dims;
+>     int pack_blocks; // total number of blocks used for packing in the dslash
+> 
+286c292,297
+<       twist_c(0.0)
+---
+>       twist_c(0.0),
+>       pack_threads(0),
+>       blocks_per_dir(1),
+>       dim_map {},
+>       active_dims(0),
+>       pack_blocks(0)
+299a311,332
+> 
+>     void setPack(bool pack)
+>     {
+>       if (pack) {
+>         // set packing parameters
+>         // for now we set one block per direction / dimension
+>         int d = 0;
+>         pack_threads = 0;
+>         for (int i = 0; i < 4; i++) {
+>           if (!commDim[i]) continue;
+>           if (i == 3 && !getKernelPackT()) continue;
+>           pack_threads += 2 * nFace * dc.ghostFaceCB[i]; // 2 for fwd/back faces
+>           dim_map[d++] = i;
+>         }
+>         active_dims = d;
+>         pack_blocks = active_dims * blocks_per_dir * 2;
+>       } else {
+>         pack_threads = 0;
+>         pack_blocks = 0;
+>         active_dims = 0;
+>       }
+>     }
+302c335
+<   template <typename Float> std::ostream &operator<<(std::ostream &out, const DslashArg<Float> &arg)
+---
+>   template <typename Float, int nDim> std::ostream &operator<<(std::ostream &out, const DslashArg<Float, nDim> &arg)
+333a367,439
+>   }
+> 
+>   /**
+>      @brief Base class that set common types for dslash
+>      implementations.  Where necessary, we specialize in the derived
+>      classed.
+>    */
+>   struct dslash_default {
+>     constexpr QudaPCType pc_type() const { return QUDA_4D_PC; }
+>     constexpr int twist_pack() const { return 0; }
+>   };
+> 
+>   /**
+>      @brief This is a helper routine for spawning a CPU function for
+>      applying a Dslash kernel.  The dslash to be applied is passed as
+>      template template class (template parameter D), which is a
+>      functor that can apply the dslash.
+>    */
+>   template <template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+>             typename D,
+>             typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+>   void dslashCPU(Arg arg)
+>   {
+>     D<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg> dslash;
+> 
+>     for (int parity = 0; parity < nParity; parity++) {
+>       // for full fields then set parity from loop else use arg setting
+>       parity = nParity == 2 ? parity : arg.parity;
+> 
+>       for (int x_cb = 0; x_cb < arg.threads; x_cb++) { // 4-d volume
+>         dslash(arg, x_cb, 0, parity);
+>       } // 4-d volumeCB
+>     }   // parity
+>   }
+> 
+>   /**
+>      @brief This is a helper routine for spawning a GPU kernel for
+>      applying a Dslash kernel.  The dslash to be applied is passed as
+>      template template class (template parameter D), which is a
+>      functor that can apply the dslash.  The packing routine (P) to be
+>      used is similarly passed.
+> 
+>      When running an interior kernel, the first few "pack_blocks" CTAs
+>      are reserved for data packing, which may include communication to
+>      neighboring processes.
+>    */
+>   template <template <int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg> typename D,
+>             template <bool dagger, QudaPCType pc, typename Arg> typename P, int nParity, bool dagger, bool xpay,
+>             KernelType kernel_type, typename Arg>
+>   __global__ void dslashGPU(Arg arg)
+>   {
+>     D<nParity, dagger, xpay, kernel_type, Arg> dslash(arg);
+> 
+>     int s = blockDim.y * blockIdx.y + threadIdx.y;
+>     if (s >= arg.dc.Ls) return;
+> 
+>     // for full fields set parity from z thread index else use arg setting
+>     int parity = nParity == 2 ? blockDim.z * blockIdx.z + threadIdx.z : arg.parity;
+> 
+>     if (kernel_type == INTERIOR_KERNEL && blockIdx.x < arg.pack_blocks) {
+>       // first few blocks do packing kernel
+>       P<dagger, dslash.pc_type(), Arg> packer;
+>       packer(arg, s, 1 - parity, dslash.twist_pack()); // flip parity since pack is on input
+>     } else {
+>       const int dslash_block_offset = (kernel_type == INTERIOR_KERNEL ? arg.pack_blocks : 0);
+>       int x_cb = (blockIdx.x - dslash_block_offset) * blockDim.x + threadIdx.x;
+>       if (x_cb >= arg.threads) return;
+> 
+>       switch (parity) {
+>       case 0: dslash(x_cb, s, 0); break;
+>       case 1: dslash(x_cb, s, 1); break;
+>       }
+>     }

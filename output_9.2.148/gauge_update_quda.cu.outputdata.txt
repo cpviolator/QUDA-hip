@@ -1,0 +1,30 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_update_quda.cu' statistics:
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 20
+  TOTAL bytes: 8578
+  CHANGED lines of code: 2
+  TOTAL lines of code: 250
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.76
+[HIPIFY] info: CONVERTED refs by type:
+  include_cuda_main_header: 1
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaStream_t: 1
+3c3
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda.h>
+119c119
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){

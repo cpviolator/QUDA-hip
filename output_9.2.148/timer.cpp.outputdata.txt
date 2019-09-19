@@ -1,0 +1,16 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/timer.cpp' statistics:
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 5015
+  CHANGED lines of code: 1
+  TOTAL lines of code: 113
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.53
+1,2d0
+< 
+< #include <hip/hip_runtime.h>

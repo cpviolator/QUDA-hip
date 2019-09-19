@@ -1,0 +1,32 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/color_spinor_wuppertal.cu' statistics:
+  CONVERTED refs count: 14
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 1052
+  TOTAL bytes: 10599
+  CHANGED lines of code: 3
+  TOTAL lines of code: 296
+  CODE CHANGED (in bytes) %: 10
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.78
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 13
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 14
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 13
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+176c174
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+181c179
+<         hipLaunchKernelGGL(wuppertalStepGPU<Float,Ns,Nc>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+>         wuppertalStepGPU<Float,Ns,Nc> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg);

@@ -1,0 +1,34 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/momentum.cu' statistics:
+  CONVERTED refs count: 3
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 36
+  TOTAL bytes: 14579
+  CHANGED lines of code: 4
+  TOTAL lines of code: 462
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.84
+[HIPIFY] info: CONVERTED refs by type:
+  type: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 3
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 3
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+124c122
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+276c274
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+398c396
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){

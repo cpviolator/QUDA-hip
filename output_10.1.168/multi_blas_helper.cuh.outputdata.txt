@@ -1,0 +1,88 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+In file included from /tmp/multi_blas_helper.cuh-39a327.hip:11:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:14:17: error: unknown type name 'cudaColorSpinorField'
+  Texture(const cudaColorSpinorField *x, bool use_ghost = false)
+                ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:179:56: error: explicit specialization of non-template struct 'SpinorNorm'
+template <typename RegType, typename StoreType> struct SpinorNorm<RegType, StoreType, false> {
+                                                       ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:182:20: error: unknown type name 'ColorSpinorField'
+  SpinorNorm(const ColorSpinorField &x) {}
+                   ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:185:18: error: unknown type name 'cudaColorSpinorField'
+  void set(const cudaColorSpinorField &x) {}
+                 ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:200:24: error: too many template arguments for class template 'SpinorNorm'
+struct SpinorTexture : SpinorNorm<RegType_, StoreType_, isFixed<StoreType_>::value> {
+                       ^                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:179:56: note: template is declared here
+template <typename RegType, typename StoreType> struct SpinorNorm<RegType, StoreType, false> {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:204:11: error: too many template arguments for class template 'SpinorNorm'
+  typedef SpinorNorm<RegType, StoreType_, isFixed<StoreType>::value> SN;
+          ^                               ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:179:56: note: template is declared here
+template <typename RegType, typename StoreType> struct SpinorNorm<RegType, StoreType, false> {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:230:23: error: unknown type name 'ColorSpinorField'
+  SpinorTexture(const ColorSpinorField &x, int nFace = 1) :
+                      ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:276:18: error: unknown type name 'cudaColorSpinorField'
+  void set(const cudaColorSpinorField &x, int nFace = 1)
+                 ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:218:5: error: constructor initializer 'quda::blas::SpinorTexture::SN' (aka 'int') does not name a class
+    SN(),
+    ^~
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:232:29: error: unknown type name 'cudaColorSpinorField'
+    tex(&(static_cast<const cudaColorSpinorField &>(x))),
+                            ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:240:5: error: use of undeclared identifier 'checkTypes'
+    checkTypes<RegType, InterType, StoreType>();
+    ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:240:16: error: unexpected type name 'RegType': expected expression
+    checkTypes<RegType, InterType, StoreType>();
+               ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:247:5: error: constructor initializer 'quda::blas::SpinorTexture::SN' (aka 'int') does not name a class
+    SN(st),
+    ^~
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:264:7: error: 'quda::blas::SpinorTexture::SN' (aka 'int') is not a class, namespace, or enumeration
+      SN::operator=(src);
+      ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:278:5: error: 'quda::blas::SpinorTexture::SN' (aka 'int') is not a class, namespace, or enumeration
+    SN::set(x);
+    ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:286:5: error: use of undeclared identifier 'checkTypes'
+    checkTypes<RegType, InterType, StoreType>();
+    ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:286:16: error: unexpected type name 'RegType': expected expression
+    checkTypes<RegType, InterType, StoreType>();
+               ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/texture.h:299:24: error: 'quda::blas::SpinorTexture::SN' (aka 'int') is not a class, namespace, or enumeration
+      const float xN = SN::load_norm(i, parity);
+                       ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated when compiling for host.
+Error while processing /tmp/multi_blas_helper.cuh-39a327.hip.
+
+[HIPIFY] info: file './quda/include/multi_blas_helper.cuh' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 8456
+  CHANGED lines of code: 1
+  TOTAL lines of code: 192
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.58
+122c122
+<       size_t scalar_size = 2 * std::max({x_prec, y_prec, QUDA_SINGLE_PRECISION});
+---
+>       size_t scalar_size = 2 * std::max(std::max(x_prec, y_prec), QUDA_SINGLE_PRECISION);

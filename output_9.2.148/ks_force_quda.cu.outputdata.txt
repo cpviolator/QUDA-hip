@@ -1,0 +1,40 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/ks_force_quda.cu' statistics:
+  CONVERTED refs count: 8
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 375
+  TOTAL bytes: 12384
+  CHANGED lines of code: 5
+  TOTAL lines of code: 423
+  CODE CHANGED (in bytes) %: 3
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.52
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 6
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 8
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 6
+  cudaStream_t: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+150c148
+<       void apply(const hipStream_t &stream) {
+---
+>       void apply(const cudaStream_t &stream) {
+155c153
+<           hipLaunchKernelGGL(completeKSForceKernel<Float>, dim3(gridDim), dim3(blockDim), 0, 0, arg);
+---
+>           completeKSForceKernel<Float><<<gridDim,blockDim>>>(arg);
+359c357
+<   void apply(const hipStream_t &stream) {
+---
+>   void apply(const cudaStream_t &stream) {
+364c362
+<       hipLaunchKernelGGL(computeKSLongLinkForceKernel<Float>, dim3(gridDim), dim3(blockDim), 0, 0, arg);
+---
+>       computeKSLongLinkForceKernel<Float><<<gridDim,blockDim>>>(arg);

@@ -1,0 +1,35 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/color_spinor_pack.cu-410fd6.hip:392:71: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                      ^
+/tmp/color_spinor_pack.cu-410fd6.hip:398:74: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                         ^
+/tmp/color_spinor_pack.cu-410fd6.hip:408:71: error: use of undeclared identifier 'QUDA_PRECISION'
+        errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                      ^
+3 errors generated when compiling for host.
+Error while processing /tmp/color_spinor_pack.cu-410fd6.hip.
+
+[HIPIFY] info: file './quda/lib/color_spinor_pack.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 91
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 10092
+  TOTAL bytes: 21760
+  CHANGED lines of code: 8
+  TOTAL lines of code: 419
+  CODE CHANGED (in bytes) %: 46
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 2.18
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 90
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 91
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 90
+  cudaStream_t: 1

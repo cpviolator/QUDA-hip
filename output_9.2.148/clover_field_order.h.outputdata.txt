@@ -1,0 +1,80 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/clover_field_order.h-670da2.hip:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/register_traits.h:11:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/clover_field_order.h-670da2.hip:16:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/register_traits.h:11:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/clover_field_order.h' statistics:
+  CONVERTED refs count: 10
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 166
+  TOTAL bytes: 37187
+  CHANGED lines of code: 7
+  TOTAL lines of code: 996
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.47
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 4
+  type: 2
+  numeric_literal: 4
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 10
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpy: 4
+  cudaMemcpyDeviceToHost: 2
+  cudaMemcpyHostToDevice: 2
+  cudaTextureObject_t: 2
+16,17d15
+< 
+< #include <hip/hip_runtime.h>
+563,564c561,562
+< 	hipTextureObject_t tex;
+< 	hipTextureObject_t normTex;
+---
+> 	cudaTextureObject_t tex;
+> 	cudaTextureObject_t normTex;
+763c761
+< 	  hipMemcpy(backup_h, clover, bytes, hipMemcpyDeviceToHost);
+---
+> 	  cudaMemcpy(backup_h, clover, bytes, cudaMemcpyDeviceToHost);
+766c764
+< 	    hipMemcpy(backup_norm_h, norm, norm_bytes, hipMemcpyDeviceToHost);
+---
+> 	    cudaMemcpy(backup_norm_h, norm, norm_bytes, cudaMemcpyDeviceToHost);
+775c773
+< 	  hipMemcpy(clover, backup_h, bytes, hipMemcpyHostToDevice);
+---
+> 	  cudaMemcpy(clover, backup_h, bytes, cudaMemcpyHostToDevice);
+779c777
+< 	    hipMemcpy(norm, backup_norm_h, norm_bytes, hipMemcpyHostToDevice);
+---
+> 	    cudaMemcpy(norm, backup_norm_h, norm_bytes, cudaMemcpyHostToDevice);

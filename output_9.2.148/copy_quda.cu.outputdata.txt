@@ -1,0 +1,299 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:41:46: note: in instantiation of function template specialization 'tex1Dfetch<int4>' requested here
+{ double2 out; copyFloatN(out, fetch_double2(tex1Dfetch<int4>(spinor, idx))); return out; }
+                                             ^
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<float4>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:27:21: note: in instantiation of function template specialization 'tex1Dfetch<float4>' requested here
+    copyFloatN(rtn, tex1Dfetch<RegType>(spinor, idx));
+                    ^
+./quda/include/texture.h:31:76: note: in instantiation of member function 'quda::blas::copy_ns::Texture<float4, float4>::fetch' requested here
+  __device__ inline OutputType operator[](unsigned int idx) const { return fetch(idx); }
+                                                                           ^
+./quda/include/texture.h:301:47: note: in instantiation of member function 'quda::blas::copy_ns::Texture<float4, float4>::operator[]' requested here
+      for (int j = 0; j < M; j++) y[j] = xN * tex[cb_offset * parity + i + j * stride];
+                                              ^
+/tmp/copy_quda.cu-f571be.hip:37:11: note: in instantiation of member function 'quda::blas::copy_ns::SpinorTexture<float4, float4, 6>::load' requested here
+        X.load(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float4, 6, quda::blas::copy_ns::Spinor<float4, double2, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:142:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float4, 6, quda::blas::copy_ns::Spinor<float4, double2, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float4, double2, 6, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float4, 6, quda::blas::copy_ns::Spinor<float4, double2, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:142:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float4, 6, quda::blas::copy_ns::Spinor<float4, double2, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from <built-in>:1:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:338:
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:108:4: error: use of undeclared identifier '__nv_tex_surf_handler'
+   __nv_tex_surf_handler("__itex1Dfetch", ptr, obj, x);
+   ^
+/sw/summit/cuda/9.2.148/include/texture_indirect_functions.h:117:3: note: in instantiation of function template specialization 'tex1Dfetch<float2>' requested here
+  tex1Dfetch(&ret, texObject, x);
+  ^
+./quda/include/texture.h:27:21: note: in instantiation of function template specialization 'tex1Dfetch<float2>' requested here
+    copyFloatN(rtn, tex1Dfetch<RegType>(spinor, idx));
+                    ^
+./quda/include/texture.h:31:76: note: in instantiation of member function 'quda::blas::copy_ns::Texture<float2, float2>::fetch' requested here
+  __device__ inline OutputType operator[](unsigned int idx) const { return fetch(idx); }
+                                                                           ^
+./quda/include/texture.h:301:47: note: in instantiation of member function 'quda::blas::copy_ns::Texture<float2, float2>::operator[]' requested here
+      for (int j = 0; j < M; j++) y[j] = xN * tex[cb_offset * parity + i + j * stride];
+                                              ^
+/tmp/copy_quda.cu-f571be.hip:37:11: note: in instantiation of member function 'quda::blas::copy_ns::SpinorTexture<float2, float2, 1>::load' requested here
+        X.load(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 1, quda::blas::copy_ns::Spinor<float2, double2, 1, 1>, quda::blas::copy_ns::Spinor<float2, float2, 1, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:150:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 1, quda::blas::copy_ns::Spinor<float2, double2, 1, 1>, quda::blas::copy_ns::Spinor<float2, float2, 1, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, double2, 1, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 1, quda::blas::copy_ns::Spinor<float2, double2, 1, 1>, quda::blas::copy_ns::Spinor<float2, float2, 1, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:150:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 1, quda::blas::copy_ns::Spinor<float2, double2, 1, 1>, quda::blas::copy_ns::Spinor<float2, float2, 1, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, double2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 3, quda::blas::copy_ns::Spinor<float2, double2, 3, 1>, quda::blas::copy_ns::Spinor<float2, float2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:156:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 3, quda::blas::copy_ns::Spinor<float2, double2, 3, 1>, quda::blas::copy_ns::Spinor<float2, float2, 3, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float4, float4, 6, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float4, 6, quda::blas::copy_ns::Spinor<float4, float4, 6, 1>, quda::blas::copy_ns::Spinor<float4, double2, 6, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:166:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float4, 6, quda::blas::copy_ns::Spinor<float4, float4, 6, 1>, quda::blas::copy_ns::Spinor<float4, double2, 6, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, float2, 1, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 1, quda::blas::copy_ns::Spinor<float2, float2, 1, 1>, quda::blas::copy_ns::Spinor<float2, double2, 1, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:174:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 1, quda::blas::copy_ns::Spinor<float2, float2, 1, 1>, quda::blas::copy_ns::Spinor<float2, double2, 1, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, float2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 3, quda::blas::copy_ns::Spinor<float2, float2, 3, 1>, quda::blas::copy_ns::Spinor<float2, double2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:180:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 3, quda::blas::copy_ns::Spinor<float2, float2, 3, 1>, quda::blas::copy_ns::Spinor<float2, double2, 3, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float4, short4, 6, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float4, 6, quda::blas::copy_ns::Spinor<float4, short4, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:208:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float4, 6, quda::blas::copy_ns::Spinor<float4, short4, 6, 1>, quda::blas::copy_ns::Spinor<float4, float4, 6, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, short2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 3, quda::blas::copy_ns::Spinor<float2, short2, 3, 1>, quda::blas::copy_ns::Spinor<float2, float2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:214:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 3, quda::blas::copy_ns::Spinor<float2, short2, 3, 1>, quda::blas::copy_ns::Spinor<float2, float2, 3, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, double2, 12, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 12, quda::blas::copy_ns::Spinor<double2, double2, 12, 1>, quda::blas::copy_ns::Spinor<double2, short4, 12, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:225:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 12, quda::blas::copy_ns::Spinor<double2, double2, 12, 1>, quda::blas::copy_ns::Spinor<double2, short4, 12, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, double2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 3, quda::blas::copy_ns::Spinor<double2, double2, 3, 1>, quda::blas::copy_ns::Spinor<double2, short2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:231:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 3, quda::blas::copy_ns::Spinor<double2, double2, 3, 1>, quda::blas::copy_ns::Spinor<double2, short2, 3, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, short4, 12, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 12, quda::blas::copy_ns::Spinor<double2, short4, 12, 1>, quda::blas::copy_ns::Spinor<double2, double2, 12, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:242:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 12, quda::blas::copy_ns::Spinor<double2, short4, 12, 1>, quda::blas::copy_ns::Spinor<double2, double2, 12, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, short2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 3, quda::blas::copy_ns::Spinor<double2, short2, 3, 1>, quda::blas::copy_ns::Spinor<double2, double2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:248:18: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 3, quda::blas::copy_ns::Spinor<double2, short2, 3, 1>, quda::blas::copy_ns::Spinor<double2, double2, 3, 0> >::apply' requested here
+            copy.apply(*blas::getStream());
+                 ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float4, char4, 6, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float4, 6, quda::blas::copy_ns::Spinor<float4, char4, 6, 1>, quda::blas::copy_ns::Spinor<float4, short4, 6, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:275:12: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float4, 6, quda::blas::copy_ns::Spinor<float4, char4, 6, 1>, quda::blas::copy_ns::Spinor<float4, short4, 6, 0> >::apply' requested here
+      copy.apply(*blas::getStream());
+           ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<float2, char2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<float2, 3, quda::blas::copy_ns::Spinor<float2, char2, 3, 1>, quda::blas::copy_ns::Spinor<float2, short2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:280:12: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<float2, 3, quda::blas::copy_ns::Spinor<float2, char2, 3, 1>, quda::blas::copy_ns::Spinor<float2, short2, 3, 0> >::apply' requested here
+      copy.apply(*blas::getStream());
+           ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, char4, 12, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 12, quda::blas::copy_ns::Spinor<double2, char4, 12, 1>, quda::blas::copy_ns::Spinor<double2, double2, 12, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:335:12: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 12, quda::blas::copy_ns::Spinor<double2, char4, 12, 1>, quda::blas::copy_ns::Spinor<double2, double2, 12, 0> >::apply' requested here
+      copy.apply(*blas::getStream());
+           ^
+In file included from /tmp/copy_quda.cu-f571be.hip:22:
+./quda/include/texture.h:442:19: error: missing 'template' keyword prior to dependent template name 'store_norm'
+        float C = SN::store_norm<M>(y, i, parity);
+                  ^
+/tmp/copy_quda.cu-f571be.hip:38:11: note: in instantiation of member function 'quda::blas::copy_ns::Spinor<double2, char2, 3, 1>::save' requested here
+        Y.save(x, i, parity);
+          ^
+/tmp/copy_quda.cu-f571be.hip:76:2: note: in instantiation of function template specialization 'quda::blas::copy_ns::copyKernel<double2, 3, quda::blas::copy_ns::Spinor<double2, char2, 3, 1>, quda::blas::copy_ns::Spinor<double2, double2, 3, 0> >' requested here
+        copyKernel<FloatN, N><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(Y, X, length);
+        ^
+/tmp/copy_quda.cu-f571be.hip:340:12: note: in instantiation of member function 'quda::blas::copy_ns::CopyCuda<double2, 3, quda::blas::copy_ns::Spinor<double2, char2, 3, 1>, quda::blas::copy_ns::Spinor<double2, double2, 3, 0> >::apply' requested here
+      copy.apply(*blas::getStream());
+           ^
+19 errors generated when compiling for host.
+Error while processing /tmp/copy_quda.cu-f571be.hip.
+
+[HIPIFY] info: file './quda/lib/copy_quda.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 31
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 2313
+  TOTAL bytes: 17718
+  CHANGED lines of code: 6
+  TOTAL lines of code: 364
+  CODE CHANGED (in bytes) %: 13
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 0.91
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 27
+  type: 2
+  numeric_literal: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 31
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 27
+  cudaMemcpyDeviceToDevice: 2
+  cudaStream_t: 2

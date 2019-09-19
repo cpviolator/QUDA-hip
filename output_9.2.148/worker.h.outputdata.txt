@@ -1,0 +1,26 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/include/worker.h' statistics:
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 12
+  TOTAL bytes: 173
+  CHANGED lines of code: 2
+  TOTAL lines of code: 14
+  CODE CHANGED (in bytes) %: 7
+  CODE CHANGED (in lines) %: 14
+  TIME ELAPSED s: 0.19
+[HIPIFY] info: CONVERTED refs by type:
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 1
+2,3d1
+< #include <hip/hip_runtime.h>
+< 
+12c10
+<     virtual void apply(const hipStream_t &stream) = 0;
+---
+>     virtual void apply(const cudaStream_t &stream) = 0;

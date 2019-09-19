@@ -1,0 +1,42 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/clover_field.cpp-ad4ddd.hip.
+
+[HIPIFY] info: file './quda/lib/clover_field.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 44
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 978
+  TOTAL bytes: 17939
+  CHANGED lines of code: 44
+  TOTAL lines of code: 485
+  CODE CHANGED (in bytes) %: 5
+  CODE CHANGED (in lines) %: 9
+  TIME ELAPSED s: 0.90
+[HIPIFY] info: CONVERTED refs by type:
+  texture: 14
+  type: 10
+  numeric_literal: 20
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 44
+[HIPIFY] info: CONVERTED refs by names:
+  cudaChannelFormatDesc: 4
+  cudaChannelFormatKindFloat: 2
+  cudaChannelFormatKindSigned: 1
+  cudaCreateTextureObject: 2
+  cudaDestroyTextureObject: 12
+  cudaMemcpyDeviceToHost: 4
+  cudaMemcpyHostToDevice: 8
+  cudaReadModeElementType: 2
+  cudaReadModeNormalizedFloat: 1
+  cudaResourceDesc: 2
+  cudaResourceTypeLinear: 2
+  cudaTextureDesc: 2
+  cudaTextureObject_t: 2

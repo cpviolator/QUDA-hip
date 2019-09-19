@@ -1,0 +1,56 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+/tmp/tune_quda.h-f32d1b.hip:184:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 9000
+    ^
+/tmp/tune_quda.h-f32d1b.hip:186:31: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributePreferredSharedMemoryCarveout, (int)cudaSharedmemCarveoutMaxShared);
+                              ^
+/tmp/tune_quda.h-f32d1b.hip:186:84: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributePreferredSharedMemoryCarveout, (int)cudaSharedmemCarveoutMaxShared);
+                                                                                   ^
+/tmp/tune_quda.h-f32d1b.hip:188:31: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributeMaxDynamicSharedMemorySize, maxDynamicSharedBytesPerBlock());
+                              ^
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+4 warnings and 1 error generated when compiling for host.
+Error while processing /tmp/tune_quda.h-f32d1b.hip.
+
+[HIPIFY] info: file './quda/include/tune_quda.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 7
+  UNCONVERTED refs count: 4
+  CONVERSION %: 64
+  REPLACED bytes: 64
+  TOTAL bytes: 20425
+  CHANGED lines of code: 8
+  TOTAL lines of code: 602
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.60
+[HIPIFY] info: CONVERTED refs by type:
+  type: 6
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 4
+  CUDA RT API: 3
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 1
+  CUresult: 3
+  cudaStream_t: 1
+  warpSize: 2
+[HIPIFY] info: UNCONVERTED refs by type:
+  numeric_literal: 3
+  define: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 3
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 1
+  cudaFuncAttributeMaxDynamicSharedMemorySize: 1
+  cudaFuncAttributePreferredSharedMemoryCarveout: 1
+  cudaSharedmemCarveoutMaxShared: 1

@@ -1,0 +1,129 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/lattice_field.h-bc086d.hip:5:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:13:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/enum_quda.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/lattice_field.h-bc086d.hip:5:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda.h:13:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/enum_quda.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/lattice_field.h' statistics:
+  CONVERTED refs count: 9
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 108
+  TOTAL bytes: 21138
+  CHANGED lines of code: 9
+  TOTAL lines of code: 729
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.54
+[HIPIFY] info: CONVERTED refs by type:
+  include_cuda_main_header: 1
+  type: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 9
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEvent_t: 4
+  cudaStream_t: 4
+  cuda_runtime.h: 1
+10c10
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda_runtime.h>
+366c366
+<     static hipEvent_t ipcCopyEvent[2][2][QUDA_MAX_DIM];
+---
+>     static cudaEvent_t ipcCopyEvent[2][2][QUDA_MAX_DIM];
+369c369
+<     static hipEvent_t ipcRemoteCopyEvent[2][2][QUDA_MAX_DIM];
+---
+>     static cudaEvent_t ipcRemoteCopyEvent[2][2][QUDA_MAX_DIM];
+473c473
+<     const hipEvent_t& getIPCCopyEvent(int dir, int dim) const;
+---
+>     const cudaEvent_t& getIPCCopyEvent(int dir, int dim) const;
+478c478
+<     const hipEvent_t& getIPCRemoteCopyEvent(int dir, int dim) const;
+---
+>     const cudaEvent_t& getIPCRemoteCopyEvent(int dir, int dim) const;
+606,607c606,645
+<     
+<     virtual void gather(int nFace, int dagger, int dir, hipStream_t *stream_p=NULL)
+---
+> 
+>     /**
+>        @brief Return pointer to the local pinned my_face buffer in a
+>        given direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_h(int dir, int dim) const { return my_face_dim_dir_h[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return pointer to the local mapped my_face buffer in a
+>        given direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_hd(int dir, int dim) const { return my_face_dim_dir_hd[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return pointer to the device send buffer in a given
+>        direction and dimension
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to pinned memory buffer
+>     */
+>     void *myFace_d(int dir, int dim) const { return my_face_dim_dir_d[bufferIndex][dim][dir]; }
+> 
+>     /**
+>        @brief Return base pointer to a remote device buffer for direct
+>        sending in a given direction and dimension.  Since this is a
+>        base pointer, one still needs to take care of offsetting to the
+>        correct point for each direction/dimension.
+>        @param[in] dir Direction we are requesting
+>        @param[in] dim Dimension we are requesting
+>        @return Pointer to remote memory buffer
+>     */
+>     void *remoteFace_d(int dir, int dim) const { return ghost_remote_send_buffer_d[bufferIndex][dim][dir]; }
+> 
+>     virtual void gather(int nFace, int dagger, int dir, cudaStream_t *stream_p=NULL)
+610c648
+<     virtual void commsStart(int nFace, int dir, int dagger=0, hipStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)
+---
+>     virtual void commsStart(int nFace, int dir, int dagger=0, cudaStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)
+613c651
+<     virtual int commsQuery(int nFace, int dir, int dagger=0, hipStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)
+---
+>     virtual int commsQuery(int nFace, int dir, int dagger=0, cudaStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)
+616c654
+<     virtual void commsWait(int nFace, int dir, int dagger=0, hipStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)
+---
+>     virtual void commsWait(int nFace, int dir, int dagger=0, cudaStream_t *stream_p=NULL, bool gdr_send=false, bool gdr_recv=true)

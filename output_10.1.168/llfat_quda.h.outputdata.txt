@@ -1,0 +1,35 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/llfat_quda.h-6a1507.hip:17:22: error: unknown type name 'cudaGaugeField'
+  void fatLongKSLink(cudaGaugeField* fat,
+                     ^
+/tmp/llfat_quda.h-6a1507.hip:18:8: error: unknown type name 'cudaGaugeField'
+                     cudaGaugeField* lng,
+                     ^
+/tmp/llfat_quda.h-6a1507.hip:19:14: error: unknown type name 'cudaGaugeField'; did you mean 'QudaGaugeFixed'?
+                     const cudaGaugeField& gauge,
+                           ^~~~~~~~~~~~~~
+                           QudaGaugeFixed
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/enum_quda.h:80:5: note: 'QudaGaugeFixed' declared here
+  } QudaGaugeFixed;
+    ^
+4 errors generated when compiling for host.
+Error while processing /tmp/llfat_quda.h-6a1507.hip.
+
+[HIPIFY] info: file './quda/include/llfat_quda.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 606
+  CHANGED lines of code: 1
+  TOTAL lines of code: 24
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 0.54

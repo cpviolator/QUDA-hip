@@ -1,0 +1,35 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/include/blas_magma.h' statistics:
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 55
+  TOTAL bytes: 2315
+  CHANGED lines of code: 3
+  TOTAL lines of code: 66
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 5
+  TIME ELAPSED s: 0.51
+[HIPIFY] info: CONVERTED refs by type:
+  include_cuda_main_header: 3
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 1
+  cuComplex API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cuComplex: 1
+  cuComplex.h: 1
+  cuda.h: 1
+  cuda_runtime.h: 1
+4,5c4,5
+< #include <hip/hip_runtime.h>
+< 
+---
+> #include <cuda.h>
+> #include <cuda_runtime.h>
+8c8
+< #include <hipComplex.h>
+---
+> #include <cuComplex.h>

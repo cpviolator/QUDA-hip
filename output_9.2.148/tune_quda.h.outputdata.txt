@@ -1,0 +1,103 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/tune_quda.h-e03f1e.hip:184:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 9000
+    ^
+/tmp/tune_quda.h-e03f1e.hip:186:31: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributePreferredSharedMemoryCarveout, (int)cudaSharedmemCarveoutMaxShared);
+                              ^
+/tmp/tune_quda.h-e03f1e.hip:186:84: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributePreferredSharedMemoryCarveout, (int)cudaSharedmemCarveoutMaxShared);
+                                                                                   ^
+/tmp/tune_quda.h-e03f1e.hip:188:31: warning: CUDA identifier is unsupported in HIP.
+          (const void *)func, cudaFuncAttributeMaxDynamicSharedMemorySize, maxDynamicSharedBytesPerBlock());
+                              ^
+In file included from /tmp/tune_quda.h-e03f1e.hip:12:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_key.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/tune_quda.h-e03f1e.hip:12:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/tune_key.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+6 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/tune_quda.h' statistics:
+  CONVERTED refs count: 7
+  UNCONVERTED refs count: 4
+  CONVERSION %: 64
+  REPLACED bytes: 64
+  TOTAL bytes: 20425
+  CHANGED lines of code: 8
+  TOTAL lines of code: 602
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.64
+[HIPIFY] info: CONVERTED refs by type:
+  type: 6
+  numeric_literal: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 4
+  CUDA RT API: 3
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 1
+  CUresult: 3
+  cudaStream_t: 1
+  warpSize: 2
+[HIPIFY] info: UNCONVERTED refs by type:
+  numeric_literal: 3
+  define: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 3
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 1
+  cudaFuncAttributeMaxDynamicSharedMemorySize: 1
+  cudaFuncAttributePreferredSharedMemoryCarveout: 1
+  cudaSharedmemCarveoutMaxShared: 1
+4,5d3
+< 
+< #include <hip/hip_runtime.h>
+111,112c109,110
+<     virtual int blockStep() const { return deviceProp.hipWarpSize; }
+<     virtual int blockMin() const { return deviceProp.hipWarpSize; }
+---
+>     virtual int blockStep() const { return deviceProp.warpSize; }
+>     virtual int blockMin() const { return deviceProp.warpSize; }
+278c276
+<     hipError_t jitify_error;
+---
+>     CUresult jitify_error;
+296c294
+<     Tunable() : jitify_error(hipSuccess) { aux[0] = '\0'; }
+---
+>     Tunable() : jitify_error(CUDA_SUCCESS) { aux[0] = '\0'; }
+299c297
+<     virtual void apply(const hipStream_t &stream) = 0;
+---
+>     virtual void apply(const cudaStream_t &stream) = 0;
+392,393c390,391
+<     hipError_t jitifyError() const { return jitify_error; }
+<     hipError_t& jitifyError() { return jitify_error; }
+---
+>     CUresult jitifyError() const { return jitify_error; }
+>     CUresult& jitifyError() { return jitify_error; }

@@ -1,0 +1,96 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/blas_cublas.cu-8fefbd.hip:77:25: warning: CUDA identifier is unsupported in HIP.
+        cublasStatus_t error = cublasCgetrfBatched(handle, n, A_array, n, dipiv, dinfo_array, batch);
+                               ^
+/tmp/blas_cublas.cu-8fefbd.hip:92:10: warning: CUDA identifier is unsupported in HIP.
+        error = cublasCgetriBatched(handle, n, (const C**)A_array, n, dipiv, Ainv_array, n, dinfo_array, batch);
+                ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/blas_cublas.cu' statistics:
+  CONVERTED refs count: 16
+  UNCONVERTED refs count: 2
+  CONVERSION %: 89
+  REPLACED bytes: 279
+  TOTAL bytes: 5376
+  CHANGED lines of code: 14
+  TOTAL lines of code: 140
+  CODE CHANGED (in bytes) %: 5
+  CODE CHANGED (in lines) %: 10
+  TIME ELAPSED s: 0.19
+[HIPIFY] info: CONVERTED refs by type:
+  library: 2
+  type: 5
+  literal: 1
+  numeric_literal: 8
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+  cuComplex API: 1
+  cuBLAS API: 10
+[HIPIFY] info: CONVERTED refs by names:
+  CUBLAS_STATUS_SUCCESS: 4
+  cuFloatComplex: 1
+  cublasCreate: 2
+  cublasDestroy: 1
+  cublasHandle_t: 1
+  cublasStatus_t: 3
+  cudaMemcpyDeviceToHost: 3
+  cudaMemcpyHostToDevice: 1
+[HIPIFY] info: UNCONVERTED refs by type:
+  library: 2
+[HIPIFY] info: UNCONVERTED refs by API:
+  cuBLAS API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  cublasCgetrfBatched: 1
+  cublasCgetriBatched: 1
+5,6d4
+< 
+< #include <hip/hip_runtime.h>
+30c28
+<     static hipblasHandle_t handle;
+---
+>     static cublasHandle_t handle;
+35,36c33,34
+<       hipblasStatus_t error = hipblasCreate(&handle);
+<       if (error != HIPBLAS_STATUS_SUCCESS) errorQuda("hipblasCreate failed with error %d", error);
+---
+>       cublasStatus_t error = cublasCreate(&handle);
+>       if (error != CUBLAS_STATUS_SUCCESS) errorQuda("cublasCreate failed with error %d", error);
+42,43c40,41
+<       hipblasStatus_t error = hipblasDestroy(handle);
+<       if (error != HIPBLAS_STATUS_SUCCESS) errorQuda("\nError indestroying cublas context, error code = %d\n", error);
+---
+>       cublasStatus_t error = cublasDestroy(handle);
+>       if (error != CUBLAS_STATUS_SUCCESS) errorQuda("\nError indestroying cublas context, error code = %d\n", error);
+66c64
+<       if (location == QUDA_CPU_FIELD_LOCATION) qudaMemcpy(A_d, A, size, hipMemcpyHostToDevice);
+---
+>       if (location == QUDA_CPU_FIELD_LOCATION) qudaMemcpy(A_d, A, size, cudaMemcpyHostToDevice);
+73c71
+< 	typedef hipFloatComplex C;
+---
+> 	typedef cuFloatComplex C;
+79c77
+< 	hipblasStatus_t error = cublasCgetrfBatched(handle, n, A_array, n, dipiv, dinfo_array, batch);
+---
+> 	cublasStatus_t error = cublasCgetrfBatched(handle, n, A_array, n, dipiv, dinfo_array, batch);
+82c80
+< 	if (error != HIPBLAS_STATUS_SUCCESS)
+---
+> 	if (error != CUBLAS_STATUS_SUCCESS)
+85c83
+< 	qudaMemcpy(info_array, dinfo_array, batch*sizeof(int), hipMemcpyDeviceToHost);
+---
+> 	qudaMemcpy(info_array, dinfo_array, batch*sizeof(int), cudaMemcpyDeviceToHost);
+97c95
+< 	if (error != HIPBLAS_STATUS_SUCCESS)
+---
+> 	if (error != CUBLAS_STATUS_SUCCESS)
+100c98
+< 	qudaMemcpy(info_array, dinfo_array, batch*sizeof(int), hipMemcpyDeviceToHost);
+---
+> 	qudaMemcpy(info_array, dinfo_array, batch*sizeof(int), cudaMemcpyDeviceToHost);
+118c116
+< 	qudaMemcpy(Ainv, Ainv_d, size, hipMemcpyDeviceToHost);
+---
+> 	qudaMemcpy(Ainv, Ainv_d, size, cudaMemcpyDeviceToHost);

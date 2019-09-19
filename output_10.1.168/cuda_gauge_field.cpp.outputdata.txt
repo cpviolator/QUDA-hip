@@ -1,0 +1,53 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/cuda_gauge_field.cpp-ee109a.hip.
+
+[HIPIFY] info: file './quda/lib/cuda_gauge_field.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 62
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 1216
+  TOTAL bytes: 33783
+  CHANGED lines of code: 59
+  TOTAL lines of code: 848
+  CODE CHANGED (in bytes) %: 4
+  CODE CHANGED (in lines) %: 7
+  TIME ELAPSED s: 0.79
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 17
+  texture: 7
+  type: 8
+  numeric_literal: 30
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 62
+[HIPIFY] info: CONVERTED refs by names:
+  cudaChannelFormatDesc: 2
+  cudaChannelFormatKindFloat: 1
+  cudaChannelFormatKindSigned: 1
+  cudaCreateTextureObject: 1
+  cudaDestroyTextureObject: 6
+  cudaError_t: 2
+  cudaHostGetDevicePointer: 3
+  cudaMemcpy: 2
+  cudaMemcpyAsync: 7
+  cudaMemcpyDeviceToDevice: 7
+  cudaMemcpyDeviceToHost: 8
+  cudaMemcpyHostToDevice: 8
+  cudaMemset: 2
+  cudaMemset2D: 2
+  cudaMemsetAsync: 1
+  cudaReadModeElementType: 1
+  cudaReadModeNormalizedFloat: 1
+  cudaResourceDesc: 1
+  cudaResourceTypeLinear: 1
+  cudaStream_t: 1
+  cudaSuccess: 2
+  cudaTextureDesc: 1
+  cudaTextureObject_t: 1

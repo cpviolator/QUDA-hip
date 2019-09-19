@@ -1,0 +1,41 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/llfat_quda.cu' statistics:
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 69
+  TOTAL bytes: 20411
+  CHANGED lines of code: 5
+  TOTAL lines of code: 590
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.49
+[HIPIFY] info: CONVERTED refs by type:
+  include_cuda_main_header: 2
+  type: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaStream_t: 3
+  cuda_runtime.h: 1
+2,3c2,3
+< #include <hip/hip_runtime.h>
+< 
+---
+> #include <cuda_runtime.h>
+> #include <cuda.h>
+100c100
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+196c196
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+444c444
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {

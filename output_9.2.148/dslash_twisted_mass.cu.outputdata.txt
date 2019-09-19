@@ -1,0 +1,122 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_twisted_mass.cu-961f79.hip:3:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_twisted_mass.cu-961f79.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_twisted_mass.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 4344
+  CHANGED lines of code: 3
+  TOTAL lines of code: 124
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.86
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+16,31c16
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct TwistedMassLaunch {
+<     static constexpr const char *kernel = "quda::twistedMassGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       static_assert(xpay == true, "Twisted-mass operator only defined for xpay");
+<       dslash.launch(twistedMassGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class TwistedMass : public Dslash<Float>
+---
+>   template <typename Arg> class TwistedMass : public Dslash<twistedMass, Arg>
+32a18,20
+>     using Dslash = Dslash<twistedMass, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+34,46c22,23
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     TwistedMass(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<       Dslash<Float>(arg, out, in, "kernels/dslash_twisted_mass.cuh"),
+<       arg(arg),
+<       in(in)
+<     {
+<     }
+< 
+<     virtual ~TwistedMass() {}
+---
+>   public:
+>     TwistedMass(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in) {}
+51c28
+<       Dslash<Float>::setParam(arg);
+---
+>       Dslash::setParam(tp);
+53c30
+<         Dslash<Float>::template instantiate<TwistedMassLaunch, nDim, nColor, true>(tp, arg, stream);
+---
+>         Dslash::template instantiate<packShmem, true>(tp, stream);
+60c37
+<       long long flops = Dslash<Float>::flops();
+---
+>       long long flops = Dslash::flops();
+62,66d38
+<       case EXTERIOR_KERNEL_X:
+<       case EXTERIOR_KERNEL_Y:
+<       case EXTERIOR_KERNEL_Z:
+<       case EXTERIOR_KERNEL_T:
+<       case EXTERIOR_KERNEL_ALL: break; // twisted-mass flops are in the interior kernel
+69c41
+<         flops += 2 * nColor * 4 * 2 * in.Volume(); // complex * Nc * Ns * fma * vol
+---
+>         flops += 2 * in.Ncolor() * 4 * 2 * in.Volume(); // complex * Nc * Ns * fma * vol
+70a43
+>       default: break; // twisted-mass flops are in the interior kernel
+74,78d46
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+<     }
+88,89c56,57
+<       TwistedMassArg<Float, nColor, recon> arg(out, in, U, a, b, x, parity, dagger, comm_override);
+<       TwistedMass<Float, nDim, nColor, TwistedMassArg<Float, nColor, recon>> twisted(arg, out, in);
+---
+>       TwistedMassArg<Float, nColor, nDim, recon> arg(out, in, U, a, b, x, parity, dagger, comm_override);
+>       TwistedMass<decltype(arg)> twisted(arg, out, in);

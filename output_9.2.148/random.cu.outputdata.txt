@@ -1,0 +1,85 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/random.cu' statistics:
+  CONVERTED refs count: 17
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 250
+  TOTAL bytes: 5817
+  CHANGED lines of code: 13
+  TOTAL lines of code: 175
+  CODE CHANGED (in bytes) %: 4
+  CODE CHANGED (in lines) %: 7
+  TIME ELAPSED s: 0.72
+[HIPIFY] info: CONVERTED refs by type:
+  error: 1
+  memory: 3
+  execution: 1
+  device_library: 1
+  include_cuda_main_header: 1
+  type: 3
+  literal: 2
+  numeric_literal: 5
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 15
+  cuRAND API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaError: 1
+  cudaError_t: 2
+  cudaGetErrorString: 1
+  cudaLaunchKernel: 1
+  cudaMemcpy: 2
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 1
+  cudaMemset: 1
+  cudaSuccess: 3
+  curand: 2
+  curand_init: 1
+5c5
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda.h>
+13,14c13,14
+<     hipError_t err = call;                                               \
+<     if( hipSuccess != err) {                                           \
+---
+>     cudaError err = call;                                               \
+>     if( cudaSuccess != err) {                                           \
+16c16
+<               __FILE__, __LINE__, hipGetErrorString( err) );           \
+---
+>               __FILE__, __LINE__, cudaGetErrorString( err) );           \
+63c63
+<       hiprand_init(seed, idd, 0, &state[parity * size_cb + id]);
+---
+>       curand_init(seed, idd, 0, &state[parity * size_cb + id]);
+81c81
+<     hipLaunchKernelGGL(kernel_random, dim3(nblocks), dim3(nthreads), 0, 0, state, seed, size_cb, arg);
+---
+>     kernel_random<<<nblocks, nthreads>>>(state, seed, size_cb, arg);
+133c133
+<       CUDA_SAFE_CALL(hipMemset(state, 0, size * sizeof(cuRNGState)));
+---
+>       CUDA_SAFE_CALL(cudaMemset(state, 0, size * sizeof(cuRNGState)));
+157,158c157,158
+<     hipError_t err = hipMemcpy(state, backup_state, size * sizeof(cuRNGState), hipMemcpyHostToDevice);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemcpy(state, backup_state, size * sizeof(cuRNGState), cudaMemcpyHostToDevice);
+>     if (err != cudaSuccess) {
+160c160
+<       errorQuda("Failed to restore hiprand rng states array\n");
+---
+>       errorQuda("Failed to restore curand rng states array\n");
+168,169c168,169
+<     hipError_t err = hipMemcpy(backup_state, state, size * sizeof(cuRNGState), hipMemcpyDeviceToHost);
+<     if (err != hipSuccess) {
+---
+>     cudaError_t err = cudaMemcpy(backup_state, state, size * sizeof(cuRNGState), cudaMemcpyDeviceToHost);
+>     if (err != cudaSuccess) {
+171c171
+<       errorQuda("Failed to backup hiprand rng states array\n");
+---
+>       errorQuda("Failed to backup curand rng states array\n");

@@ -1,0 +1,123 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/clover_field.h-1c7c77.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1122:34: warning: 'cuCtxDetach' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuCtxDetach(ctx));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:3606:1: note: 'cuCtxDetach' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuCtxDetach(CUcontext ctx);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+In file included from /tmp/clover_field.h-1c7c77.hip:4:
+In file included from /autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/include/quda_internal.h:5:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime.h:58:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime.h:28:
+In file included from /sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/hip_runtime_api.h:314:
+/sw/summit/hip/hip2.6-cuda9.2/hip/roc-2.6.0/include/hip/nvcc_detail/hip_runtime_api.h:1130:34: warning: 'cuDeviceComputeCapability' is deprecated [-Wdeprecated-declarations]
+    return hipCUResultTohipError(cuDeviceComputeCapability(major, minor, device));
+                                 ^
+/sw/summit/cuda/9.2.148/include/cuda.h:2531:1: note: 'cuDeviceComputeCapability' has been explicitly marked deprecated here
+__CUDA_DEPRECATED CUresult CUDAAPI cuDeviceComputeCapability(int *major, int *minor, CUdevice dev);
+^
+/sw/summit/cuda/9.2.148/include/cuda.h:76:42: note: expanded from macro '__CUDA_DEPRECATED'
+#define __CUDA_DEPRECATED __attribute__((deprecated))
+                                         ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/clover_field.h' statistics:
+  CONVERTED refs count: 34
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 646
+  TOTAL bytes: 13659
+  CHANGED lines of code: 34
+  TOTAL lines of code: 416
+  CODE CHANGED (in bytes) %: 5
+  CODE CHANGED (in lines) %: 8
+  TIME ELAPSED s: 0.65
+[HIPIFY] info: CONVERTED refs by type:
+  type: 34
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 34
+[HIPIFY] info: CONVERTED refs by names:
+  cudaTextureObject_t: 34
+4,5d3
+< 
+< #include <hip/hip_runtime.h>
+183,195c181,193
+<     hipTextureObject_t tex;
+<     hipTextureObject_t normTex;
+<     hipTextureObject_t invTex;
+<     hipTextureObject_t invNormTex;
+<     hipTextureObject_t evenTex;
+<     hipTextureObject_t evenNormTex;
+<     hipTextureObject_t oddTex;
+<     hipTextureObject_t oddNormTex;
+<     hipTextureObject_t evenInvTex;
+<     hipTextureObject_t evenInvNormTex;
+<     hipTextureObject_t oddInvTex;
+<     hipTextureObject_t oddInvNormTex;
+<     void createTexObject(hipTextureObject_t &tex, hipTextureObject_t &texNorm, void *field, void *norm, bool full);
+---
+>     cudaTextureObject_t tex;
+>     cudaTextureObject_t normTex;
+>     cudaTextureObject_t invTex;
+>     cudaTextureObject_t invNormTex;
+>     cudaTextureObject_t evenTex;
+>     cudaTextureObject_t evenNormTex;
+>     cudaTextureObject_t oddTex;
+>     cudaTextureObject_t oddNormTex;
+>     cudaTextureObject_t evenInvTex;
+>     cudaTextureObject_t evenInvNormTex;
+>     cudaTextureObject_t oddInvTex;
+>     cudaTextureObject_t oddInvNormTex;
+>     void createTexObject(cudaTextureObject_t &tex, cudaTextureObject_t &texNorm, void *field, void *norm, bool full);
+206,217c204,215
+<     const hipTextureObject_t& Tex() const { return tex; }
+<     const hipTextureObject_t& NormTex() const { return normTex; }
+<     const hipTextureObject_t& InvTex() const { return invTex; }
+<     const hipTextureObject_t& InvNormTex() const { return invNormTex; }
+<     const hipTextureObject_t& EvenTex() const { return evenTex; }
+<     const hipTextureObject_t& EvenNormTex() const { return evenNormTex; }
+<     const hipTextureObject_t& OddTex() const { return oddTex; }
+<     const hipTextureObject_t& OddNormTex() const { return oddNormTex; }
+<     const hipTextureObject_t& EvenInvTex() const { return evenInvTex; }
+<     const hipTextureObject_t& EvenInvNormTex() const { return evenInvNormTex; }
+<     const hipTextureObject_t& OddInvTex() const { return oddInvTex; }
+<     const hipTextureObject_t& OddInvNormTex() const { return oddInvNormTex; }
+---
+>     const cudaTextureObject_t& Tex() const { return tex; }
+>     const cudaTextureObject_t& NormTex() const { return normTex; }
+>     const cudaTextureObject_t& InvTex() const { return invTex; }
+>     const cudaTextureObject_t& InvNormTex() const { return invNormTex; }
+>     const cudaTextureObject_t& EvenTex() const { return evenTex; }
+>     const cudaTextureObject_t& EvenNormTex() const { return evenNormTex; }
+>     const cudaTextureObject_t& OddTex() const { return oddTex; }
+>     const cudaTextureObject_t& OddNormTex() const { return oddNormTex; }
+>     const cudaTextureObject_t& EvenInvTex() const { return evenInvTex; }
+>     const cudaTextureObject_t& EvenInvNormTex() const { return evenInvNormTex; }
+>     const cudaTextureObject_t& OddInvTex() const { return oddInvTex; }
+>     const cudaTextureObject_t& OddInvNormTex() const { return oddInvNormTex; }
+285,292c283,290
+<     const hipTextureObject_t &evenTex;
+<     const hipTextureObject_t &evenNormTex;
+<     const hipTextureObject_t &oddTex;
+<     const hipTextureObject_t &oddNormTex;
+<     const hipTextureObject_t& EvenTex() const { return evenTex; }
+<     const hipTextureObject_t& EvenNormTex() const { return evenNormTex; }
+<     const hipTextureObject_t& OddTex() const { return oddTex; }
+<     const hipTextureObject_t& OddNormTex() const { return oddNormTex; }    
+---
+>     const cudaTextureObject_t &evenTex;
+>     const cudaTextureObject_t &evenNormTex;
+>     const cudaTextureObject_t &oddTex;
+>     const cudaTextureObject_t &oddNormTex;
+>     const cudaTextureObject_t& EvenTex() const { return evenTex; }
+>     const cudaTextureObject_t& EvenNormTex() const { return evenNormTex; }
+>     const cudaTextureObject_t& OddTex() const { return oddTex; }
+>     const cudaTextureObject_t& OddNormTex() const { return oddNormTex; }    

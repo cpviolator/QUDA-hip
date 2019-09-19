@@ -1,0 +1,48 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/lattice_field.cpp-80ff08.hip.
+
+[HIPIFY] info: file './quda/lib/lattice_field.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 26
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 462
+  TOTAL bytes: 26726
+  CHANGED lines of code: 23
+  TOTAL lines of code: 729
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.87
+[HIPIFY] info: CONVERTED refs by type:
+  device: 6
+  memory: 2
+  event: 5
+  type: 8
+  numeric_literal: 2
+  define: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 26
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEventCreate: 1
+  cudaEventDestroy: 2
+  cudaEventDisableTiming: 1
+  cudaEventInterprocess: 1
+  cudaEventQuery: 2
+  cudaEvent_t: 4
+  cudaHostGetDevicePointer: 2
+  cudaIpcCloseMemHandle: 2
+  cudaIpcEventHandle_t: 2
+  cudaIpcGetEventHandle: 1
+  cudaIpcGetMemHandle: 1
+  cudaIpcMemHandle_t: 2
+  cudaIpcMemLazyEnablePeerAccess: 1
+  cudaIpcOpenEventHandle: 1
+  cudaIpcOpenMemHandle: 1
+  cudaSuccess: 2

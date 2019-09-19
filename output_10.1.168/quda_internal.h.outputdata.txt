@@ -1,0 +1,36 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/quda_internal.h-7a7a9e.hip.
+
+[HIPIFY] info: file './quda/include/quda_internal.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 26
+  TOTAL bytes: 2795
+  CHANGED lines of code: 3
+  TOTAL lines of code: 96
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.52
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaDeviceProp: 1
+  cudaStream_t: 1
+20a21,26
+> // this is a helper macro for stripping the path information from
+> // __FILE__.  FIXME - convert this into a consexpr routine
+> #define KERNEL_FILE                                                                                                    \
+>   (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 :                                                               \
+>                             strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+> 

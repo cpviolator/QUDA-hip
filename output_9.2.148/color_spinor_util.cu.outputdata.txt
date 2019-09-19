@@ -1,0 +1,164 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/color_spinor_util.cu-8fa696.hip:2:
+In file included from ./quda/include/color_spinor_field_order.h:26:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<double> >, quda::complex<double> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<double> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 31 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/color_spinor_field_order.h:772:21: note: in instantiation of function template specialization 'thrust::transform_reduce<thrust::detail::execute_with_allocator<thrust_allocator, execute_on_stream_base>, thrust::device_ptr<quda::complex<double> >, quda::colorspinor::abs_<double, double>, double, thrust::maximum<double> >' requested here
+          absmax = thrust::transform_reduce(thrust::cuda::par(alloc), ptr, ptr+nParity*volumeCB*nSpin*nColor*nVec,
+                           ^
+/tmp/color_spinor_util.cu-8fa696.hip:250:34: note: in instantiation of member function 'quda::colorspinor::FieldOrderCB<double, 4, 3, 1, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER, double, double, false, false, false>::abs_max' requested here
+        double rescale = 1.0 / A.abs_max();
+                                 ^
+/tmp/color_spinor_util.cu-8fa696.hip:285:13: note: in instantiation of function template specialization 'quda::genericCompare<double, double, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>' requested here
+      ret = genericCompare<oFloat,iFloat,QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:297:13: note: in instantiation of function template specialization 'quda::genericCompare<double, double>' requested here
+      ret = genericCompare<oFloat,double>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:310:13: note: in instantiation of function template specialization 'quda::genericCompare<double>' requested here
+      ret = genericCompare<double>(a, b, tol);
+            ^
+In file included from /tmp/color_spinor_util.cu-8fa696.hip:2:
+In file included from ./quda/include/color_spinor_field_order.h:26:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<double *, double *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<double>, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 15 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/color_spinor_field_order.h:772:21: note: in instantiation of function template specialization 'thrust::transform_reduce<thrust::detail::execute_with_allocator<thrust_allocator, execute_on_stream_base>, thrust::device_ptr<quda::complex<double> >, quda::colorspinor::abs_<double, double>, double, thrust::maximum<double> >' requested here
+          absmax = thrust::transform_reduce(thrust::cuda::par(alloc), ptr, ptr+nParity*volumeCB*nSpin*nColor*nVec,
+                           ^
+/tmp/color_spinor_util.cu-8fa696.hip:250:34: note: in instantiation of member function 'quda::colorspinor::FieldOrderCB<double, 4, 3, 1, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER, double, double, false, false, false>::abs_max' requested here
+        double rescale = 1.0 / A.abs_max();
+                                 ^
+/tmp/color_spinor_util.cu-8fa696.hip:285:13: note: in instantiation of function template specialization 'quda::genericCompare<double, double, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>' requested here
+      ret = genericCompare<oFloat,iFloat,QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:297:13: note: in instantiation of function template specialization 'quda::genericCompare<double, double>' requested here
+      ret = genericCompare<oFloat,double>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:310:13: note: in instantiation of function template specialization 'quda::genericCompare<double>' requested here
+      ret = genericCompare<double>(a, b, tol);
+            ^
+In file included from /tmp/color_spinor_util.cu-8fa696.hip:2:
+In file included from ./quda/include/color_spinor_field_order.h:26:
+In file included from ./quda/include/thrust_helper.cuh:8:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/vector.h:25:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/memory.h:24:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/execution_policy.h:38:
+In file included from /sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/adjacent_difference.h:36:
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:557:11: error: use of undeclared identifier 'va_printf'
+          _CubLog("Invoking %s<<<%u, %d, %d, %lld>>>(), %llu items total, %d items per thread, %d SM occupancy, %d vshmem size, %d ptx_version \n",
+          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/cub/device/dispatch/../../util_debug.cuh:132:42: note: expanded from macro '_CubLog'
+            #define _CubLog(format, ...) va_printf(format,__VA_ARGS__);
+                                         ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:927:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::print_info<void (*)(thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long)>' requested here
+      print_info(ptr);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/core/agent_launcher.h:1077:7: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch_impl<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+      launch_impl(has_enough_shmem_t(), x0, x1);
+      ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:142:9: note: in instantiation of function template specialization 'thrust::cuda_cub::core::AgentLauncher<thrust::cuda_cub::__parallel_for::ParallelForAgent<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long> >::launch<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    pfa.launch(f, num_items);
+        ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/parallel_for.h:164:43: note: in instantiation of function template specialization 'thrust::cuda_cub::__parallel_for::parallel_for<thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cudaError_t  status = __parallel_for::parallel_for(count, f, stream);
+                                          ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:226:15: note: in instantiation of function template specialization 'thrust::cuda_cub::parallel_for<thrust::cuda_cub::tag, thrust::cuda_cub::__transform::unary_transform_f<thrust::device_ptr<quda::complex<float> >, quda::complex<float> *, thrust::cuda_cub::__transform::no_stencil_tag, thrust::identity<quda::complex<float> >, thrust::cuda_cub::__transform::always_true_predicate>, long>' requested here
+    cuda_cub::parallel_for(policy,
+              ^
+/sw/summit/cuda/9.2.148/include/thrust/system/cuda/detail/transform.h:303:23: note: (skipping 31 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+  return __transform::unary(policy,
+                      ^
+./quda/include/color_spinor_field_order.h:772:21: note: in instantiation of function template specialization 'thrust::transform_reduce<thrust::detail::execute_with_allocator<thrust_allocator, execute_on_stream_base>, thrust::device_ptr<quda::complex<float> >, quda::colorspinor::abs_<double, float>, double, thrust::maximum<double> >' requested here
+          absmax = thrust::transform_reduce(thrust::cuda::par(alloc), ptr, ptr+nParity*volumeCB*nSpin*nColor*nVec,
+                           ^
+/tmp/color_spinor_util.cu-8fa696.hip:250:34: note: in instantiation of member function 'quda::colorspinor::FieldOrderCB<float, 4, 3, 1, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER, float, float, false, false, false>::abs_max' requested here
+        double rescale = 1.0 / A.abs_max();
+                                 ^
+/tmp/color_spinor_util.cu-8fa696.hip:285:13: note: in instantiation of function template specialization 'quda::genericCompare<float, double, QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>' requested here
+      ret = genericCompare<oFloat,iFloat,QUDA_SPACE_SPIN_COLOR_FIELD_ORDER>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:297:13: note: in instantiation of function template specialization 'quda::genericCompare<float, double>' requested here
+      ret = genericCompare<oFloat,double>(a, b, tol);
+            ^
+/tmp/color_spinor_util.cu-8fa696.hip:312:13: note: in instantiation of function template specialization 'quda::genericCompare<float>' requested here
+      ret = genericCompare<float>(a, b, tol);
+            ^
+3 errors generated when compiling for host.
+Error while processing /tmp/color_spinor_util.cu-8fa696.hip.
+
+[HIPIFY] info: file './quda/lib/color_spinor_util.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 4
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 64
+  TOTAL bytes: 16874
+  CHANGED lines of code: 3
+  TOTAL lines of code: 500
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 2.40
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  numeric_literal: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 4
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpy: 2
+  cudaMemcpyDeviceToHost: 2

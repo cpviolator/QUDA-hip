@@ -1,0 +1,48 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/timer.h-dbade9.hip:65:2: error: use of undeclared identifier 'printfQuda'
+        printfQuda("ERROR: Cannot start an already running timer (%s:%d in %s())\n", file, line, func);
+        ^
+/tmp/timer.h-dbade9.hip:66:2: error: use of undeclared identifier 'errorQuda'
+        errorQuda("Aborting");
+        ^
+/tmp/timer.h-dbade9.hip:74:2: error: use of undeclared identifier 'printfQuda'
+        printfQuda("ERROR: Cannot stop an unstarted timer (%s:%d in %s())\n", file, line, func);
+        ^
+/tmp/timer.h-dbade9.hip:75:2: error: use of undeclared identifier 'errorQuda'
+        errorQuda("Aborting");
+        ^
+/tmp/timer.h-dbade9.hip:92:2: error: use of undeclared identifier 'printfQuda'
+        printfQuda("ERROR: Cannot reset a started timer (%s:%d in %s())\n", file, line, func);
+        ^
+/tmp/timer.h-dbade9.hip:93:2: error: use of undeclared identifier 'errorQuda'
+        errorQuda("Aborting");
+        ^
+/tmp/timer.h-dbade9.hip:172:10: error: no type named 'string' in namespace 'std'
+    std::string fname;  /**< Which function are we profiling */
+    ~~~~~^
+/tmp/timer.h-dbade9.hip:178:17: error: no type named 'string' in namespace 'std'
+    static std::string pname[];
+           ~~~~~^
+/tmp/timer.h-dbade9.hip:214:22: error: no type named 'string' in namespace 'std'
+    TimeProfile(std::string fname) : fname(fname), switchOff(false), use_global(true) { ; }
+                ~~~~~^
+/tmp/timer.h-dbade9.hip:216:22: error: no type named 'string' in namespace 'std'
+    TimeProfile(std::string fname, bool use_global) : fname(fname), switchOff(false), use_global(use_global) { ; }
+                ~~~~~^
+10 errors generated when compiling for host.
+Error while processing /tmp/timer.h-dbade9.hip.
+
+[HIPIFY] info: file './quda/include/timer.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 9064
+  CHANGED lines of code: 1
+  TOTAL lines of code: 272
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.19

@@ -1,0 +1,73 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/quda_fortran.h-cef658.hip:68:30: error: unknown type name 'QudaGaugeParam'
+  void new_quda_gauge_param_(QudaGaugeParam *param);
+                             ^
+/tmp/quda_fortran.h-cef658.hip:74:31: error: unknown type name 'QudaInvertParam'
+  void new_quda_invert_param_(QudaInvertParam *param);
+                              ^
+/tmp/quda_fortran.h-cef658.hip:81:40: error: unknown type name 'QudaGaugeParam'
+  void load_gauge_quda_(void *h_gauge, QudaGaugeParam *param);
+                                       ^
+/tmp/quda_fortran.h-cef658.hip:101:5: error: unknown type name 'QudaInvertParam'
+                         QudaInvertParam *inv_param);
+                         ^
+/tmp/quda_fortran.h-cef658.hip:116:46: error: unknown type name 'QudaInvertParam'
+  void dslash_quda_(void *h_out, void *h_in, QudaInvertParam *inv_param,
+                                             ^
+/tmp/quda_fortran.h-cef658.hip:117:7: error: unknown type name 'QudaParity'
+                    QudaParity *parity);
+                    ^
+/tmp/quda_fortran.h-cef658.hip:128:46: error: unknown type name 'QudaInvertParam'
+  void clover_quda_(void *h_out, void *h_in, QudaInvertParam *inv_param,
+                                             ^
+/tmp/quda_fortran.h-cef658.hip:129:7: error: unknown type name 'QudaParity'
+                    QudaParity *parity, int *inverse);
+                    ^
+/tmp/quda_fortran.h-cef658.hip:138:43: error: unknown type name 'QudaInvertParam'
+  void mat_quda_(void *h_out, void *h_in, QudaInvertParam *inv_param);
+                                          ^
+/tmp/quda_fortran.h-cef658.hip:147:51: error: unknown type name 'QudaInvertParam'
+  void mat_dag_mat_quda_(void *h_out, void *h_in, QudaInvertParam *inv_param);
+                                                  ^
+/tmp/quda_fortran.h-cef658.hip:158:43: error: unknown type name 'QudaInvertParam'
+  void invert_quda_(void *h_x, void *h_b, QudaInvertParam *param);
+                                          ^
+/tmp/quda_fortran.h-cef658.hip:167:58: error: unknown type name 'QudaInvertParam'
+  void invert_multishift_quda_(void *_hp_x, void *_hp_b, QudaInvertParam *param);
+                                                         ^
+/tmp/quda_fortran.h-cef658.hip:182:34: error: unknown type name 'QudaGaugeParam'
+                                bool *conj_mom, bool *exact, QudaGaugeParam* param);
+                                                             ^
+/tmp/quda_fortran.h-cef658.hip:196:10: error: unknown type name 'QudaGaugeParam'
+                                     QudaGaugeParam *gauge_param, QudaInvertParam *invert_param);
+                                     ^
+/tmp/quda_fortran.h-cef658.hip:196:39: error: unknown type name 'QudaInvertParam'
+                                     QudaGaugeParam *gauge_param, QudaInvertParam *invert_param);
+                                                                  ^
+/tmp/quda_fortran.h-cef658.hip:209:6: error: unknown type name 'QudaGaugeParam'
+                                 QudaGaugeParam *param);
+                                 ^
+/tmp/quda_fortran.h-cef658.hip:230:51: error: unknown type name 'QudaGaugeParam'
+  void kinetic_quda_(double *kin, void* momentum, QudaGaugeParam* param);
+                                                  ^
+18 errors generated when compiling for host.
+Error while processing /tmp/quda_fortran.h-cef658.hip.
+
+[HIPIFY] info: file './quda/include/quda_fortran.h' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 9233
+  CHANGED lines of code: 1
+  TOTAL lines of code: 266
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.22

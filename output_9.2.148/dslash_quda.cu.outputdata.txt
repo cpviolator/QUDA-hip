@@ -1,0 +1,142 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/dslash_quda.cu-4bea64.hip:89:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 8000
+    ^
+/tmp/dslash_quda.cu-4bea64.hip:112:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 8000
+    ^
+/tmp/dslash_quda.cu-4bea64.hip:148:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 8000
+    ^
+3 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/dslash_quda.cu' statistics:
+  CONVERTED refs count: 40
+  UNCONVERTED refs count: 3
+  CONVERSION %: 93
+  REPLACED bytes: 1328
+  TOTAL bytes: 30527
+  CHANGED lines of code: 31
+  TOTAL lines of code: 825
+  CODE CHANGED (in bytes) %: 4
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 2.07
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+  event: 12
+  execution: 10
+  type: 11
+  define: 6
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 39
+[HIPIFY] info: CONVERTED refs by names:
+  CUdeviceptr: 1
+  cudaEventCreateWithFlags: 6
+  cudaEventDestroy: 6
+  cudaEventDisableTiming: 6
+  cudaEvent_t: 6
+  cudaHostGetDevicePointer: 1
+  cudaLaunchKernel: 10
+  cudaStream_t: 4
+[HIPIFY] info: UNCONVERTED refs by type:
+  define: 3
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 3
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 3
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+57,62c55,60
+<     hipEvent_t packEnd[2];
+<     hipEvent_t gatherStart[Nstream];
+<     hipEvent_t gatherEnd[Nstream];
+<     hipEvent_t scatterStart[Nstream];
+<     hipEvent_t scatterEnd[Nstream];
+<     hipEvent_t dslashStart[2];
+---
+>     cudaEvent_t packEnd[2];
+>     cudaEvent_t gatherStart[Nstream];
+>     cudaEvent_t gatherEnd[Nstream];
+>     cudaEvent_t scatterStart[Nstream];
+>     cudaEvent_t scatterEnd[Nstream];
+>     cudaEvent_t dslashStart[2];
+93c91
+<     hipDeviceptr_t commsEnd_d[Nstream];
+---
+>     CUdeviceptr commsEnd_d[Nstream];
+102,105c100,103
+<       hipEventCreateWithFlags(&gatherStart[i], hipEventDisableTiming);
+<       hipEventCreateWithFlags(&gatherEnd[i], hipEventDisableTiming);
+<       hipEventCreateWithFlags(&scatterStart[i], hipEventDisableTiming);
+<       hipEventCreateWithFlags(&scatterEnd[i], hipEventDisableTiming);
+---
+>       cudaEventCreateWithFlags(&gatherStart[i], cudaEventDisableTiming);
+>       cudaEventCreateWithFlags(&gatherEnd[i], cudaEventDisableTiming);
+>       cudaEventCreateWithFlags(&scatterStart[i], cudaEventDisableTiming);
+>       cudaEventCreateWithFlags(&scatterEnd[i], cudaEventDisableTiming);
+108,109c106,107
+<       hipEventCreateWithFlags(&packEnd[i], hipEventDisableTiming);
+<       hipEventCreateWithFlags(&dslashStart[i], hipEventDisableTiming);
+---
+>       cudaEventCreateWithFlags(&packEnd[i], cudaEventDisableTiming);
+>       cudaEventCreateWithFlags(&dslashStart[i], cudaEventDisableTiming);
+117c115
+<       hipHostGetDevicePointer((void**)&commsEnd_d[i], commsEnd_h+i, 0);
+---
+>       cudaHostGetDevicePointer((void**)&commsEnd_d[i], commsEnd_h+i, 0);
+156,159c154,157
+<       hipEventDestroy(gatherStart[i]);
+<       hipEventDestroy(gatherEnd[i]);
+<       hipEventDestroy(scatterStart[i]);
+<       hipEventDestroy(scatterEnd[i]);
+---
+>       cudaEventDestroy(gatherStart[i]);
+>       cudaEventDestroy(gatherEnd[i]);
+>       cudaEventDestroy(scatterStart[i]);
+>       cudaEventDestroy(scatterEnd[i]);
+163,164c161,162
+<       hipEventDestroy(packEnd[i]);
+<       hipEventDestroy(dslashStart[i]);
+---
+>       cudaEventDestroy(packEnd[i]);
+>       cudaEventDestroy(dslashStart[i]);
+274c272
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+280c278
+< 	case 4: hipLaunchKernelGGL(gammaGPU<Float,nColor,4>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg); break;
+---
+> 	case 4: gammaGPU<Float,nColor,4> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg); break;
+392c390
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+400c398
+< 	  case 4: hipLaunchKernelGGL(twistGammaGPU<true,Float,nColor,4>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg); break;
+---
+> 	  case 4: twistGammaGPU<true,Float,nColor,4> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg); break;
+405c403
+< 	  case 4: hipLaunchKernelGGL(twistGammaGPU<false,Float,nColor,4>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg); break;
+---
+> 	  case 4: twistGammaGPU<false,Float,nColor,4> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg); break;
+589c587
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+595c593
+< 	hipLaunchKernelGGL(cloverGPU<Float,nSpin,nColor>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+> 	cloverGPU<Float,nSpin,nColor> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg);
+752c750
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+759,760c757,758
+< 	if (arg.inverse) hipLaunchKernelGGL(twistCloverGPU<true,Float,nSpin,nColor>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+< 	else hipLaunchKernelGGL(twistCloverGPU<false,Float,nSpin,nColor>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+> 	if (arg.inverse) twistCloverGPU<true,Float,nSpin,nColor> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg);
+> 	else twistCloverGPU<false,Float,nSpin,nColor> <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg);

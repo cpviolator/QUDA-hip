@@ -1,0 +1,26 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/staggered_oprod.cu' statistics:
+  CONVERTED refs count: 1
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 12
+  TOTAL bytes: 16095
+  CHANGED lines of code: 2
+  TOTAL lines of code: 463
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 1.66
+[HIPIFY] info: CONVERTED refs by type:
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+294c292
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){

@@ -1,0 +1,20 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/dbldbl.h-176615.hip:296:3: warning: control reaches end of non-void function [-Wreturn-type]
+  }
+  ^
+1 warning generated when compiling for host.
+
+[HIPIFY] info: file './quda/include/dbldbl.h' statistics:
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 13294
+  CHANGED lines of code: 1
+  TOTAL lines of code: 382
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 0.19
+53,54d52
+< 
+< #include <hip/hip_runtime.h>

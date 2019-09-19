@@ -1,0 +1,36 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/gauge_field.cpp' statistics:
+  CONVERTED refs count: 3
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 68
+  TOTAL bytes: 14680
+  CHANGED lines of code: 4
+  TOTAL lines of code: 373
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 0.74
+[HIPIFY] info: CONVERTED refs by type:
+  numeric_literal: 3
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 3
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpyDeviceToDevice: 1
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+217c215
+< 	  qudaMemcpy(send[i], link_sendbuf[i], bytes[i], hipMemcpyDeviceToHost);
+---
+> 	  qudaMemcpy(send[i], link_sendbuf[i], bytes[i], cudaMemcpyDeviceToHost);
+219c217
+< 	  if (no_comms_fill) qudaMemcpy(ghost_link[i], link_sendbuf[i], bytes[i], hipMemcpyDeviceToDevice);
+---
+> 	  if (no_comms_fill) qudaMemcpy(ghost_link[i], link_sendbuf[i], bytes[i], cudaMemcpyDeviceToDevice);
+253c251
+< 	qudaMemcpy(ghost_link[i], receive[i], bytes[i], hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(ghost_link[i], receive[i], bytes[i], cudaMemcpyHostToDevice);

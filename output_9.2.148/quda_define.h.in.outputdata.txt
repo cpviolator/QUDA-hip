@@ -1,0 +1,24 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/quda_define.h.in-b1add2.hip:21:2: error: invalid preprocessing directive
+#cmakedefine QUDA_TEX
+ ^
+/tmp/quda_define.h.in-b1add2.hip:32:2: error: invalid preprocessing directive
+#cmakedefine QUDA_DYNAMIC_CLOVER
+ ^
+2 errors generated when compiling for host.
+Error while processing /tmp/quda_define.h.in-b1add2.hip.
+
+[HIPIFY] info: file './quda/include/quda_define.h.in' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 1001
+  CHANGED lines of code: 1
+  TOTAL lines of code: 41
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 0.18

@@ -1,0 +1,178 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/clover_field.cpp' statistics:
+  CONVERTED refs count: 44
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 978
+  TOTAL bytes: 17939
+  CHANGED lines of code: 44
+  TOTAL lines of code: 485
+  CODE CHANGED (in bytes) %: 5
+  CODE CHANGED (in lines) %: 9
+  TIME ELAPSED s: 0.77
+[HIPIFY] info: CONVERTED refs by type:
+  texture: 14
+  type: 10
+  numeric_literal: 20
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 44
+[HIPIFY] info: CONVERTED refs by names:
+  cudaChannelFormatDesc: 4
+  cudaChannelFormatKindFloat: 2
+  cudaChannelFormatKindSigned: 1
+  cudaCreateTextureObject: 2
+  cudaDestroyTextureObject: 12
+  cudaMemcpyDeviceToHost: 4
+  cudaMemcpyHostToDevice: 8
+  cudaReadModeElementType: 2
+  cudaReadModeNormalizedFloat: 1
+  cudaResourceDesc: 2
+  cudaResourceTypeLinear: 2
+  cudaTextureDesc: 2
+  cudaTextureObject_t: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+169c167
+<   void cudaCloverField::createTexObject(hipTextureObject_t &tex, hipTextureObject_t &texNorm,
+---
+>   void cudaCloverField::createTexObject(cudaTextureObject_t &tex, cudaTextureObject_t &texNorm,
+174,177c172,175
+<       hipChannelFormatDesc desc;
+<       memset(&desc, 0, sizeof(hipChannelFormatDesc));
+<       if (precision == QUDA_SINGLE_PRECISION) desc.f = hipChannelFormatKindFloat;
+<       else desc.f = hipChannelFormatKindSigned; // half is short, double is int2
+---
+>       cudaChannelFormatDesc desc;
+>       memset(&desc, 0, sizeof(cudaChannelFormatDesc));
+>       if (precision == QUDA_SINGLE_PRECISION) desc.f = cudaChannelFormatKindFloat;
+>       else desc.f = cudaChannelFormatKindSigned; // half is short, double is int2
+186c184
+<       hipResourceDesc resDesc;
+---
+>       cudaResourceDesc resDesc;
+188c186
+<       resDesc.resType = hipResourceTypeLinear;
+---
+>       resDesc.resType = cudaResourceTypeLinear;
+204c202
+<       hipTextureDesc texDesc;
+---
+>       cudaTextureDesc texDesc;
+207c205
+<         texDesc.readMode = hipReadModeNormalizedFloat;
+---
+>         texDesc.readMode = cudaReadModeNormalizedFloat;
+209c207
+<         texDesc.readMode = hipReadModeElementType;
+---
+>         texDesc.readMode = cudaReadModeElementType;
+211c209
+<       hipCreateTextureObject(&tex, &resDesc, &texDesc, NULL);
+---
+>       cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL);
+216,218c214,216
+<         hipChannelFormatDesc desc;
+< 	memset(&desc, 0, sizeof(hipChannelFormatDesc));
+< 	desc.f = hipChannelFormatKindFloat;
+---
+>         cudaChannelFormatDesc desc;
+> 	memset(&desc, 0, sizeof(cudaChannelFormatDesc));
+> 	desc.f = cudaChannelFormatKindFloat;
+221c219
+< 	hipResourceDesc resDesc;
+---
+> 	cudaResourceDesc resDesc;
+223c221
+< 	resDesc.resType = hipResourceTypeLinear;
+---
+> 	resDesc.resType = cudaResourceTypeLinear;
+233c231
+<         hipTextureDesc texDesc;
+---
+>         cudaTextureDesc texDesc;
+235c233
+<         texDesc.readMode = hipReadModeElementType;
+---
+>         texDesc.readMode = cudaReadModeElementType;
+237c235
+<         hipCreateTextureObject(&texNorm, &resDesc, &texDesc, NULL);
+---
+>         cudaCreateTextureObject(&texNorm, &resDesc, &texDesc, NULL);
+246,251c244,249
+<       hipDestroyTextureObject(tex);
+<       hipDestroyTextureObject(invTex);
+<       hipDestroyTextureObject(evenTex);
+<       hipDestroyTextureObject(oddTex);
+<       hipDestroyTextureObject(evenInvTex);
+<       hipDestroyTextureObject(oddInvTex);
+---
+>       cudaDestroyTextureObject(tex);
+>       cudaDestroyTextureObject(invTex);
+>       cudaDestroyTextureObject(evenTex);
+>       cudaDestroyTextureObject(oddTex);
+>       cudaDestroyTextureObject(evenInvTex);
+>       cudaDestroyTextureObject(oddInvTex);
+253,258c251,256
+<         hipDestroyTextureObject(normTex);
+< 	hipDestroyTextureObject(invNormTex);
+< 	hipDestroyTextureObject(evenNormTex);
+< 	hipDestroyTextureObject(oddNormTex);
+< 	hipDestroyTextureObject(evenInvNormTex);
+< 	hipDestroyTextureObject(oddInvNormTex);
+---
+>         cudaDestroyTextureObject(normTex);
+> 	cudaDestroyTextureObject(invNormTex);
+> 	cudaDestroyTextureObject(evenNormTex);
+> 	cudaDestroyTextureObject(oddNormTex);
+> 	cudaDestroyTextureObject(evenInvNormTex);
+> 	cudaDestroyTextureObject(oddInvNormTex);
+298c296
+< 	qudaMemcpy(clover, packClover, bytes, hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(clover, packClover, bytes, cudaMemcpyHostToDevice);
+300c298
+<           qudaMemcpy(norm, packCloverNorm, norm_bytes, hipMemcpyHostToDevice);
+---
+>           qudaMemcpy(norm, packCloverNorm, norm_bytes, cudaMemcpyHostToDevice);
+305c303
+< 	qudaMemcpy(cloverInv, packClover, bytes, hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(cloverInv, packClover, bytes, cudaMemcpyHostToDevice);
+307c305
+<           qudaMemcpy(invNorm, packCloverNorm, norm_bytes, hipMemcpyHostToDevice);
+---
+>           qudaMemcpy(invNorm, packCloverNorm, norm_bytes, cudaMemcpyHostToDevice);
+318c316
+< 	qudaMemcpy(packClover, src.V(false), src.Bytes(), hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(packClover, src.V(false), src.Bytes(), cudaMemcpyHostToDevice);
+320c318
+<           qudaMemcpy(packCloverNorm, src.Norm(false), src.NormBytes(), hipMemcpyHostToDevice);
+---
+>           qudaMemcpy(packCloverNorm, src.Norm(false), src.NormBytes(), cudaMemcpyHostToDevice);
+326c324
+< 	qudaMemcpy(packClover, src.V(true), src.Bytes(), hipMemcpyHostToDevice);
+---
+> 	qudaMemcpy(packClover, src.V(true), src.Bytes(), cudaMemcpyHostToDevice);
+328c326
+<           qudaMemcpy(packCloverNorm, src.Norm(true), src.NormBytes(), hipMemcpyHostToDevice);
+---
+>           qudaMemcpy(packCloverNorm, src.Norm(true), src.NormBytes(), cudaMemcpyHostToDevice);
+354c352
+<       qudaMemcpy(packClover, clover, bytes, hipMemcpyDeviceToHost);
+---
+>       qudaMemcpy(packClover, clover, bytes, cudaMemcpyDeviceToHost);
+356c354
+< 	qudaMemcpy(packCloverNorm, norm, norm_bytes, hipMemcpyDeviceToHost);
+---
+> 	qudaMemcpy(packCloverNorm, norm, norm_bytes, cudaMemcpyDeviceToHost);
+364c362
+<       qudaMemcpy(packClover, cloverInv, bytes, hipMemcpyDeviceToHost);
+---
+>       qudaMemcpy(packClover, cloverInv, bytes, cudaMemcpyDeviceToHost);
+366c364
+< 	  qudaMemcpy(packCloverNorm, invNorm, norm_bytes, hipMemcpyDeviceToHost);
+---
+> 	  qudaMemcpy(packCloverNorm, invNorm, norm_bytes, cudaMemcpyDeviceToHost);

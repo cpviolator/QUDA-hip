@@ -1,0 +1,49 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/unitarize_force_quda.cu-a9ffe1.hip:16:27: warning: CUDA identifier is unsupported in HIP.
+#if defined(__APPLE__) && CUDA_VERSION >= 7000 && CUDA_VERSION < 7050
+                          ^
+/tmp/unitarize_force_quda.cu-a9ffe1.hip:16:51: warning: CUDA identifier is unsupported in HIP.
+#if defined(__APPLE__) && CUDA_VERSION >= 7000 && CUDA_VERSION < 7050
+                                                  ^
+2 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/unitarize_force_quda.cu' statistics:
+  CONVERTED refs count: 3
+  UNCONVERTED refs count: 2
+  CONVERSION %: 60
+  REPLACED bytes: 30
+  TOTAL bytes: 23785
+  CHANGED lines of code: 3
+  TOTAL lines of code: 650
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 0
+  TIME ELAPSED s: 1.59
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 1
+  include_cuda_main_header: 1
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaMemset: 1
+  cudaStream_t: 1
+[HIPIFY] info: UNCONVERTED refs by type:
+  define: 2
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 2
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 2
+5c5
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda.h>
+587c587
+<       void apply(const hipStream_t &stream) {
+---
+>       void apply(const cudaStream_t &stream) {
+593c593
+<       void postTune() { hipMemset(arg.fails, 0, sizeof(int)); } // reset fails counter
+---
+>       void postTune() { cudaMemset(arg.fails, 0, sizeof(int)); } // reset fails counter

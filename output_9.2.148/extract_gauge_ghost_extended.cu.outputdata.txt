@@ -1,0 +1,38 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/extract_gauge_ghost_extended.cu' statistics:
+  CONVERTED refs count: 99
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 11233
+  TOTAL bytes: 15695
+  CHANGED lines of code: 4
+  TOTAL lines of code: 432
+  CODE CHANGED (in bytes) %: 72
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.75
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 98
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 99
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 98
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+220c218
+<     void apply(const hipStream_t &stream) {
+---
+>     void apply(const cudaStream_t &stream) {
+228c226,227
+< 	  hipLaunchKernelGGL(extractGhostExKernel<Float,length,nDim,dim,Order,true>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+> 	  extractGhostExKernel<Float,length,nDim,dim,Order,true> 
+> 	    <<<tp.grid, tp.block, tp.shared_bytes, stream>>>(arg);
+237c236,237
+< 	  hipLaunchKernelGGL(extractGhostExKernel<Float,length,nDim,dim,Order,false>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+> 	  extractGhostExKernel<Float,length,nDim,dim,Order,false> 
+> 	    <<<tp.grid, tp.block, tp.shared_bytes, stream>>>(arg);

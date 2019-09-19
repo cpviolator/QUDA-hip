@@ -1,0 +1,200 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+/tmp/gauge_random.cu-97211c.hip:52:7: error: no matching function for call to 'sincos'
+      sincos(phi[i], &temp2[i], &temp1[i]);
+      ^~~~~~
+/tmp/gauge_random.cu-97211c.hip:93:18: note: in instantiation of function template specialization 'quda::gauss_su3<float, quda::Matrix<quda::complex<float>, 3> >' requested here
+        Link u = gauss_su3<real, Link>(localState);
+                 ^
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:151:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_NO, true>' requested here
+      case QUDA_RECONSTRUCT_NO: genGauss<Float, QUDA_RECONSTRUCT_NO, true>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/sw/summit/cuda/9.2.148/include/crt/math_functions.hpp:795:30: note: candidate function
+__MATH_FUNCTIONS_DECL__ void sincos(float a, float *sptr, float *cptr)
+                             ^
+/usr/include/bits/mathcalls.h:81:18: note: candidate function not viable: no known conversion from 'float *' to 'double *' for 2nd argument
+__MATHDECL (void,sincos,,
+                 ^
+/usr/include/math.h:56:22: note: expanded from macro '__MATHDECL'
+  __MATHDECL_1(type, function,suffix, args); \
+                     ^
+/usr/include/math.h:64:31: note: expanded from macro '__MATHDECL_1'
+  extern type __MATH_PRECNAME(function,suffix) args __THROW
+                              ^
+/usr/include/math.h:67:42: note: expanded from macro '__MATH_PRECNAME'
+#define __MATH_PRECNAME(name,r) __CONCAT(name,r)
+                                         ^
+/usr/include/sys/cdefs.h:89:23: note: expanded from macro '__CONCAT'
+#define __CONCAT(x,y)   x ## y
+                        ^
+/sw/summit/hip/hip2.6-cuda9.2/llvm/lib/clang/8.0.1/include/__clang_cuda_device_functions.h:1716:17: note: candidate function not viable: no known conversion from 'float *' to 'double *' for 2nd argument
+__DEVICE__ void sincos(double __a, double *__sptr, double *__cptr) {
+                ^
+In file included from /tmp/gauge_random.cu-97211c.hip:2:
+In file included from ./quda/include/quda_matrix.h:8:
+In file included from ./quda/include/register_traits.h:14:
+./quda/include/complex_quda.h:1247:12: error: no matching function for call to 'polar'
+    return polar(::sqrt(abs(z)),arg(z)/ValueType(2));
+           ^~~~~
+./quda/include/quda_matrix.h:1322:23: note: in instantiation of function template specialization 'quda::sqrt<float>' requested here
+      Complex sg2h3 = sqrt(a3 * a3 - (Float)4. * a2 * a2 * a2);
+                      ^
+/tmp/gauge_random.cu-97211c.hip:96:11: note: in instantiation of function template specialization 'quda::expsu3<float>' requested here
+          expsu3<real>(u);
+          ^
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:151:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_NO, true>' requested here
+      case QUDA_RECONSTRUCT_NO: genGauss<Float, QUDA_RECONSTRUCT_NO, true>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+./quda/include/complex_quda.h:1098:31: note: candidate template ignored: deduced conflicting types for parameter 'ValueType' ('double' vs. 'float')
+    inline complex<ValueType> polar(const ValueType & m, const ValueType & theta){
+                              ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_13, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_13, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:152:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_13, true>' requested here
+      case QUDA_RECONSTRUCT_13: genGauss<Float, QUDA_RECONSTRUCT_13, true>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_12, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_12, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:153:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_12, true>' requested here
+      case QUDA_RECONSTRUCT_12: genGauss<Float, QUDA_RECONSTRUCT_12, true>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_9, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_9, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:154:32: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_9, true>' requested here
+      case QUDA_RECONSTRUCT_9: genGauss<Float, QUDA_RECONSTRUCT_9, true>(U, rngstate, sigma); break;
+                               ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_8, true> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_8, true> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:155:32: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_8, true>' requested here
+      case QUDA_RECONSTRUCT_8: genGauss<Float, QUDA_RECONSTRUCT_8, true>(U, rngstate, sigma); break;
+                               ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, false> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_NO, false> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:161:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_NO, false>' requested here
+      case QUDA_RECONSTRUCT_NO: genGauss<Float, QUDA_RECONSTRUCT_NO, false>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+/tmp/gauge_random.cu-97211c.hip:93:18: error: no matching function for call to 'gauss_su3'
+        Link u = gauss_su3<real, Link>(localState);
+                 ^~~~~~~~~~~~~~~~~~~~~
+/tmp/gauge_random.cu-97211c.hip:122:9: note: in instantiation of function template specialization 'quda::computeGenGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_10, false> >' requested here
+        computeGenGauss<Float><<<tp.grid, tp.block, tp.shared_bytes>>>(arg);
+        ^
+/tmp/gauge_random.cu-97211c.hip:142:16: note: in instantiation of member function 'quda::GaugeGauss<float, quda::GaugeGaussArg<float, QUDA_RECONSTRUCT_10, false> >::apply' requested here
+    gaugeGauss.apply(0);
+               ^
+/tmp/gauge_random.cu-97211c.hip:162:33: note: in instantiation of function template specialization 'quda::genGauss<float, QUDA_RECONSTRUCT_10, false>' requested here
+      case QUDA_RECONSTRUCT_10: genGauss<Float, QUDA_RECONSTRUCT_10, false>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:175:33: note: in instantiation of function template specialization 'quda::gaugeGauss<float>' requested here
+    case QUDA_SINGLE_PRECISION: gaugeGauss<float>(U, rngstate, sigma); break;
+                                ^
+/tmp/gauge_random.cu-97211c.hip:39:68: note: candidate template ignored: substitution failure [with real = float, Link = quda::Matrix<quda::complex<float>, 3>]
+  template <typename real, typename Link> __device__ __host__ Link gauss_su3(cuRNGState &localState)
+                                                                   ^
+8 errors generated when compiling for host.
+Error while processing /tmp/gauge_random.cu-97211c.hip.
+
+[HIPIFY] info: file './quda/lib/gauge_random.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 16
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 1017
+  TOTAL bytes: 7274
+  CHANGED lines of code: 3
+  TOTAL lines of code: 195
+  CODE CHANGED (in bytes) %: 14
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.80
+[HIPIFY] info: CONVERTED refs by type:
+  execution: 15
+  type: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 16
+[HIPIFY] info: CONVERTED refs by names:
+  cudaLaunchKernel: 15
+  cudaStream_t: 1

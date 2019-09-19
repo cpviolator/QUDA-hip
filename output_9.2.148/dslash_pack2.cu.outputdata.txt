@@ -1,0 +1,150 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_pack2.cu-1d80f1.hip:9:
+In file included from ./quda/include/kernels/dslash_pack.cuh:1:
+./quda/include/color_spinor_field_order.h:1018:36: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, true, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^
+./quda/include/color_spinor_field_order.h:152:15: note: in instantiation of member function 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, true, false>::saveGhost' requested here
+        field.saveGhost((Float *)a.data, ghost_idx, dim, dir, parity);
+              ^
+./quda/include/kernels/dslash_pack.cuh:127:82: note: in instantiation of function template specialization 'quda::colorspinor_ghost_wrapper<double, quda::colorspinor::FloatNOrder<double, 4, 3, 2, true, false> >::operator=<quda::ColorSpinor<double, 3, 2> >' requested here
+        in.Ghost(dim, 0, ghost_idx + s * arg.dc.ghostFaceCB[dim], spinor_parity) = f.project(dim, proj_dir);
+                                                                                 ^
+./quda/include/kernels/dslash_pack.cuh:203:17: note: in instantiation of function template specialization 'quda::pack<true, 0, 0, QUDA_4D_PC, quda::PackArg<double, 3, 4, true> >' requested here
+        case 0: pack<dagger, twist, 0, pc>(arg, ghost_idx + s * arg.dc.ghostFace[0], 0, parity); break;
+                ^
+/tmp/dslash_pack2.cu-1d80f1.hip:217:28: note: in instantiation of function template specialization 'quda::packKernel<true, 0, QUDA_4D_PC, quda::PackArg<double, 3, 4, true> >' requested here
+            case 0: launch(packKernel<true, 0, QUDA_4D_PC, Arg>, tp, arg, stream); break;
+                           ^
+/tmp/dslash_pack2.cu-1d80f1.hip:347:12: note: in instantiation of member function 'quda::Pack<double, 3, true>::apply' requested here
+      pack.apply(stream);
+           ^
+/tmp/dslash_pack2.cu-1d80f1.hip:360:7: note: in instantiation of function template specialization 'quda::PackGhost<double, 3>' requested here
+      PackGhost<Float, 3>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+/tmp/dslash_pack2.cu-1d80f1.hip:379:7: note: in instantiation of function template specialization 'quda::PackGhost<double>' requested here
+      PackGhost<double>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+./quda/include/color_spinor_field_order.h:1018:36: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^~~~~
+                                   std::abs
+./quda/include/color_spinor_field_order.h:1018:60: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, true, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^
+./quda/include/color_spinor_field_order.h:1018:60: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^~~~~
+                                                           std::abs
+./quda/include/color_spinor_field_order.h:1018:36: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 1, 3, 2, false, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^
+./quda/include/color_spinor_field_order.h:152:15: note: in instantiation of member function 'quda::colorspinor::FloatNOrder<double, 1, 3, 2, false, false>::saveGhost' requested here
+        field.saveGhost((Float *)a.data, ghost_idx, dim, dir, parity);
+              ^
+./quda/include/kernels/dslash_pack.cuh:176:80: note: in instantiation of function template specialization 'quda::colorspinor_ghost_wrapper<double, quda::colorspinor::FloatNOrder<double, 1, 3, 2, false, false> >::operator=<quda::ColorSpinor<double, 3, 1> >' requested here
+      in.Ghost(dim, 0, ghost_idx + s * arg.dc.ghostFaceCB[dim], spinor_parity) = f;
+                                                                               ^
+./quda/include/kernels/dslash_pack.cuh:306:17: note: in instantiation of function template specialization 'quda::packStaggered<0, 1, quda::PackArg<double, 3, 1, false> >' requested here
+        case 0: packStaggered<0, 1>(arg, ghost_idx, s, parity); break;
+                ^
+/tmp/dslash_pack2.cu-1d80f1.hip:280:16: note: in instantiation of function template specialization 'quda::packStaggeredKernel<quda::PackArg<double, 3, 1, false> >' requested here
+        launch(packStaggeredKernel<Arg>, tp, arg, stream);
+               ^
+/tmp/dslash_pack2.cu-1d80f1.hip:347:12: note: in instantiation of member function 'quda::Pack<double, 3, true>::apply' requested here
+      pack.apply(stream);
+           ^
+/tmp/dslash_pack2.cu-1d80f1.hip:360:7: note: in instantiation of function template specialization 'quda::PackGhost<double, 3>' requested here
+      PackGhost<Float, 3>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+/tmp/dslash_pack2.cu-1d80f1.hip:379:7: note: in instantiation of function template specialization 'quda::PackGhost<double>' requested here
+      PackGhost<double>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+./quda/include/color_spinor_field_order.h:1018:36: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^~~~~
+                                   std::abs
+./quda/include/color_spinor_field_order.h:1018:60: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 1, 3, 2, false, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^
+./quda/include/color_spinor_field_order.h:1018:60: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^~~~~
+                                                           std::abs
+./quda/include/color_spinor_field_order.h:1018:36: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, false, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^
+./quda/include/color_spinor_field_order.h:152:15: note: in instantiation of member function 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, false, false>::saveGhost' requested here
+        field.saveGhost((Float *)a.data, ghost_idx, dim, dir, parity);
+              ^
+./quda/include/kernels/dslash_pack.cuh:127:82: note: in instantiation of function template specialization 'quda::colorspinor_ghost_wrapper<double, quda::colorspinor::FloatNOrder<double, 4, 3, 2, false, false> >::operator=<quda::ColorSpinor<double, 3, 2> >' requested here
+        in.Ghost(dim, 0, ghost_idx + s * arg.dc.ghostFaceCB[dim], spinor_parity) = f.project(dim, proj_dir);
+                                                                                 ^
+./quda/include/kernels/dslash_pack.cuh:203:17: note: in instantiation of function template specialization 'quda::pack<true, 0, 0, QUDA_4D_PC, quda::PackArg<double, 3, 4, false> >' requested here
+        case 0: pack<dagger, twist, 0, pc>(arg, ghost_idx + s * arg.dc.ghostFace[0], 0, parity); break;
+                ^
+/tmp/dslash_pack2.cu-1d80f1.hip:217:28: note: in instantiation of function template specialization 'quda::packKernel<true, 0, QUDA_4D_PC, quda::PackArg<double, 3, 4, false> >' requested here
+            case 0: launch(packKernel<true, 0, QUDA_4D_PC, Arg>, tp, arg, stream); break;
+                           ^
+/tmp/dslash_pack2.cu-1d80f1.hip:350:12: note: in instantiation of member function 'quda::Pack<double, 3, false>::apply' requested here
+      pack.apply(stream);
+           ^
+/tmp/dslash_pack2.cu-1d80f1.hip:360:7: note: in instantiation of function template specialization 'quda::PackGhost<double, 3>' requested here
+      PackGhost<Float, 3>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+/tmp/dslash_pack2.cu-1d80f1.hip:379:7: note: in instantiation of function template specialization 'quda::PackGhost<double>' requested here
+      PackGhost<double>(ghost, in, location, nFace, dagger, parity, spin_project, a, b, c, stream);
+      ^
+./quda/include/color_spinor_field_order.h:1018:36: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                   ^~~~~
+                                   std::abs
+./quda/include/color_spinor_field_order.h:1018:60: warning: absolute value function 'fabsf' given an argument of type 'quda::colorspinor::FloatNOrder<double, 4, 3, 2, false, false>::RegType' (aka 'double') but has parameter of type 'float' which may cause truncation of value [-Wabsolute-value]
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^
+./quda/include/color_spinor_field_order.h:1018:60: note: use function 'std::abs' instead
+        max_[i] = fmaxf((norm_type)fabsf(v[i]), (norm_type)fabsf(v[i + length_ghost / 2]));
+                                                           ^~~~~
+                                                           std::abs
+6 warnings generated when compiling for host.
+
+[HIPIFY] info: file './quda/lib/dslash_pack2.cu' statistics:
+  CONVERTED refs count: 5
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 60
+  TOTAL bytes: 14744
+  CHANGED lines of code: 6
+  TOTAL lines of code: 391
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 4.04
+[HIPIFY] info: CONVERTED refs by type:
+  type: 5
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 5
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+194c192
+<     inline void launch(T *f, const TuneParam &tp, Arg &arg, const hipStream_t &stream)
+---
+>     inline void launch(T *f, const TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+204c202
+<     void apply(const hipStream_t &stream)
+---
+>     void apply(const cudaStream_t &stream)
+345c343
+<                  bool spin_project, double a, double b, double c, const hipStream_t &stream)
+---
+>                  bool spin_project, double a, double b, double c, const cudaStream_t &stream)
+359c357
+<                  bool spin_project, double a, double b, double c, const hipStream_t &stream)
+---
+>                  bool spin_project, double a, double b, double c, const cudaStream_t &stream)
+370c368
+<                  bool dagger, int parity, bool spin_project, double a, double b, double c, const hipStream_t &stream)
+---
+>                  bool dagger, int parity, bool spin_project, double a, double b, double c, const cudaStream_t &stream)

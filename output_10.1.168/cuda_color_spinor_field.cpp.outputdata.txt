@@ -1,0 +1,56 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+1 error generated when compiling for host.
+Error while processing /tmp/cuda_color_spinor_field.cpp-7d318d.hip.
+
+[HIPIFY] info: file './quda/lib/cuda_color_spinor_field.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 129
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 2413
+  TOTAL bytes: 63603
+  CHANGED lines of code: 112
+  TOTAL lines of code: 1546
+  CODE CHANGED (in bytes) %: 4
+  CODE CHANGED (in lines) %: 7
+  TIME ELAPSED s: 1.23
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 28
+  event: 4
+  texture: 11
+  type: 38
+  numeric_literal: 48
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 129
+[HIPIFY] info: CONVERTED refs by names:
+  cudaChannelFormatDesc: 8
+  cudaChannelFormatKindFloat: 4
+  cudaChannelFormatKindSigned: 2
+  cudaCreateTextureObject: 6
+  cudaDestroyTextureObject: 4
+  cudaError_t: 4
+  cudaEventSynchronize: 4
+  cudaGetTextureObjectResourceDesc: 1
+  cudaHostGetDevicePointer: 6
+  cudaMemcpy: 4
+  cudaMemcpy2DAsync: 1
+  cudaMemcpyAsync: 10
+  cudaMemcpyDeviceToDevice: 3
+  cudaMemcpyDeviceToHost: 13
+  cudaMemcpyHostToDevice: 11
+  cudaMemset: 1
+  cudaMemset2DAsync: 1
+  cudaMemsetAsync: 5
+  cudaReadModeElementType: 4
+  cudaReadModeNormalizedFloat: 2
+  cudaResourceDesc: 5
+  cudaResourceTypeLinear: 5
+  cudaStream_t: 17
+  cudaSuccess: 4
+  cudaTextureDesc: 4

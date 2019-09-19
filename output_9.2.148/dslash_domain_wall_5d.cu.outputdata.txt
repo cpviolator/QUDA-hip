@@ -1,0 +1,141 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/dslash_domain_wall_5d.cu-a4dc1c.hip:3:
+./quda/include/dslash.h:432:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-18", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:438:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:444:71: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+      errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                      ^
+./quda/include/dslash.h:482:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable double precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:488:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+./quda/include/dslash.h:494:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+./quda/include/dslash.h:500:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/dslash_domain_wall_5d.cu-a4dc1c.hip.
+
+[HIPIFY] info: file './quda/lib/dslash_domain_wall_5d.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 2
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 24
+  TOTAL bytes: 4961
+  CHANGED lines of code: 3
+  TOTAL lines of code: 143
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.81
+[HIPIFY] info: CONVERTED refs by type:
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 2
+[HIPIFY] info: CONVERTED refs by names:
+  cudaStream_t: 2
+16,30c16
+<   /**
+<      @brief This is a helper class that is used to instantiate the
+<      correct templated kernel for the dslash.
+<    */
+<   template <typename Float, int nDim, int nColor, int nParity, bool dagger, bool xpay, KernelType kernel_type, typename Arg>
+<   struct DomainWall5DLaunch {
+<     static constexpr const char *kernel = "quda::domainWall5DGPU"; // kernel name for jit compilation
+<     template <typename Dslash>
+<     inline static void launch(Dslash &dslash, TuneParam &tp, Arg &arg, const cudaStream_t &stream)
+<     {
+<       dslash.launch(domainWall5DGPU<Float, nDim, nColor, nParity, dagger, xpay, kernel_type, Arg>, tp, arg, stream);
+<     }
+<   };
+< 
+<   template <typename Float, int nDim, int nColor, typename Arg> class DomainWall5D : public Dslash<Float>
+---
+>   template <typename Arg> class DomainWall5D : public Dslash<domainWall5D, Arg>
+31a18,20
+>     using Dslash = Dslash<domainWall5D, Arg>;
+>     using Dslash::arg;
+>     using Dslash::in;
+33,41c22,23
+< protected:
+<     Arg &arg;
+<     const ColorSpinorField &in;
+< 
+< public:
+<     DomainWall5D(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) :
+<         Dslash<Float>(arg, out, in, "kernels/dslash_domain_wall_5d.cuh"),
+<         arg(arg),
+<         in(in)
+---
+>   public:
+>     DomainWall5D(Arg &arg, const ColorSpinorField &out, const ColorSpinorField &in) : Dslash(arg, out, in)
+46,47d27
+<     virtual ~DomainWall5D() {}
+< 
+51,52c31,32
+<       Dslash<Float>::setParam(arg);
+<       Dslash<Float>::template instantiate<DomainWall5DLaunch, nDim, nColor>(tp, arg, stream);
+---
+>       Dslash::setParam(tp);
+>       Dslash::template instantiate<packShmem>(tp, stream);
+57c37
+<       long long flops = Dslash<Float>::flops();
+---
+>       long long flops = Dslash::flops();
+59,63d38
+<       case EXTERIOR_KERNEL_X:
+<       case EXTERIOR_KERNEL_Y:
+<       case EXTERIOR_KERNEL_Z:
+<       case EXTERIOR_KERNEL_T:
+<       case EXTERIOR_KERNEL_ALL: break; // 5-d flops are in the interior kernel
+65c40
+<       case KERNEL_POLICY:
+---
+>       case KERNEL_POLICY: {
+70c45,46
+<         break;
+---
+>       } break;
+>       default: break; // 5-d flops are in the interior kernel
+79c55
+<       long long bytes = Dslash<Float>::bytes();
+---
+>       long long bytes = Dslash::bytes();
+81,85d56
+<       case EXTERIOR_KERNEL_X:
+<       case EXTERIOR_KERNEL_Y:
+<       case EXTERIOR_KERNEL_Z:
+<       case EXTERIOR_KERNEL_T:
+<       case EXTERIOR_KERNEL_ALL: break;
+87a59
+>       default: break;
+91,95d62
+< 
+<     TuneKey tuneKey() const
+<     {
+<       return TuneKey(in.VolString(), typeid(*this).name(), Dslash<Float>::aux[arg.kernel_type]);
+<     }
+104,105c71,72
+<       DomainWall5DArg<Float, nColor, recon> arg(out, in, U, a, m_f, a != 0.0, x, parity, dagger, comm_override);
+<       DomainWall5D<Float, nDim, nColor, DomainWall5DArg<Float, nColor, recon>> twisted(arg, out, in);
+---
+>       DomainWall5DArg<Float, nColor, nDim, recon> arg(out, in, U, a, m_f, a != 0.0, x, parity, dagger, comm_override);
+>       DomainWall5D<decltype(arg)> dwf(arg, out, in);
+107,109c74,76
+<       dslash::DslashPolicyTune<decltype(twisted)> policy(twisted,
+<           const_cast<cudaColorSpinorField *>(static_cast<const cudaColorSpinorField *>(&in)),
+<           in.getDslashConstant().volume_4d_cb, in.getDslashConstant().ghostFaceCB, profile);
+---
+>       dslash::DslashPolicyTune<decltype(dwf)> policy(
+>         dwf, const_cast<cudaColorSpinorField *>(static_cast<const cudaColorSpinorField *>(&in)),
+>         in.getDslashConstant().volume_4d_cb, in.getDslashConstant().ghostFaceCB, profile);

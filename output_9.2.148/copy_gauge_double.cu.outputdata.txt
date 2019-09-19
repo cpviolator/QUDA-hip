@@ -1,0 +1,40 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+In file included from /tmp/copy_gauge_double.cu-02993b.hip:1:
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:23:73: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                        ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:30:72: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-8", QUDA_RECONSTRUCT);
+                                                                       ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:163:73: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-12", QUDA_RECONSTRUCT);
+                                                                        ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:170:72: error: use of undeclared identifier 'QUDA_RECONSTRUCT'
+        errorQuda("QUDA_RECONSTRUCT=%d does not enable reconstruct-8", QUDA_RECONSTRUCT);
+                                                                       ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:444:71: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable single precision", QUDA_PRECISION);
+                                                                      ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:450:69: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable half precision", QUDA_PRECISION);
+                                                                    ^
+/autofs/nccs-svm1_home1/howarth/QUDA_HIP/quda/lib/copy_gauge_inc.cu:456:72: error: use of undeclared identifier 'QUDA_PRECISION'
+      errorQuda("QUDA_PRECISION=%d does not enable quarter precision", QUDA_PRECISION);
+                                                                       ^
+7 errors generated when compiling for host.
+Error while processing /tmp/copy_gauge_double.cu-02993b.hip.
+
+[HIPIFY] info: file './quda/lib/copy_gauge_double.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 437
+  CHANGED lines of code: 1
+  TOTAL lines of code: 11
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 9
+  TIME ELAPSED s: 1.58

@@ -1,0 +1,50 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/unitarize_links_quda.cu' statistics:
+  CONVERTED refs count: 6
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 130
+  TOTAL bytes: 20473
+  CHANGED lines of code: 6
+  TOTAL lines of code: 624
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.60
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  execution: 1
+  include_cuda_main_header: 1
+  type: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 5
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaLaunchKernel: 1
+  cudaMemset: 2
+  cudaStream_t: 2
+5c5
+< #include <hip/hip_runtime.h>
+---
+> #include <cuda.h>
+403c403
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+410c410
+<       hipMemset(arg.fails, 0, sizeof(int)); // reset fails counter
+---
+>       cudaMemset(arg.fails, 0, sizeof(int)); // reset fails counter
+568c568
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){
+570c570
+<       hipLaunchKernelGGL(ProjectSU3kernel<Float,G>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);
+---
+>       ProjectSU3kernel<Float,G><<<tp.grid, tp.block, tp.shared_bytes, stream>>>(arg);
+575c575
+<       hipMemset(arg.fails, 0, sizeof(int)); // reset fails counter
+---
+>       cudaMemset(arg.fails, 0, sizeof(int)); // reset fails counter

@@ -1,0 +1,60 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/extended_color_spinor_utilities.cu' statistics:
+  CONVERTED refs count: 9
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 248
+  TOTAL bytes: 20042
+  CHANGED lines of code: 8
+  TOTAL lines of code: 501
+  CODE CHANGED (in bytes) %: 1
+  CODE CHANGED (in lines) %: 2
+  TIME ELAPSED s: 1.75
+[HIPIFY] info: CONVERTED refs by type:
+  event: 3
+  execution: 1
+  type: 3
+  numeric_literal: 1
+  define: 1
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 9
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEventCreate: 1
+  cudaEventDestroy: 1
+  cudaEventDisableTiming: 1
+  cudaEventQuery: 1
+  cudaEvent_t: 1
+  cudaLaunchKernel: 1
+  cudaStream_t: 2
+  cudaSuccess: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+27c25
+<   void exchangeExtendedGhost(cudaColorSpinorField* spinor, int R[], int parity, hipStream_t *stream_p)
+---
+>   void exchangeExtendedGhost(cudaColorSpinorField* spinor, int R[], int parity, cudaStream_t *stream_p)
+40,41c38,39
+<     hipEvent_t gatherEnd[2];
+<     for(int dir=0; dir<2; dir++) hipEventCreate(&gatherEnd[dir], hipEventDisableTiming);
+---
+>     cudaEvent_t gatherEnd[2];
+>     for(int dir=0; dir<2; dir++) cudaEventCreate(&gatherEnd[dir], cudaEventDisableTiming);
+57c55
+<           if(hipSuccess == hipEventQuery(gatherEnd[dir])){
+---
+>           if(cudaSuccess == cudaEventQuery(gatherEnd[dir])){
+81c79
+<     for(int dir=0; dir<2; dir++) hipEventDestroy(gatherEnd[dir]);
+---
+>     for(int dir=0; dir<2; dir++) cudaEventDestroy(gatherEnd[dir]);
+258c256
+<       void apply(const hipStream_t &stream){
+---
+>       void apply(const cudaStream_t &stream){
+264c262,263
+<           hipLaunchKernelGGL(copyInteriorKernel<FloatOut,FloatIn,Ns,Nc,OutOrder,InOrder,Basis,extend>, dim3(tp.grid), dim3(tp.block), tp.shared_bytes, stream, arg);    
+---
+>           copyInteriorKernel<FloatOut,FloatIn,Ns,Nc,OutOrder,InOrder,Basis,extend>
+>             <<<tp.grid,tp.block,tp.shared_bytes,stream>>>(arg);    

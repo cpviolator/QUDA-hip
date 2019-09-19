@@ -1,0 +1,52 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/dslash_coarse.cu' statistics:
+  CONVERTED refs count: 8
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 104
+  TOTAL bytes: 33163
+  CHANGED lines of code: 7
+  TOTAL lines of code: 784
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.96
+[HIPIFY] info: CONVERTED refs by type:
+  memory: 2
+  type: 4
+  numeric_literal: 2
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 8
+[HIPIFY] info: CONVERTED refs by names:
+  cudaMemcpy: 2
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 1
+  cudaStream_t: 2
+  warpSize: 2
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+93c91
+< 	  param.block.x % deviceProp.hipWarpSize == 0) {
+---
+> 	  param.block.x % deviceProp.warpSize == 0) {
+169c167
+<       param.block.x = deviceProp.hipWarpSize;
+---
+>       param.block.x = deviceProp.warpSize;
+219c217
+<     inline void apply(const hipStream_t &stream) {
+---
+>     inline void apply(const cudaStream_t &stream) {
+318c316
+<       hipMemcpy(saveOut, out.V(), out.Bytes(), hipMemcpyDeviceToHost);
+---
+>       cudaMemcpy(saveOut, out.V(), out.Bytes(), cudaMemcpyDeviceToHost);
+323c321
+<       hipMemcpy(out.V(), saveOut, out.Bytes(), hipMemcpyHostToDevice);
+---
+>       cudaMemcpy(out.V(), saveOut, out.Bytes(), cudaMemcpyHostToDevice);
+707c705
+<    inline void apply(const hipStream_t &stream) {
+---
+>    inline void apply(const cudaStream_t &stream) {

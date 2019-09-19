@@ -1,0 +1,49 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+/tmp/random.cu-40a885.hip:81:18: error: use of undeclared identifier cudaConfigureCall
+    kernel_random<<<nblocks, nthreads>>>(state, seed, size_cb, arg);
+                 ^
+2 errors generated when compiling for host.
+Error while processing /tmp/random.cu-40a885.hip.
+
+[HIPIFY] info: file './quda/lib/random.cu' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 16
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 187
+  TOTAL bytes: 5817
+  CHANGED lines of code: 12
+  TOTAL lines of code: 175
+  CODE CHANGED (in bytes) %: 3
+  CODE CHANGED (in lines) %: 7
+  TIME ELAPSED s: 0.70
+[HIPIFY] info: CONVERTED refs by type:
+  error: 1
+  memory: 3
+  device_library: 1
+  include_cuda_main_header: 1
+  type: 3
+  literal: 2
+  numeric_literal: 5
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 1
+  CUDA RT API: 14
+  cuRAND API: 1
+[HIPIFY] info: CONVERTED refs by names:
+  cuda.h: 1
+  cudaError: 1
+  cudaError_t: 2
+  cudaGetErrorString: 1
+  cudaMemcpy: 2
+  cudaMemcpyDeviceToHost: 1
+  cudaMemcpyHostToDevice: 1
+  cudaMemset: 1
+  cudaSuccess: 3
+  curand: 2
+  curand_init: 1

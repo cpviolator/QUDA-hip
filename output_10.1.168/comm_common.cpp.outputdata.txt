@@ -1,0 +1,99 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+/tmp/comm_common.cpp-c20566.hip:249:5: warning: CUDA identifier is unsupported in HIP.
+#if CUDA_VERSION >= 8000  // this was introduced with CUDA 8
+    ^
+/tmp/comm_common.cpp-c20566.hip:251:6: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[0], cudaDevP2PAttrPerformanceRank, gpuid, neighbor_gpuid);
+            ^
+/tmp/comm_common.cpp-c20566.hip:251:48: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[0], cudaDevP2PAttrPerformanceRank, gpuid, neighbor_gpuid);
+                                                      ^
+/tmp/comm_common.cpp-c20566.hip:252:6: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[1], cudaDevP2PAttrPerformanceRank, neighbor_gpuid, gpuid);
+            ^
+/tmp/comm_common.cpp-c20566.hip:252:48: warning: CUDA identifier is unsupported in HIP.
+            cudaDeviceGetP2PAttribute(&accessRank[1], cudaDevP2PAttrPerformanceRank, neighbor_gpuid, gpuid);
+                                                      ^
+/tmp/comm_common.cpp-c20566.hip:448:3: warning: CUDA identifier is unsupported in HIP.
+  CUpointer_attribute attributes[2] = {CU_POINTER_ATTRIBUTE_MEMORY_TYPE};
+  ^
+/tmp/comm_common.cpp-c20566.hip:448:40: warning: CUDA identifier is unsupported in HIP.
+  CUpointer_attribute attributes[2] = {CU_POINTER_ATTRIBUTE_MEMORY_TYPE};
+                                       ^
+/tmp/comm_common.cpp-c20566.hip:449:18: warning: CUDA identifier is unsupported in HIP.
+  CUresult err = cuPointerGetAttributes(1, attributes, attrdata, (CUdeviceptr)buffer);
+                 ^
+/tmp/comm_common.cpp-c20566.hip:452:5: warning: CUDA identifier is unsupported in HIP.
+    cuGetErrorName(err, &str);
+    ^
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+9 warnings and 1 error generated when compiling for host.
+Error while processing /tmp/comm_common.cpp-c20566.hip.
+
+[HIPIFY] info: file './quda/lib/comm_common.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 33
+  UNCONVERTED refs count: 10
+  CONVERSION %: 77
+  REPLACED bytes: 510
+  TOTAL bytes: 25753
+  CHANGED lines of code: 27
+  TOTAL lines of code: 845
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 3
+  TIME ELAPSED s: 0.56
+[HIPIFY] info: CONVERTED refs by type:
+  error: 4
+  device: 4
+  memory: 4
+  peer: 2
+  type: 8
+  numeric_literal: 11
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA Driver API: 8
+  CUDA RT API: 25
+[HIPIFY] info: CONVERTED refs by names:
+  CUDA_SUCCESS: 1
+  CU_MEMORYTYPE_ARRAY: 1
+  CU_MEMORYTYPE_DEVICE: 1
+  CU_MEMORYTYPE_HOST: 1
+  CU_MEMORYTYPE_UNIFIED: 1
+  CUdeviceptr: 1
+  CUmemorytype: 1
+  CUresult: 1
+  cudaDeviceCanAccessPeer: 2
+  cudaDeviceProp: 1
+  cudaError_t: 4
+  cudaGetDeviceCount: 3
+  cudaGetDeviceProperties: 1
+  cudaGetErrorString: 4
+  cudaMemcpy: 1
+  cudaMemcpy2D: 1
+  cudaMemcpyDeviceToDevice: 2
+  cudaMemset: 1
+  cudaMemset2D: 1
+  cudaSuccess: 4
+[HIPIFY] info: UNCONVERTED refs by type:
+  error: 1
+  device: 2
+  addressing: 1
+  type: 1
+  literal: 1
+  numeric_literal: 3
+  define: 1
+[HIPIFY] info: UNCONVERTED refs by API:
+  CUDA Driver API: 5
+  CUDA RT API: 5
+[HIPIFY] info: UNCONVERTED refs by names:
+  CUDA_VERSION: 1
+  CU_POINTER_ATTRIBUTE_MEMORY_TYPE: 1
+  CUpointer_attribute: 1
+  cuGetErrorName: 1
+  cuPointerGetAttributes: 2
+  cudaDevP2PAttrPerformanceRank: 2
+  cudaDeviceGetP2PAttribute: 2

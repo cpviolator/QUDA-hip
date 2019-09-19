@@ -1,0 +1,81 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/9.2.148'
+
+[HIPIFY] info: file './quda/lib/clover_outer_product.cu' statistics:
+  CONVERTED refs count: 22
+  UNCONVERTED refs count: 0
+  CONVERSION %: 100
+  REPLACED bytes: 339
+  TOTAL bytes: 18637
+  CHANGED lines of code: 19
+  TOTAL lines of code: 542
+  CODE CHANGED (in bytes) %: 2
+  CODE CHANGED (in lines) %: 4
+  TIME ELAPSED s: 1.63
+[HIPIFY] info: CONVERTED refs by type:
+  event: 8
+  type: 8
+  define: 6
+[HIPIFY] info: CONVERTED refs by API:
+  CUDA RT API: 22
+[HIPIFY] info: CONVERTED refs by names:
+  cudaEventCreate: 4
+  cudaEventDefault: 1
+  cudaEventDestroy: 4
+  cudaEventDisableTiming: 5
+  cudaEvent_t: 7
+  cudaStream_t: 1
+1,2d0
+< 
+< #include <hip/hip_runtime.h>
+22c20
+<   void createEventArray(hipEvent_t (&event)[N], unsigned int flags=hipEventDefault)
+---
+>   void createEventArray(cudaEvent_t (&event)[N], unsigned int flags=cudaEventDefault)
+25c23
+<       hipEventCreate(&event[i],flags);
+---
+>       cudaEventCreate(&event[i],flags);
+30c28
+<   void destroyEventArray(hipEvent_t (&event)[N])
+---
+>   void destroyEventArray(cudaEvent_t (&event)[N])
+33c31
+<       hipEventDestroy(event[i]);
+---
+>       cudaEventDestroy(event[i]);
+37,41c35,39
+<   static hipEvent_t packEnd;
+<   static hipEvent_t gatherEnd[4];
+<   static hipEvent_t scatterEnd[4];
+<   static hipEvent_t oprodStart;
+<   static hipEvent_t oprodEnd;
+---
+>   static cudaEvent_t packEnd;
+>   static cudaEvent_t gatherEnd[4];
+>   static cudaEvent_t scatterEnd[4];
+>   static cudaEvent_t oprodStart;
+>   static cudaEvent_t oprodEnd;
+45,49c43,47
+<     hipEventCreate(&packEnd, hipEventDisableTiming);
+<     createEventArray(gatherEnd, hipEventDisableTiming);
+<     createEventArray(scatterEnd, hipEventDisableTiming);
+<     hipEventCreate(&oprodStart, hipEventDisableTiming);
+<     hipEventCreate(&oprodEnd, hipEventDisableTiming);
+---
+>     cudaEventCreate(&packEnd, cudaEventDisableTiming);
+>     createEventArray(gatherEnd, cudaEventDisableTiming);
+>     createEventArray(scatterEnd, cudaEventDisableTiming);
+>     cudaEventCreate(&oprodStart, cudaEventDisableTiming);
+>     cudaEventCreate(&oprodEnd, cudaEventDisableTiming);
+56,58c54,56
+<     hipEventDestroy(packEnd);
+<     hipEventDestroy(oprodStart);
+<     hipEventDestroy(oprodEnd);
+---
+>     cudaEventDestroy(packEnd);
+>     cudaEventDestroy(oprodStart);
+>     cudaEventDestroy(oprodEnd);
+330c328
+<     void apply(const hipStream_t &stream){
+---
+>     void apply(const cudaStream_t &stream){

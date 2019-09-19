@@ -1,0 +1,185 @@
+find: unknown predicate `-cuda-path=/sw/summit/cuda/10.1.168'
+In file included from <built-in>:1:
+/sw/summit/hip/hip2.6-cuda10.1.168/llvm/lib/clang/8.0.1/include/__clang_cuda_runtime_wrapper.h:66:2: error: "Unsupported CUDA version!"
+#error "Unsupported CUDA version!"
+ ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:445:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Assign.h:20:5: error: __host__ function 'lazyAssign' cannot overload __host__ __device__ function 'lazyAssign'
+  ::lazyAssign(const DenseBase<OtherDerived>& other)
+    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:304:14: note: previous declaration is here
+    Derived& lazyAssign(const DenseBase<OtherDerived>& other);
+             ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:451:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/NestByValue.h:103:21: error: __host__ function 'nestByValue' cannot overload __host__ __device__ function 'nestByValue'
+DenseBase<Derived>::nestByValue() const
+                    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:432:57: note: previous declaration is here
+    EIGEN_DEVICE_FUNC inline const NestByValue<Derived> nestByValue() const;
+                                                        ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:455:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/ReturnByValue.h:82:30: error: __host__ function 'operator=' cannot overload __host__ __device__ function 'operator='
+Derived& DenseBase<Derived>::operator=(const ReturnByValue<OtherDerived>& other)
+                             ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:297:14: note: previous declaration is here
+    Derived& operator=(const ReturnByValue<OtherDerived>& func);
+             ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:461:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/CwiseBinaryOp.h:162:22: error: __host__ function 'operator-=' cannot overload __host__ __device__ function 'operator-='
+MatrixBase<Derived>::operator-=(const MatrixBase<OtherDerived> &other)
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:161:14: note: previous declaration is here
+    Derived& operator-=(const MatrixBase<OtherDerived>& other);
+             ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:461:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/CwiseBinaryOp.h:175:22: error: __host__ function 'operator+=' cannot overload __host__ __device__ function 'operator+='
+MatrixBase<Derived>::operator+=(const MatrixBase<OtherDerived>& other)
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:158:14: note: previous declaration is here
+    Derived& operator+=(const MatrixBase<OtherDerived>& other);
+             ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:463:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/CwiseNullaryOp.h:135:21: error: __host__ function 'NullaryExpr' cannot overload __host__ __device__ function 'NullaryExpr'
+DenseBase<Derived>::NullaryExpr(Index size, const CustomNullaryOp& func)
+                    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:349:5: note: previous declaration is here
+    NullaryExpr(Index size, const CustomNullaryOp& func);
+    ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:463:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/CwiseNullaryOp.h:174:21: error: __host__ function 'Constant' cannot overload __host__ __device__ function 'Constant'
+DenseBase<Derived>::Constant(Index rows, Index cols, const Scalar& value)
+                    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:329:5: note: previous declaration is here
+    Constant(Index rows, Index cols, const Scalar& value);
+    ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:96:111: error: __host__ function 'squaredNorm' cannot overload __host__ __device__ function 'squaredNorm'
+EIGEN_STRONG_INLINE typename NumTraits<typename internal::traits<Derived>::Scalar>::Real MatrixBase<Derived>::squaredNorm() const
+                                                                                                              ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:192:34: note: previous declaration is here
+    EIGEN_DEVICE_FUNC RealScalar squaredNorm() const;
+                                 ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:108:111: error: __host__ function 'norm' cannot overload __host__ __device__ function 'norm'
+EIGEN_STRONG_INLINE typename NumTraits<typename internal::traits<Derived>::Scalar>::Real MatrixBase<Derived>::norm() const
+                                                                                                              ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:193:34: note: previous declaration is here
+    EIGEN_DEVICE_FUNC RealScalar norm() const;
+                                 ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:124:22: error: __host__ function 'normalized' cannot overload __host__ __device__ function 'normalized'
+MatrixBase<Derived>::normalized() const
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:197:41: note: previous declaration is here
+    EIGEN_DEVICE_FUNC const PlainObject normalized() const;
+                                        ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:145:47: error: __host__ function 'normalize' cannot overload __host__ __device__ function 'normalize'
+EIGEN_STRONG_INLINE void MatrixBase<Derived>::normalize()
+                                              ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:199:28: note: previous declaration is here
+    EIGEN_DEVICE_FUNC void normalize();
+                           ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:167:22: error: __host__ function 'stableNormalized' cannot overload __host__ __device__ function 'stableNormalized'
+MatrixBase<Derived>::stableNormalized() const
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:198:41: note: previous declaration is here
+    EIGEN_DEVICE_FUNC const PlainObject stableNormalized() const;
+                                        ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:191:47: error: __host__ function 'stableNormalize' cannot overload __host__ __device__ function 'stableNormalize'
+EIGEN_STRONG_INLINE void MatrixBase<Derived>::stableNormalize()
+                                              ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:200:28: note: previous declaration is here
+    EIGEN_DEVICE_FUNC void stableNormalize();
+                           ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:466:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Dot.h:267:22: error: __host__ function 'lpNorm' cannot overload __host__ __device__ function 'lpNorm'
+MatrixBase<Derived>::lpNorm() const
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:310:50: note: previous declaration is here
+    template<int p> EIGEN_DEVICE_FUNC RealScalar lpNorm() const;
+                                                 ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:474:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Transpose.h:172:21: error: __host__ function 'transpose' cannot overload __host__ __device__ function 'transpose'
+DenseBase<Derived>::transpose()
+                    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:321:25: note: previous declaration is here
+    TransposeReturnType transpose();
+                        ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:474:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Transpose.h:184:21: error: __host__ function 'transpose' cannot overload __host__ __device__ function 'transpose'
+DenseBase<Derived>::transpose() const
+                    ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:324:30: note: previous declaration is here
+    ConstTransposeReturnType transpose() const;
+                             ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:474:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Transpose.h:210:22: error: __host__ function 'adjoint' cannot overload __host__ __device__ function 'adjoint'
+MatrixBase<Derived>::adjoint() const
+                     ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/MatrixBase.h:202:47: note: previous declaration is here
+    EIGEN_DEVICE_FUNC const AdjointReturnType adjoint() const;
+                                              ^
+In file included from /tmp/inv_mre.cpp-330d23.hip:3:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Dense:1:
+In file included from ./build/externals/eigen/src/Eigen/Eigen/Core:474:
+./build/externals/eigen/src/Eigen/Eigen/src/Core/Transpose.h:284:33: error: __host__ function 'transposeInPlace' cannot overload __host__ __device__ function 'transposeInPlace'
+inline void DenseBase<Derived>::transposeInPlace()
+                                ^
+./build/externals/eigen/src/Eigen/Eigen/src/Core/DenseBase.h:326:10: note: previous declaration is here
+    void transposeInPlace();
+         ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated when compiling for host.
+Error while processing /tmp/inv_mre.cpp-330d23.hip.
+
+[HIPIFY] info: file './quda/lib/inv_mre.cpp' statistics:
+
+  ERROR: Statistics is invalid due to failed hipification.
+
+  CONVERTED refs count: 0
+  UNCONVERTED refs count: 0
+  CONVERSION %: 0
+  REPLACED bytes: 0
+  TOTAL bytes: 5429
+  CHANGED lines of code: 1
+  TOTAL lines of code: 173
+  CODE CHANGED (in bytes) %: 0
+  CODE CHANGED (in lines) %: 1
+  TIME ELAPSED s: 1.51
