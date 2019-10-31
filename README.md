@@ -26,6 +26,16 @@ and similarly for deprecated
 
     `grep -A 2 "deprecated" output*/*.txt'
 
+# Thu Oct 31 2019 (Happy Hallowe'en!)
+
+It written a set of tools that will download the latest version of QUDA's develop branch,
+replace all CUDA API and data types, with QUDA types, and install a QUDA-CUDA backend in 
+the QUDA library.
+
+To execute this, simply run
+
+./qudafy.sh
+
 ## TODO
 
 Swap out the CUDA thrust library for the ROCm port: https://github.com/ROCmSoftwarePlatform/Thrust 
