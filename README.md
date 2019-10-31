@@ -29,7 +29,7 @@ and similarly for deprecated
 # Thu Oct 31 2019 (Happy Hallowe'en!)
 
 It written a set of tools that will download the latest version of QUDA's develop branch,
-replace all CUDA API and data types, with QUDA types, and install a QUDA-CUDA backend in 
+replace all CUDA API and data types with QUDA types, and install a QUDA-CUDA backend in 
 the QUDA library.
 
 To execute this, simply run
