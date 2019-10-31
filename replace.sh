@@ -13,7 +13,7 @@ cp quda-cuda/CMakeLists.txt quda/CMakeLists.txt
 
 # changes made 'by hand'
 sed -i "s/DevicePointer(&num_failures_d/DevicePointer((void**)num_failures_d/g" quda/lib/interface_quda.cpp
-sed -i "s/qudaEventCreate(&/qudaEventCreateWithFlags(&/g" quda/lib/lattice_field.cpp
+sed -i "s/qudaEventCreate/qudaEventCreateWithFlags/g" quda/lib/lattice_field.cpp
 sed -i "s/qudaEventQuery/cudaEventQuery/g" quda/lib/reduce_quda.cu
 sed -i "s/qudaHostGetDevicePointer(&hd_reduce/qudaHostGetDevicePointer((void**)hd_reduce/g" quda/lib/reduce_quda.cu
 sed -i "s/qudaEventQuery/cudaEventQuery/g" quda/lib/multi_reduce_quda.cu

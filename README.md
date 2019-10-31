@@ -28,8 +28,9 @@ and similarly for deprecated
 
 # Thu Oct 31 2019 (Happy Hallowe'en!)
 
-It written a set of tools that will download the latest version of QUDA's develop branch,
-replace all CUDA API and data types with QUDA types, and install a QUDA-CUDA backend in 
+I've written a set of tools that will download the latest version of QUDA's develop branch
+(or any specified branch if the user wishes), replaces all CUDA API and data types with 
+QUDA types, and installs a QUDA-CUDA backend in 
 the QUDA library.
 
 To execute this, simply run
@@ -38,4 +39,7 @@ To execute this, simply run
 
 ## TODO
 
-Swap out the CUDA thrust library for the ROCm port: https://github.com/ROCmSoftwarePlatform/Thrust 
+1. Swap out the CUDA thrust library for the ROCm port: https://github.com/ROCmSoftwarePlatform/Thrust 
+2. Deal with the explicit sed lines in replace.sh
+3. Make a Jenkins script that will detect CUDA API and data types in forbidden regions.
+
