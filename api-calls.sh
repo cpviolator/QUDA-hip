@@ -5,59 +5,65 @@ echo ""
 echo "********************"
 echo "* QUDAfy API calls *"
 echo "********************"
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaCreateTextureObject/qudaCreateTextureObject/g' {} \;
+
+FIND_COMMAND="find ./quda/lib ./quda/include ./quda/tests -path ./quda/include/externals -prune -o -type f -exec"
+
+${FIND_COMMAND} sed -i 's/cudaCreateTextureObject/qudaCreateTextureObject/g' {} \;
 echo "cudaCreateTextureObject -> qudaCreateTextureObject"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDestroyTextureObject/qudaDestroyTextureObject/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDestroyTextureObject/qudaDestroyTextureObject/g' {} \;
 echo "cudaDestroyTextureObject- > qudaDestroyTextureObject"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDeviceCanAccessPeer/qudaDeviceCanAccessPeer/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDeviceCanAccessPeer/qudaDeviceCanAccessPeer/g' {} \;
 echo "cudaDeviceCanAccessPeer -> qudaDeviceCanAccessPeer"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDeviceGetStreamPriorityRange/qudaDeviceGetStreamPriorityRange/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDeviceGetStreamPriorityRange/qudaDeviceGetStreamPriorityRange/g' {} \;
 echo "cudaDeviceGetStreamPriorityRange -> qudaDeviceGetStreamPriorityRange"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDeviceReset/qudaDeviceReset/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDeviceReset/qudaDeviceReset/g' {} \;
 echo "cudaDeviceReset -> qudaDeviceReset"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDeviceSetCacheConfig/qudaDeviceSetCacheConfig/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDeviceSetCacheConfig/qudaDeviceSetCacheConfig/g' {} \;
 echo "cudaDeviceSetCacheConfig -> qudaDeviceSetCacheConfig"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDeviceSynchronize/qudaDeviceSynchronize/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDeviceSynchronize/qudaDeviceSynchronize/g' {} \;
 echo "cudaDeviceSynchronize -> qudaDeviceSynchronize"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaGetDeviceCount/qudaGetDeviceCount/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaGetDeviceCount/qudaGetDeviceCount/g' {} \;
 echo "cudaGetDeviceCount -> qudaGetDeviceCount"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaGetDeviceProperties/qudaGetDeviceProperties/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaGetDeviceProperties/qudaGetDeviceProperties/g' {} \;
 echo "cudaGetDeviceProperties -> qudaGetDeviceProperties"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaHostGetDevicePointer/qudaHostGetDevicePointer/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaHostGetDevicePointer/qudaHostGetDevicePointer/g' {} \;
 echo "cudaHostGetDevicePointer -> qudaHostGetDevicePointer"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaSetDevice/qudaSetDevice/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaSetDevice/qudaSetDevice/g' {} \;
 echo "cudaSetDevice -> qudaSetDevice"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaDriverGetVersion/qudaDriverGetVersion/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaDriverGetVersion/qudaDriverGetVersion/g' {} \;
 echo "cudaDriverGetVersion -> qudaDriverGetVersion"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaRuntimeGetVersion/qudaRuntimeGetVersion/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaRuntimeGetVersion/qudaRuntimeGetVersion/g' {} \;
 echo "cudaRuntimeGetVersion -> qudaRuntimeGetVersion"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaEventCreate/qudaEventCreate/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaEventCreate/qudaEventCreate/g' {} \;
 echo "cudaEventCreate -> qudaEventCreate"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaEventDestroy/qudaEventDestroy/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaEventDestroy/qudaEventDestroy/g' {} \;
 echo "cudaEventDestroy -> qudaEventDestroy"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaEventElapsedTime/qudaEventElapsedTime/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaEventElapsedTime/qudaEventElapsedTime/g' {} \;
 echo "cudaEventElapsedTime -> qudaEventElapsedTime"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaEventRecord/qudaEventRecord/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaEventRecord/qudaEventRecord/g' {} \;
 echo "cudaEventRecord -> qudaEventRecord"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaEventSynchronize/qudaEventSynchronize/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaEventSynchronize/qudaEventSynchronize/g' {} \;
 echo "cudaEventSynchronize -> qudaEventSynchronize"
 
-find ./quda/lib ./quda/include ./quda/tests -type f -exec sed -i 's/cudaGetTextureObjectResourceDesc/qudaGetTextureObjectResourceDesc/g' {} \;
+${FIND_COMMAND} sed -i 's/cudaGetTextureObjectResourceDesc/qudaGetTextureObjectResourceDesc/g' {} \;
 echo "cudaGetTextureObjectResourceDesc -> qudaGetTextureObjectResourceDesc"
+
+${FIND_COMMAND} sed -i 's/cudaMemcpyToSymbolAsync/qudaMemcpyToSymbolAsync/g' {} \;
+echo "cudaMemcpyToSymbolAsync -> qudaMemcpyToSymbolAsync"

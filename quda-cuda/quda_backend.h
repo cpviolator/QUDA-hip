@@ -114,6 +114,7 @@
 #define qudaMemcpyDeviceToHost cudaMemcpyDeviceToHost
 #define qudaMemcpyHostToDevice cudaMemcpyHostToDevice
 #define qudaMemcpyDeviceToDevice cudaMemcpyDeviceToDevice
+#define qudaMemcpyToSymbolAsync cudaMemcpyToSymbolAsync
 #define qudaFuncAttribute cudaFuncAttribute
 #define qudaDeviceProp cudaDeviceProp
 #define qudaWarpSize warpSize
@@ -182,6 +183,7 @@
 #define qudaMemcpyDeviceToHost hipMemcpyDeviceToHost
 #define qudaMemcpyHostToDevice hipMemcpyHostToDevice
 #define qudaMemcpyDeviceToDevice hipMemcpyDeviceToDevice
+#define qudaMemcpyToSymbolAsync hipMemcpyToSymbolAsync
 
 #define qudaFuncAttribute hipFuncAttribute
 #define qudaDeviceProp hipDeviceProp
