@@ -8,6 +8,8 @@ echo "*********************"
 
 FIND_COMMAND="find ./quda/lib ./quda/include ./quda/tests -path ./quda/include/externals -prune -o -type f -exec"
 
+
+
 ${FIND_COMMAND} sed -i 's/CUDA_SUCCESS/QUDA_SUCCESS/g' {} \;
 echo "CUDA_SUCCESS -> QUDA_SUCCESS"
 
