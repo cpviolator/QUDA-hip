@@ -24,4 +24,4 @@ git clone https://github.com/lattice/quda.git
 # Replace files
 ./replace.sh
 
-(cd build; make -j 128)
+(cd build; make -j 16)
