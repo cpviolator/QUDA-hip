@@ -67,3 +67,6 @@ echo "cudaGetTextureObjectResourceDesc -> qudaGetTextureObjectResourceDesc"
 
 ${FIND_COMMAND} sed -i 's/cudaMemcpyToSymbolAsync/qudaMemcpyToSymbolAsync/g' {} \;
 echo "cudaMemcpyToSymbolAsync -> qudaMemcpyToSymbolAsync"
+
+${FIND_COMMAND} sed -i 's/cudaHostRegister/qudaHostRegister/g' {} \;
+echo "cudaHostRegister -> qudaHostRegister"
